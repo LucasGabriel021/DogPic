@@ -43,7 +43,9 @@ const estilos = StyleSheet.create({
      textoCard: {
           fontSize: 16,
           lineHeight: 26,
-          fontWeight: "bold"
+          fontFamily: "CabinMedium",
+          fontWeight: "bold",
+          color: "#313131"
      },
      imagemCard: {
           height: 60,
