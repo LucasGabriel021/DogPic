@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Image } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Topo from "./components/Topo";
+import BarraPesquisa from "../../components/BarraPesquisa";
 
 import cachorro from "../../../assets/img/cachorro01.png";
 
@@ -10,9 +11,12 @@ export default function Home() {
      return <SafeAreaView style={estilos.safeArea}>
           <View style={estilos.container}>
                <Topo/>
-               <View style={estilos.card}>
-                    <Text style={estilos.textoCard}>Ver instruções de uso</Text>
-                    <Image style={estilos.imagemCard} source={cachorro} accessibilityLabel="Cachorro"/>
+               <View style={{rowGap: 16}}>
+                    <View style={estilos.card}>
+                         <Text style={estilos.textoCard}>Ver instruções de uso</Text>
+                         <Image style={estilos.imagemCard} source={cachorro} accessibilityLabel="Cachorro"/>
+                    </View>
+                    <BarraPesquisa/>
                </View>
           </View>
      </SafeAreaView>
