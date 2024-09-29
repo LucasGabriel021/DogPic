@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import * as SplashScreen from "expo-splash-screen";
 import { View } from 'react-native';
 
-import Home from "./src/views/Home/Home";
+import AppRotas from "./src/routes/AppRotas";
 
 export default function App() {
   const [fontCarregada] = useFonts({
@@ -44,5 +44,5 @@ export default function App() {
     return <View/>
   }
 
-  return <Home/>
+  return <AppRotas/>
 }
