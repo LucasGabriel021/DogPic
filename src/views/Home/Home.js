@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Image, Pressable, FlatList } from "react-native";
+import { View, StyleSheet, Text, Image, Pressable, FlatList, Dimensions } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Topo from "./components/Topo";
@@ -8,6 +8,8 @@ import BarraPesquisa from "../../components/BarraPesquisa";
 import cachorro from "../../../assets/img/cachorro01.png";
 
 import racas from "../../mocks/racas";
+
+const { widthScreen } = Dimensions.get("window");
 
 const renderItem = ({item}) => {
      return <Pressable style={estilos.cardLista} onPress={() => console.log("Abrir aba")}>
@@ -25,15 +27,20 @@ export default function Home({navigation}) {
      const [filtroPorte, setFiltroPorte] = useState("Todas");
 
      useEffect(() => {
+
+          /**
+           * A variável abaixo obtem os filtros tanto dos botões quanto da barra de pesquisa e
+           * ao final será setado no state os resultados
+           */
           const resultados = racas.filter(item => {
-               const correspondePesquisa = racas.filter(item => item.raca.toLowerCase().includes(pesquisa.toLowerCase()));
+               const correspondePesquisa = item.raca.toLowerCase().includes(pesquisa.toLowerCase());
                const correspondePorte = filtroPorte === "Todas" || item.porte === filtroPorte;
 
                return correspondePesquisa && correspondePorte;
           });
           
           setItensFiltrados(resultados);
-     }, [pesquisa, filtroPorte]);
+     }, [pesquisa, filtroPorte]); // Toda vez que esse valores forem alterados o useEffect será executado
 
      return <SafeAreaView style={estilos.safeArea}>
           <View style={estilos.container}>
@@ -78,7 +85,7 @@ const estilos = StyleSheet.create({
           elevation: 4
      },
      textoCard: {
-          fontSize: 16,
+          fontSize: widthScreen < 360 ? 16 : 14,
           lineHeight: 26,
           fontFamily: "CabinMedium",
           fontWeight: "bold",
@@ -106,13 +113,13 @@ const estilos = StyleSheet.create({
           borderRadius: 999,
      },
      textoRaca: {
-          fontSize: 16,
+          fontSize: widthScreen < 360 ? 16 : 14,
           fontWeight: "bold",
           color: "#313131"
 
      },
      textoPorte: {
-          fontSize: 14,
+          fontSize: widthScreen < 360 ? 14 : 12,
           fontWeight: "normal"
      },
 });

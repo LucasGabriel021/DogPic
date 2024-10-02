@@ -1,5 +1,7 @@
 import React from "react";
-import { Text, Pressable, StyleSheet } from "react-native";
+import { Text, Pressable, StyleSheet, Dimensions } from "react-native";
+
+const { widthScreen } = Dimensions.get("window");
 
 export default function Botao({ativo, texto, onPress}) {
      const estilos = estilosFunc(ativo);
@@ -21,7 +23,7 @@ const estilosFunc = (ativo) => StyleSheet.create({
      texto: {
           color: ativo ? "#ffffff" : "#EF9C66",
           textAlign: "center",
-          fontSize: 14,
+          fontSize: widthScreen < 360 ? 12 : 12,
           fontWeight: "medium"
      }
 });

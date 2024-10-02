@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, StyleSheet, ScrollView, Dimensions } from "react-native";
 
 import textos from "../../mocks/intrucoes";
 import desfoque from "../../../assets/img/desfoque.png";
@@ -11,6 +11,8 @@ import iluminacao from "../../../assets/img/iluminacao.png";
 
 import Quadrado from "./components/Quadrado";
 import BotaoLg from "../../components/BotaoLg";
+
+const { widthScreen } = Dimensions.get("window");
 
 export default function Instrucao() {
      const { paragrafo, secao1, secao2, secao3 } = textos;
@@ -55,7 +57,7 @@ const estilos = StyleSheet.create({
           rowGap: 16
      },
      texto: {
-          fontSize: 14,
+          fontSize: widthScreen < 360 ? 14 : 12,
           lineHeight: 20,
           fontWeight: "normal",
           color: "#000000",
