@@ -4,22 +4,17 @@ import { SearchBar } from 'react-native-elements';
 
 import Botao from "./Botao";
 
-export default function BarraPesquisa() {
-     const [pesquisa, setPesquisa] = useState("");
+export default function BarraPesquisa({setPesquisa, pesquisa, setFiltroPorte}) {
      const [btnAtivo, setBtnAtivo] = useState("Todas");
-
-     const pesquisar = (valor) => {
-          setPesquisa(valor);
-          console.log("Pesquisa: ", pesquisa);
-     }
 
      const aplicarFiltro = (filtro) => {
           setBtnAtivo(filtro);
+          setFiltroPorte(filtro);
           console.log("Filtro aplicado: ", filtro);
      }
 
      return <View>
-          <SearchBar placeholder="Pesquisar" platform="defaut" onChangeText={pesquisar} value={pesquisa} containerStyle={estilos.searchContainer} inputContainerStyle={estilos.inputContainer} inputStyle={estilos.input} searchIcon={estilos.icon}/>
+          <SearchBar placeholder="Pesquisar" platform="defaut" onChangeText={setPesquisa} value={pesquisa} containerStyle={estilos.searchContainer} inputContainerStyle={estilos.inputContainer} inputStyle={estilos.input} searchIcon={estilos.icon}/>
           <View style={estilos.secaoBtns}>
                <Botao texto={"Todas"} onPress={() => aplicarFiltro("Todas")} ativo={btnAtivo === "Todas"}/>
                <Botao texto={"Pequeno"} onPress={() => aplicarFiltro("Pequeno")} ativo={btnAtivo === "Pequeno"}/>
