@@ -19,24 +19,24 @@ export default function Instrucao({navigation}) {
 
      return <ScrollView>
                <View style={estilos.container}>
-                    <Text style={estilos.texto}>{paragrafo}</Text>
+                    <Text style={estilos.descricao}>{paragrafo}</Text>
                     <View>
                          <View>
-                              <Text>{secao1}</Text>
+                              <Text style={estilos.titulo}>{secao1}</Text>
                               <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 8}}>
                                    <Quadrado imagem={desfoque} icone={"close"}/>
                                    <Quadrado imagem={cachorro} icone={"check"}/>
                               </View>
                          </View> 
                          <View style={{marginTop: 16}}>
-                              <Text>{secao2}</Text>
+                              <Text style={estilos.titulo}>{secao2}</Text>
                               <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 8}}>
                                    <Quadrado imagem={cachorro2} icone={"close"} style={estilos.quadrado}/>
                                    <Quadrado imagem={cachorro} icone={"check"}/>
                               </View>
                          </View> 
                          <View style={{marginTop: 16}}>
-                              <Text>{secao3}</Text>
+                              <Text style={estilos.titulo}>{secao3}</Text>
                               <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 8}}>
                                    <Quadrado imagem={iluminacao} icone={"close"}/>
                                    <Quadrado imagem={cachorro} icone={"check"}/>
@@ -54,12 +54,21 @@ const estilos = StyleSheet.create({
           padding: 24,
           rowGap: 16
      },
-     texto: {
+     descricao: {
           fontSize: 14,
           lineHeight: 20,
           fontWeight: "normal",
-          color: "#000000",
-          textAlign: "justify"
+          textAlign: "justify",
+          fontFamily: "CabinRegular",
+          color: "#3F3F3F",
+     },
+     titulo: {
+          fontSize: 14,
+          lineHeight: 20,
+          fontWeight: "medium",
+          textAlign: "justify",
+          fontFamily: "CabinMedium",
+          color: "#313131",
      },
      quadrado: {
           width: 40,

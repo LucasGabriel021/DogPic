@@ -19,7 +19,7 @@ const racas = [
      },
      {
           id: 2,
-          raca: "Spaniel japonês",
+          raca: "Spaniel Japonês",
           descricao: "A spaniel japonês, originalmente chamada chin, é uma raça primordialmente conhecida como de companhia, quando mimada pela nobreza japonesa desde a Idade Média. Chegado à Europa no século XVI, foi presente à realeza e ali também tornou-se o favorito das senhoras europeias.",
           imagem: img2,
           porte: "Pequeno"

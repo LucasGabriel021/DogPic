@@ -24,6 +24,7 @@ const estilosFunc = (ativo) => StyleSheet.create({
           color: ativo ? "#ffffff" : "#EF9C66",
           textAlign: "center",
           fontSize: widthScreen < 360 ? 12 : 12,
-          fontWeight: "medium"
+          fontWeight: "medium",
+          fontFamily: "CabinMedium",
      }
 });

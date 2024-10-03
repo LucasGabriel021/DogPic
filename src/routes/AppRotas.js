@@ -15,7 +15,7 @@ export default function AppRotas() {
           tabBarIcon: ({ focused, color, size}) => {
             let iconName;
 
-            if (route.name === "HomeStack") {
+            if (route.name === "Home") {
               iconName = "home";
             } else if (route.name === "DogLocScreen") {
               iconName = "map-marker";
@@ -29,7 +29,7 @@ export default function AppRotas() {
         })}
       >
         <Tab.Screen
-          name="HomeStack"
+          name="Home"
           component={HomeStack}
           options={{ tabBarLabel: 'Home', headerShown: false }}
         />

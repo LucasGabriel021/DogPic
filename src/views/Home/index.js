@@ -6,12 +6,11 @@ import Topo from "./components/Topo";
 import BarraPesquisa from "../../components/BarraPesquisa";
 import cachorro from "../../../assets/img/cachorro01.png";
 import racas from "../../mocks/racas";
-import InstrucaoRota from "../../routes/HomeStack";
 
 const { widthScreen } = Dimensions.get("window");
 
-const renderItem = ({item}) => {
-     return <Pressable style={estilos.cardLista} onPress={() => console.log("Abrir aba")}>
+const renderItem = ({item}, navigation) => {
+     return <Pressable style={estilos.cardLista} onPress={() => navigation.navigate("Raca", { item })}>
           <Image source={item.imagem} accessibilityLabel="Cachorro" style={estilos.imagemLista}/>
           <View>
                <Text style={estilos.textoRaca}>{item.raca}</Text>
@@ -52,7 +51,7 @@ export default function Home({navigation}) {
                     <BarraPesquisa pesquisa={pesquisa} setPesquisa={setPesquisa} setFiltroPorte={setFiltroPorte}/>
                     <FlatList
                          data={itensFiltrados}
-                         renderItem={renderItem}
+                         renderItem={(props) => renderItem(props, navigation)}
                          keyExtractor={item => item.id}
                     />
                </View>
@@ -114,11 +113,14 @@ const estilos = StyleSheet.create({
      textoRaca: {
           fontSize: widthScreen < 360 ? 16 : 14,
           fontWeight: "bold",
-          color: "#313131"
+          color: "#313131",
+          fontFamily: "CabinBold"
 
      },
      textoPorte: {
           fontSize: widthScreen < 360 ? 14 : 12,
-          fontWeight: "normal"
+          fontWeight: "normal",
+          fontFamily: "CabinRegular",
+          color: "#3F3F3F",
      },
 });
