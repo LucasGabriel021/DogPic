@@ -4,10 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Topo from "./components/Topo";
 import BarraPesquisa from "../../components/BarraPesquisa";
-
 import cachorro from "../../../assets/img/cachorro01.png";
-
 import racas from "../../mocks/racas";
+import InstrucaoRota from "../../routes/HomeStack";
 
 const { widthScreen } = Dimensions.get("window");
 

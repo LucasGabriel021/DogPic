@@ -1,16 +1,44 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FontAwesome } from '@expo/vector-icons';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-import Home from "../views/Home/Home";
-import Instrucao from '../views/Instrucao';
+import HomeStack from "./HomeStack";
+import DogLocScreen from "../views/DogLoc/index";
 
-export default function() {
-     return <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
-               <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
-               <Stack.Screen name="Instrucao" component={Instrucao} options={{title: "Instrução"}}/>
-          </Stack.Navigator>
-   </NavigationContainer>
+export default function AppRotas() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size}) => {
+            let iconName;
+
+            if (route.name === "HomeStack") {
+              iconName = "home";
+            } else if (route.name === "DogLocScreen") {
+              iconName = "map-marker";
+            }
+
+            return <FontAwesome name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: '#EF9C66', // Cor quando o ícone está ativo
+          tabBarInactiveTintColor: 'gray', // Cor quando o ícone está inativo
+          tabBarIconSize: 20, // Tamanho do ícone
+        })}
+      >
+        <Tab.Screen
+          name="HomeStack"
+          component={HomeStack}
+          options={{ tabBarLabel: 'Home', headerShown: false }}
+        />
+        <Tab.Screen
+          name="DogLocScreen"
+          component={DogLocScreen}
+          options={{ tabBarLabel: 'DogLoc', headerShown: false }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
 }

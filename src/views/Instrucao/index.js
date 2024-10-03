@@ -12,9 +12,7 @@ import iluminacao from "../../../assets/img/iluminacao.png";
 import Quadrado from "./components/Quadrado";
 import BotaoLg from "../../components/BotaoLg";
 
-const { widthScreen } = Dimensions.get("window");
-
-export default function Instrucao() {
+export default function Instrucao({navigation}) {
      const { paragrafo, secao1, secao2, secao3 } = textos;
 
      console.log("Paragrafo: ", paragrafo);
@@ -57,7 +55,7 @@ const estilos = StyleSheet.create({
           rowGap: 16
      },
      texto: {
-          fontSize: widthScreen < 360 ? 14 : 12,
+          fontSize: 14,
           lineHeight: 20,
           fontWeight: "normal",
           color: "#000000",
