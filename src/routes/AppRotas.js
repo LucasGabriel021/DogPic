@@ -9,7 +9,7 @@ import HomeStack from "./HomeStack";
 import DogLocScreen from "../views/DogLoc/index";
 import ScanScreen from '../views/Scan';
 
-import BotaoScanner from '../views/Scan/components/BotaoScanner';
+import BotaoScanner from '../components/BotaoScanner';
 
 export default function AppRotas() {
   return (

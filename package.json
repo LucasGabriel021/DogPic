@@ -26,7 +26,8 @@
     "react-native-screens": "3.31.1",
     "react-native-vector-icons": "^10.2.0",
     "expo-image-picker": "~15.0.7",
-    "expo-camera": "~15.0.16"
+    "expo-camera": "~15.0.16",
+    "@react-native-picker/picker": "2.7.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

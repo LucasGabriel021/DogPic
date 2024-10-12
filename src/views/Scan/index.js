@@ -1,61 +1,67 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Camera, CameraType } from 'expo-camera/legacy';
+import { StyleSheet, View, Image, Dimensions } from "react-native";
+import * as ImagePicker from 'expo-image-picker';
+
+import BotaoPegarFoto from "./components/BotaoPegarFoto";
+import placeholder from "../../../assets/img/placeholder-dog.png";
+
+const { height } = Dimensions.get("screen");
+const imagemHeight = height * 0.7;
 
 export default function ScanScreen() {
-     const [type, setType] = useState(Camera.back);
-     const [permission, requestPermission] = Camera.useCameraPermissions();
+     const [imagemSelecionada, setImagemSelecionada] = useState(placeholder);
 
-     if(!permission) {
-          return <View/>
+     /**
+      * Função que seleciona a imagem na galeria do dispositivo do usuário
+      */
+     const pickImageAsync = async () => {
+          let resultado = await ImagePicker.launchImageLibraryAsync({
+               mediaTypes: ImagePicker.MediaTypeOptions.Images,
+               allowsEditing: true,
+               quality: 1,
+          });
+
+          if(!resultado.canceled) {
+               console.log(resultado);
+               setImagemSelecionada(resultado.assets[0].uri);
+          } else {
+               alert("Você não selecionou nenhuma imagem!");
+          }
      }
 
-     if(!permission.granted) {
-          return (
-               <View style={styles.container}>
-                    <Text style={{ textAlign: 'center' }}>Permita o acesso a camera</Text>
-                    <Button onPress={requestPermission} title="Garantir permissão"/>
+     return (
+          <View style={estilos.container}>
+               <View style={estilos.containerImagem}>
+                    <Image source={{ uri: imagemSelecionada }} style={estilos.imagem}/>
                </View>
-          )
-     }
-
-     function toggleCameraType() {
-          setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
-     }
-
-     return <View style={styles.container}>
-     <Camera style={styles.camera} type={type}>
-       <View style={styles.buttonContainer}>
-         <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-           <Text style={styles.text}>Flip Camera</Text>
-         </TouchableOpacity>
-       </View>
-     </Camera>
-   </View>
+               <View style={estilos.containerBotoes}>
+                    <BotaoPegarFoto tema="primary" texto="Selecionar foto" onPress={pickImageAsync}/>
+                    <BotaoPegarFoto texto="Scannear"/>
+               </View>
+          </View>
+     )
 }
 
-const styles = StyleSheet.create({
+const estilos = StyleSheet.create({
      container: {
-       flex: 1,
-       justifyContent: 'center',
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: "center",
+          padding: 24
      },
-     camera: {
-       flex: 1,
+     containerImagem: {
+          width: "100%",
+          height: imagemHeight,
+          borderRadius: 6
      },
-     buttonContainer: {
-       flex: 1,
-       flexDirection: 'row',
-       backgroundColor: 'transparent',
-       margin: 64,
+     imagem: {
+          width: "100%",
+          height: "100%",
+          borderRadius: 6
      },
-     button: {
-       flex: 1,
-       alignSelf: 'flex-end',
-       alignItems: 'center',
+     containerBotoes: {
+          marginTop: 16,
+          flexDirection: "row",
+          columnGap: 16
      },
-     text: {
-       fontSize: 24,
-       fontWeight: 'bold',
-       color: 'white',
-     },
-   });
+});
