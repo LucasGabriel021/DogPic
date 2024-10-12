@@ -12,9 +12,14 @@
       "backgroundColor": "#EF9C66"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow DogPic to access your camera",
+        "NSMicrophoneUsageDescription": "Allow DogPic to access your microphone"
+      }
     },
     "android": {
+      "permissions": ["CAMERA", "RECORD_AUDIO"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#EF9C66"
@@ -24,7 +29,14 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow DogPic to access your camera",
+          "microphonePermission": "Allow DogPic to access your microphone"
+        }
+      ]
     ]
   }
 }
