@@ -8,7 +8,7 @@ import placeholder from "../../../assets/img/placeholder-dog.png";
 const { height } = Dimensions.get("screen");
 const imagemHeight = height * 0.7;
 
-export default function ScanScreen() {
+export default function ScanScreen({navigation}) {
      const [imagemSelecionada, setImagemSelecionada] = useState(placeholder);
 
      /**
