@@ -14,7 +14,7 @@ export default function BotaoPegarFoto({texto, tema, onPress}) {
 
      return (
           <View>
-               <Pressable style={estilos.botao} onPress={() => alert("Você pressionou o botão")}>
+               <Pressable style={estilos.botao} onPress={onPress}>
                     <Text style={estilos.texto}>{texto}</Text>
                </Pressable>
           </View>
