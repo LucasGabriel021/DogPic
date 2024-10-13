@@ -43,7 +43,7 @@ export default function Instrucao({navigation}) {
                               </View>
                          </View> 
                     </View>
-                    <BotaoLg texto={"Identificar"} ativo={true}/>
+                    <BotaoLg texto={"Identificar"} ativo={true} onPress={() => navigation.navigate("Scanner")}/>
                </View>
      </ScrollView>
 }

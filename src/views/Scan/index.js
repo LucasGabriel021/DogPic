@@ -23,7 +23,7 @@ export default function ScanScreen() {
 
           if(!resultado.canceled) {
                console.log(resultado);
-               setImagemSelecionada(resultado.assets[0].uri);
+               setImagemSelecionada({ uri: resultado.assets[0].uri });
           } else {
                alert("Você não selecionou nenhuma imagem!");
           }
@@ -32,7 +32,7 @@ export default function ScanScreen() {
      return (
           <View style={estilos.container}>
                <View style={estilos.containerImagem}>
-                    <Image source={{ uri: imagemSelecionada }} style={estilos.imagem}/>
+                    <Image source={imagemSelecionada} style={estilos.imagem}/>
                </View>
                <View style={estilos.containerBotoes}>
                     <BotaoPegarFoto tema="primary" texto="Selecionar foto" onPress={pickImageAsync}/>
