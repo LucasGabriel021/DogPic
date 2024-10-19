@@ -5,7 +5,7 @@ import * as FileSystem from 'expo-file-system';
 
 import BotaoPegarFoto from "./components/BotaoPegarFoto";
 import placeholder from "../../../assets/img/placeholder-dog.png";
-import { analiseDogScan } from "../../services/analiseDogScan";
+import { analiseDogClarifai } from "../../services/analiseDogScan";
 
 const { height } = Dimensions.get("screen");
 const imagemHeight = height * 0.7;
@@ -22,32 +22,50 @@ export default function ScanScreen({navigation}) {
                mediaTypes: ImagePicker.MediaTypeOptions.Images,
                allowsEditing: true,
                quality: 1,
+               base64: true,
           });
 
           if(!resultado.canceled) {
-               console.log(resultado);
+               // console.log(resultado);
                setImagemSelecionada({ uri: resultado.assets[0].uri });
+               setImagemBase64(resultado.assets[0].base64); // 
 
-               // Ler o arquivo selecionado como base64
-               const base64Image = await FileSystem.readAsStringAsync(resultado.assets[0].uri, { encoding: "base64" });
-               setImagemBase64(base64Image); // Armazena a imagem base64
           } else {
                alert("Você não selecionou nenhuma imagem!");
           }
      }
 
      const handleScan = async () => {
-          if(imagemBase64) {
-               try {
-                    const resultadoAnalise = await analiseDogScan(imagemBase64);
-                    console.log("Resultado da anáçise: ", resultadoAnalise);
-               } catch (error) {
-                    console.error("Erro durante a análise: ", error);
-               }
+          if (imagemBase64) {
+              try {
+                  const resultadoAnalise = await analiseDogClarifai(imagemBase64);
+                  console.log("Resultado da análise: ", resultadoAnalise);
+      
+                  // Acessando os resultados
+                  const outputs = resultadoAnalise.outputs;
+                  if (outputs && outputs.length > 0) {
+                      const data = outputs[0].data; // Acessa o primeiro output
+      
+                      // Exibir as raças e suas respectivas probabilidades
+                      const classes = data.concepts;
+                      if (classes) {
+                          const topClasses = classes.slice(0, 6); // Limitar a 6 resultados
+      
+                          // Formatar e exibir os resultados
+                          topClasses.forEach((concept) => {
+                              const formattedValue = (concept.value * 100).toFixed(2); // Multiplica por 100 e formata com 2 casas decimais
+                              console.log(`Raça: ${concept.name}, Probabilidade: ${formattedValue}%`); // Mostra os 6 resultados
+                          });
+                      }
+                  }
+              } catch (error) {
+                  console.error("Erro durante a análise: ", error);
+              }
           } else {
-               alert("Por favor, selecione uma imagem primeiro");
+              alert("Por favor, selecione uma imagem primeiro");
           }
-     }
+      };
+      
 
      return (
           <View style={estilos.container}>
