@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Image, Dimensions } from "react-native";
+import { StyleSheet, View, Image, Dimensions, ActivityIndicator } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 
@@ -13,6 +13,7 @@ const imagemHeight = height * 0.7;
 export default function ScanScreen({navigation}) {
      const [imagemSelecionada, setImagemSelecionada] = useState(placeholder);
      const [imagemBase64, setImagemBase64] = useState(null); // Armazenar a versão base64
+     const [loading, setLoading] = useState(false);
      
      /**
       * Função que seleciona a imagem na galeria do dispositivo do usuário
@@ -37,6 +38,7 @@ export default function ScanScreen({navigation}) {
 
      const handleScan = async () => {
           if (imagemBase64) {
+               setLoading(true); // Iniciar loading
               try {
                   const resultadoAnalise = await analiseDogClarifai(imagemBase64);
                   console.log("Resultado da análise: ", resultadoAnalise);
@@ -45,21 +47,21 @@ export default function ScanScreen({navigation}) {
                   const outputs = resultadoAnalise.outputs;
                   if (outputs && outputs.length > 0) {
                       const data = outputs[0].data; // Acessa o primeiro output
-      
-                      // Exibir as raças e suas respectivas probabilidades
-                      const classes = data.concepts;
-                      if (classes) {
-                          const topClasses = classes.slice(0, 6); // Limitar a 6 resultados
-      
-                          // Formatar e exibir os resultados
-                          topClasses.forEach((concept) => {
-                              const formattedValue = (concept.value * 100).toFixed(2); // Multiplica por 100 e formata com 2 casas decimais
-                              console.log(`Raça: ${concept.name}, Probabilidade: ${formattedValue}%`); // Mostra os 6 resultados
-                          });
-                      }
+                      const classes = data.concepts; // Exibir as raças e suas respectivas probabilidades
+                      const topClasses = classes.slice(0, 6).map(concept => ({
+                         name: concept.name,
+                         probability: (concept.value * 100).toFixed(2)
+                      }));
+
+                      console.log("Dados: ", topClasses);
+
+                      // Navegar para a tela de Resultados e passar os parâmetros
+                      navigation.navigate("Resultado", {resultados: topClasses});
                   }
               } catch (error) {
                   console.error("Erro durante a análise: ", error);
+              } finally {
+               setLoading(false);
               }
           } else {
               alert("Por favor, selecione uma imagem primeiro");
@@ -76,6 +78,7 @@ export default function ScanScreen({navigation}) {
                     <BotaoPegarFoto tema="primary" texto="Selecionar foto" onPress={pickImageAsync}/>
                     <BotaoPegarFoto texto="Scannear" onPress={handleScan}/>
                </View>
+               {loading && <ActivityIndicator size="large" color="#000000" style={{marginTop: 20}}/>}
           </View>
      )
 }
