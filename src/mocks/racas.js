@@ -319,7 +319,7 @@ const raca = [
           descricao: "Forte e robusto, é um cão de caça calmo e afetuoso.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[31]
         },
         {
           id: 33,
@@ -329,7 +329,7 @@ const raca = [
           descricao: "Alegre e carinhoso, é um ótimo cão de companhia e caçador.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[32]
         },
         {
           id: 34,
@@ -339,7 +339,7 @@ const raca = [
           descricao: "Inteligente e leal, é um excelente cão de pastoreio e ótimo com crianças.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[33]
         },
         {
           id: 35,
@@ -349,7 +349,7 @@ const raca = [
           descricao: "Cão de caça robusto, com uma pelagem encaracolada distinta, é excelente nadador.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[34]
         },
         {
           id: 36,
@@ -359,7 +359,7 @@ const raca = [
           descricao: "Pequeno e corajoso, é um terrier afetuoso e excelente caçador de pragas.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[35]
         },
         {
           id: 37,
@@ -369,7 +369,7 @@ const raca = [
           descricao: "Cão selvagem asiático, ágil e resistente, vive em grupos e é excelente caçador.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[36]
         },
         {
           id: 38,
@@ -379,7 +379,7 @@ const raca = [
           descricao: "Cão selvagem australiano, independente e ágil, vive em matilhas.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[37]
         },
         {
           id: 39,
@@ -389,7 +389,7 @@ const raca = [
           descricao: "Forte, ágil e protetor, é um excelente cão de guarda, leal e inteligente.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[38]
         },
         {
           id: 40,
@@ -399,7 +399,7 @@ const raca = [
           descricao: "Cão de caça resistente e energético, com uma grande capacidade de resistência.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[39]
         },
         {
           id: 41,
@@ -409,7 +409,7 @@ const raca = [
           descricao: "Cão de caça elegante e gentil, conhecido por sua natureza afetuosa.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[40]
         },
         {
           id: 42,
@@ -419,7 +419,7 @@ const raca = [
           descricao: "Alegre e ativo, é um excelente caçador e ótimo com crianças.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[41]
         },
         {
           id: 43,
@@ -429,7 +429,7 @@ const raca = [
           descricao: "Pequeno cão de pastoreio suíço, ágil e trabalhador, também ótimo companheiro.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[42]
         },
         {
           id: 44,
@@ -439,7 +439,7 @@ const raca = [
           descricao: "Forte e resistente, é um cão de trenó, conhecido por sua natureza social e amigável.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[43]
         },
         {
           id: 45,
@@ -449,7 +449,7 @@ const raca = [
           descricao: "Alegre e enérgico, é um ótimo cão de caça e companheiro de família.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[44]
         },
         {
           id: 46,
@@ -459,7 +459,7 @@ const raca = [
           descricao: "Pequeno e compacto, é um cão de companhia afetuoso e brincalhão.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[45]
         },
         {
           id: 47,
@@ -469,7 +469,7 @@ const raca = [
           descricao: "Forte, leal e inteligente, é um dos melhores cães de trabalho e guarda.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[46]
         },
         {
           id: 48,
@@ -479,7 +479,7 @@ const raca = [
           descricao: "Cão de caça versátil, com grande energia e resistência.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[47]
         },
         {
           id: 49,
@@ -489,7 +489,7 @@ const raca = [
           descricao: "Grande e robusto, é um excelente cão de guarda e trabalho.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[48]
         },
         {
           id: 50,
@@ -499,7 +499,7 @@ const raca = [
           descricao: "Famoso por sua gentileza e lealdade, é um ótimo companheiro e cão de caça.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[49]
         },
         {
           id: 51,
@@ -509,7 +509,7 @@ const raca = [
           descricao: "Cão de caça escocês, forte e determinado, conhecido por sua lealdade e habilidades de rastreamento.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[50]
         },
         {
           id: 52,
@@ -519,7 +519,7 @@ const raca = [
           descricao: "Gigante gentil, é conhecido por sua natureza afetuosa e majestosa, apesar de seu tamanho impressionante.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[51]
         },
         {
           id: 53,
@@ -529,7 +529,7 @@ const raca = [
           descricao: "Cão de guarda grande e protetor, usado historicamente para proteger ovelhas nas montanhas.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[52]
         },
         {
           id: 54,
@@ -539,7 +539,7 @@ const raca = [
           descricao: "Forte e robusto, é um cão de trabalho suíço, excelente para pastoreio e guarda.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[53]
         },
         {
           id: 55,
@@ -549,7 +549,7 @@ const raca = [
           descricao: "Variante do Pastor Belga, é ágil, inteligente e leal, ótimo como cão de trabalho e guarda.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[54]
         },
         {
           id: 56,
@@ -559,7 +559,7 @@ const raca = [
           descricao: "Elegante e ágil, é um excelente cão de caça, conhecido por sua independência e natureza calma.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[55]
         },
         {
           id: 57,
@@ -569,7 +569,7 @@ const raca = [
           descricao: "Cão de caça elegante e enérgico, famoso por sua pelagem vermelha e natureza amigável.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[56]
         },
         {
           id: 58,
@@ -579,7 +579,7 @@ const raca = [
           descricao: "Corajoso e determinado, é um excelente cão de caça e companhia leal.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[57]
         },
         {
           id: 59,
@@ -589,7 +589,7 @@ const raca = [
           descricao: "Cão de caça resistente e excelente nadador, conhecido por sua pelagem encaracolada e natureza amigável.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[58]
         },
         {
           id: 60,
@@ -599,7 +599,7 @@ const raca = [
           descricao: "Um dos maiores cães do mundo, é gentil e calmo, apesar de seu tamanho imponente.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[59]
         },
         {
           id: 61,
@@ -609,7 +609,7 @@ const raca = [
           descricao: "Pequeno e gracioso, é um excelente cão de companhia, conhecido por ser afetuoso e brincalhão.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[60]
         },
         {
           id: 62,
