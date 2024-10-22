@@ -11,7 +11,7 @@ const { widthScreen } = Dimensions.get("window");
 
 const renderItem = ({item}, navigation) => {
      return <Pressable style={estilos.cardLista} onPress={() => navigation.navigate("Raca", { item })}>
-          <Image source={item.imagem} accessibilityLabel="Cachorro" style={estilos.imagemLista}/>
+          <Image source={{uri: item.imagem}} accessibilityLabel="Cachorro" style={estilos.imagemLista}/>
           <View>
                <Text style={estilos.textoRaca}>{item.raca}</Text>
                <Text style={estilos.textoPorte}>{item.porte}</Text>

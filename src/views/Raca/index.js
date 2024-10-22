@@ -13,7 +13,7 @@ export default function Cachorro({route}) {
 
      return <ScrollView>
           <View style={estilos.container}>
-               <Image style={estilos.imagem} source={item.imagem} accessibilityLabel="Cachorro"/>
+               <Image style={estilos.imagem} source={{uri: item.imagem}} accessibilityLabel="Cachorro"/>
                <View style={estilos.containerInfos}>
                     <View style={{width: "100%", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
                          <Text style={estilos.textoRaca}>{item.raca}</Text>
