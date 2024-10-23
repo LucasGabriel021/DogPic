@@ -619,7 +619,7 @@ const raca = [
           descricao: "Amigável e leal, é um excelente cão de família, conhecido por sua pelagem fofa e personalidade extrovertida.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[61]
         },
         {
           id: 63,
@@ -629,7 +629,7 @@ const raca = [
           descricao: "Cão pastor australiano ágil e trabalhador, com grande energia e inteligência.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[62]
         },
         {
           id: 64,
@@ -639,7 +639,7 @@ const raca = [
           descricao: "Terrier robusto e energético, com uma pelagem azul única, é ótimo caçador e companheiro.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[63]
         },
         {
           id: 65,
@@ -649,7 +649,7 @@ const raca = [
           descricao: "Cão de guarda húngaro, famoso por sua pelagem de corda única, excelente para proteger rebanhos.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[64]
         },
         {
           id: 66,
@@ -659,7 +659,7 @@ const raca = [
           descricao: "Cão de guarda húngaro, grande e protetor, com uma natureza independente e leal.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[65]
         },
         {
           id: 67,
@@ -669,7 +669,7 @@ const raca = [
           descricao: "Extremamente popular como cão de companhia e trabalho, é amigável, leal e inteligente.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[66]
         },
         {
           id: 68,
@@ -679,7 +679,7 @@ const raca = [
           descricao: "Pequeno, mas corajoso, é um excelente caçador e companheiro enérgico.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[67]
         },
         {
           id: 69,
@@ -689,7 +689,7 @@ const raca = [
           descricao: "Grande e majestoso, é conhecido por sua natureza calma e protetora, excelente com famílias.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[68]
         },
         {
           id: 70,
@@ -699,7 +699,7 @@ const raca = [
           descricao: "Pequeno e corajoso, é um cão de guarda e companhia, conhecido por sua pelagem longa.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[69]
         },
         {
           id: 71,
@@ -709,7 +709,7 @@ const raca = [
           descricao: "Forte e resistente, é um cão de trenó do Ártico, leal e trabalhador.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[70]
         },
         {
           id: 72,
@@ -719,7 +719,7 @@ const raca = [
           descricao: "Variante do Pastor Belga, é ágil, inteligente e usado frequentemente em trabalhos policiais e militares.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[71]
         },
         {
           id: 73,
@@ -729,7 +729,7 @@ const raca = [
           descricao: "Pequeno e gracioso, é um cão de companhia afetuoso, conhecido por sua pelagem branca e sedosa.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[72]
         },
         {
           id: 74,
@@ -739,7 +739,7 @@ const raca = [
           descricao: "Cão sem pelos, ágil e enérgico, conhecido por ser afetuoso e ótimo companheiro.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[73]
         },
         {
           id: 75,
@@ -749,7 +749,7 @@ const raca = [
           descricao: "Pequeno, mas cheio de energia, é um cão de companhia vivaz e determinado.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[74]
         },
         {
           id: 76,
@@ -759,7 +759,7 @@ const raca = [
           descricao: "Inteligente e treinável, é um ótimo cão de companhia, com uma pelagem encaracolada característica.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[75]
         },
         {
           id: 77,
@@ -769,7 +769,7 @@ const raca = [
           descricao: "Pequeno, mas robusto, é um excelente cão de guarda e caçador de pragas.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[76]
         },
         {
           id: 78,
@@ -779,7 +779,7 @@ const raca = [
           descricao: "Grande e gentil, é um excelente nadador, conhecido por resgatar pessoas da água.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[77]
         },
         {
           id: 79,
@@ -789,7 +789,7 @@ const raca = [
           descricao: "Pequeno e ágil, é um terrier corajoso e afetuoso, ótimo caçador de roedores.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[78]
         },
         {
           id: 80,
@@ -799,7 +799,7 @@ const raca = [
           descricao: "Cão de caça robusto e resistente, conhecido por sua lealdade e habilidade de rastreamento.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[79]
         },
         {
           id: 81,
@@ -809,7 +809,7 @@ const raca = [
           descricao: "Pequeno e corajoso, é um excelente companheiro e caçador determinado.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[80]
         },
         {
           id: 82,
@@ -819,7 +819,7 @@ const raca = [
           descricao: "Grande e coberto de pelos, é um excelente cão de pastoreio e companheiro afetuoso.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[81]
         },
         {
           id: 83,
@@ -829,7 +829,7 @@ const raca = [
           descricao: "Cão de caça forte e resistente, conhecido por sua habilidade em nadar e rastrear.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[82]
         },
         {
           id: 84,
@@ -839,7 +839,7 @@ const raca = [
           descricao: "Pequeno e gracioso, é um cão de companhia afetuoso e inteligente, com orelhas características em forma de borboleta.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[83]
         },
         {
           id: 85,
@@ -849,7 +849,7 @@ const raca = [
           descricao: "Pequeno e nobre, é um excelente cão de companhia, com uma personalidade independente.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[84]
         },
         {
           id: 86,
@@ -859,7 +859,7 @@ const raca = [
           descricao: "Pequeno e ágil, é um excelente cão pastor e companheiro leal.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[85]
         },
         {
           id: 87,
@@ -869,7 +869,7 @@ const raca = [
           descricao: "Pequenos e enérgicos, os Pomeranianos têm pelagem exuberante e são sociáveis, tornando-os ótimos companheiros.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[86]
         },
         {
           id: 88,
@@ -879,7 +879,7 @@ const raca = [
           descricao: "Os Pugs são pequenos com focinho curto e personalidade amigável, ideais como cães de companhia.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[87]
         },
         {
           id: 89,
@@ -889,7 +889,7 @@ const raca = [
           descricao: "Cães de caça esguios e musculosos, os Redbones têm pelagem vermelha vibrante e são ativos e leais.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[88]
         },
         {
           id: 90,
@@ -899,7 +899,7 @@ const raca = [
           descricao: "Grandes e musculosos, os Rhodesian Ridgebacks são corajosos e leais, excelentes cães de guarda.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[89]
         },
         {
           id: 91,
@@ -909,7 +909,7 @@ const raca = [
           descricao: "Fortes e protetores, os Rottweilers são leais e carinhosos com suas famílias, tornando-se ótimos cães de guarda.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[90]
         },
         {
           id: 92,
@@ -919,7 +919,7 @@ const raca = [
           descricao: "Conhecidos por seu tamanho impressionante e natureza gentil, os Saint Bernards são ótimos cães de família.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[91]
         },
         {
           id: 93,
@@ -929,7 +929,7 @@ const raca = [
           descricao: "Elegantes e graciosos, os Salukis são rápidos e leais, com forte instinto de caça.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[92]
         },
         {
           id: 94,
@@ -939,7 +939,7 @@ const raca = [
           descricao: "Com pelagem branca e fofa, os Samoyeds são amigáveis e adoram estar perto de suas famílias.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[93]
         },
         {
           id: 95,
@@ -949,7 +949,7 @@ const raca = [
           descricao: "Pequenos e enérgicos, os Schipperkes são curiosos e inteligentes, se destacando em atividades de agilidade.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[94]
         },
         {
           id: 96,
@@ -959,7 +959,7 @@ const raca = [
           descricao: "Pequenos e robustos, os Scotch Terriers são leais e protetores, ideais para famílias.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[95]
         },
         {
           id: 97,
@@ -969,7 +969,7 @@ const raca = [
           descricao: "Grandes e gentis, os Scottish Deerhounds têm uma natureza calma e são amigáveis.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[96]
         },
         {
           id: 98,
@@ -979,7 +979,7 @@ const raca = [
           descricao: "Pequenos e destemidos, os Sealyham Terriers são alegres e se dão bem com crianças.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[97]
         },
         {
           id: 99,
@@ -989,7 +989,7 @@ const raca = [
           descricao: "Inteligentes e leais, os Shetland Sheepdogs têm pelagem longa e se destacam em obediência.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[98]
         },
         {
           id: 100,
@@ -999,7 +999,7 @@ const raca = [
           descricao: "Pequenos e adoráveis, os Shih-Tzus têm pelagem longa e são afetuosos.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[99]
         },
         {
           id: 101,
@@ -1009,7 +1009,7 @@ const raca = [
           descricao: "Sociáveis e enérgicos, os Siberian Huskies são conhecidos por sua resistência e amor por correr.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[100]
         },
         {
           id: 102,
@@ -1019,7 +1019,7 @@ const raca = [
           descricao: "Pequenos e ágeis, os Silky Terriers têm pelagem sedosa e uma personalidade corajosa.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[101]
         },
         {
           id: 103,
@@ -1029,7 +1029,7 @@ const raca = [
           descricao: "Amigáveis e brincalhões, os Soft-Coated Wheaten Terriers têm pelagem macia e são ótimos cães de família.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[102]
         },
         {
           id: 104,
@@ -1039,7 +1039,7 @@ const raca = [
           descricao: "Robustos e leais, os Staffordshire Bull Terriers são afetuosos e protetores.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[103]
         },
         {
           id: 105,
@@ -1049,7 +1049,7 @@ const raca = [
           descricao: "Inteligentes e elegantes, os Poodles padrão são altamente treináveis e ativos.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[104]
         },
         {
           id: 106,
@@ -1059,7 +1059,7 @@ const raca = [
           descricao: "Cães de médio porte, os Standard Schnauzers são protetores e amigáveis, com pelagem áspera.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[105]
         },
         {
           id: 107,
@@ -1069,7 +1069,7 @@ const raca = [
           descricao: "Cães de caça de médio porte, os Sussex Spaniels são afetuosos e sociáveis.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[106]
         },
         {
           id: 108,
@@ -1079,7 +1079,7 @@ const raca = [
           descricao: "Grandes e protetores, os Tibetan Mastiffs são leais e independentes.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[107]
         },
         {
           id: 109,
@@ -1089,7 +1089,7 @@ const raca = [
           descricao: "Com pelagem longa, os Tibetan Terriers são afetuosos e curiosos.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[108]
         },
         {
           id: 110,
@@ -1099,7 +1099,7 @@ const raca = [
           descricao: "Pequenos e inteligentes, os Toy Poodles têm pelagem encaracolada e adoram interação social.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[109]
         },
         {
           id: 111,
@@ -1109,7 +1109,7 @@ const raca = [
           descricao: "Pequenos e ágeis, os Toy Terriers são leais e brincalhões, ótimos para ambientes urbanos.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[110]
         },
         {
           id: 112,
@@ -1119,7 +1119,7 @@ const raca = [
           descricao: "Cães de caça ativos, os Vizslas são leais e adoram estar perto da família.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[111]
         },
         {
           id: 113,
@@ -1129,7 +1129,7 @@ const raca = [
           descricao: "Amigáveis e enérgicos, os Walker Hounds são excelentes cães de companhia.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[112]
         },
         {
           id: 114,
@@ -1139,7 +1139,7 @@ const raca = [
           descricao: "Grandes e atléticos, os Weimaraners são leais e adoram atividades ao ar livre.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[113]
         },
         {
           id: 115,
@@ -1149,7 +1149,7 @@ const raca = [
           descricao: "Amigáveis e leais, os Welsh Springer Spaniels são ótimos cães de família.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[114]
         },
         {
           id: 116,
@@ -1159,7 +1159,7 @@ const raca = [
           descricao: "Os \"Westies\" são pequenos, robustos e têm uma personalidade destemida.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[115]
         },
         {
           id: 117,
@@ -1169,7 +1169,7 @@ const raca = [
           descricao: "Elegantes e velozes, os Whippets são amigáveis e adoram companhia.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[116]
         },
         {
           id: 118,
@@ -1179,7 +1179,7 @@ const raca = [
           descricao: "Pequenos e enérgicos, os Wire-Haired Fox Terriers são inteligentes e brincalhões.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[117]
         },
         {
           id: 119,
@@ -1189,7 +1189,7 @@ const raca = [
           descricao: "Os \"Yorkies\" são pequenos, leais e sociáveis, com pelagem longa e sedosa.",
           possiveisDoencas: "",
           TratamentosDoencas: "",
-          imagem: imagens[2]
+          imagem: imagens[118]
         }
  ];
  
