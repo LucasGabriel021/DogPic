@@ -12,7 +12,7 @@ const altura = height * 0.4;
 
 export default function ResultadoScan({ route }) {
      const { resultados, imagemScan } = route.params;
-     console.log("Parametros: ", resultados);
+     // console.log("Parametros: ", resultados);
 
      const [raca, setRaca] = useState("");
      const [porcentagem, setPorcentagem] = useState("");
@@ -70,8 +70,7 @@ export default function ResultadoScan({ route }) {
           }
      }, [resultados]); // Executa sempre que resultados muda
 
-     return (
-          <ScrollView style={{padding: 24, backgroundColor: "#fff"}}>
+     return <ScrollView style={{paddingHorizontal: 24}}>
                <Image source={imagem} style={estilos.imagem}/>
                <View style={estilos.container}>
                     <View style={estilos.conteudo}>
@@ -110,18 +109,17 @@ export default function ResultadoScan({ route }) {
                     <Botao texto="Refazer análise" onPress={() => console.log("Refazer análise")} ativo={true}/>
                </View>
           </ScrollView>
-     )
 }
 
 const estilos = StyleSheet.create({
      imagem: {
           width: "100%",
           height: altura,
-          borderRadius: 6
+          borderRadius: 6,
+          marginTop: 16
      },
      container: {
-          marginTop: 16,
-          flex: 1,
+          paddingVertical: 24,
           rowGap: 16
      },
      conteudo: {
