@@ -48,7 +48,7 @@ export default function ScanScreen({navigation}) {
                   if (outputs && outputs.length > 0) {
                       const data = outputs[0].data; // Acessa o primeiro output
                       const classes = data.concepts; // Exibir as raças e suas respectivas probabilidades
-                      const topClasses = classes.slice(0, 6).map(concept => ({
+                      const topClasses = classes.slice(0, 5).map(concept => ({
                          name: concept.name,
                          probability: (concept.value * 100).toFixed(2)
                       }));
@@ -56,7 +56,7 @@ export default function ScanScreen({navigation}) {
                       console.log("Dados: ", topClasses);
 
                       // Navegar para a tela de Resultados e passar os parâmetros
-                      navigation.navigate("Resultado", {resultados: topClasses});
+                      navigation.navigate("Resultado", {imagemScan: imagemSelecionada, resultados: topClasses});
                   }
               } catch (error) {
                   console.error("Erro durante a análise: ", error);
