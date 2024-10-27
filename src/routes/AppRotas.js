@@ -8,6 +8,7 @@ const Tab = createBottomTabNavigator();
 import HomeStack from "./HomeStack";
 import DogLocScreen from "../views/DogLoc/index";
 import ScanScreen from '../views/Scan';
+import Camera from "../views/Scan/camera";
 
 export default function AppRotas() {
     const [mostrarNavBar, setMostrarNavBar] = useState(null);
@@ -45,6 +46,17 @@ export default function AppRotas() {
                 <Tab.Screen 
                     name="ScanScreen" 
                     component={ScanScreen} 
+                    options={{ 
+                        tabBarLabel: 'Scan', 
+                        headerShown: false 
+                    }}
+                    listeners={{
+                        focus: () => setMostrarNavBar(null), // Mostra a tab bar ao focar na ScanScreen
+                    }}
+                />
+                <Tab.Screen 
+                    name="Camera" 
+                    component={Camera} 
                     options={{ 
                         tabBarLabel: 'Scan', 
                         headerShown: false 
