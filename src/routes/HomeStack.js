@@ -8,6 +8,7 @@ import Instrucao from '../views/Instrucao/index';
 import Raca from "../views/Raca/index";
 import Scan from "../views/Scan/index";
 import ResultadoScan from "../views/Scan/resultadoScan";
+import Camera from "../views/Scan/camera";
 
 export default function HomeStack({ setMostrarNavBar }) {
     return (
@@ -51,6 +52,15 @@ export default function HomeStack({ setMostrarNavBar }) {
                 options={{ title: "Resultado" }} 
                 listeners={{
                     focus: () => setMostrarNavBar("Resultado"), // Oculta a tab bar na tela de Resultado
+                    blur: () => setMostrarNavBar(null), // Mostra a tab bar ao sair da tela de Resultado
+                }}
+            />
+            <Stack.Screen 
+                name="Camera" 
+                component={Camera} 
+                options={{ title: "Resultado" }} 
+                listeners={{
+                    focus: () => setMostrarNavBar("Camera"), // Oculta a tab bar na tela de Resultado
                     blur: () => setMostrarNavBar(null), // Mostra a tab bar ao sair da tela de Resultado
                 }}
             />

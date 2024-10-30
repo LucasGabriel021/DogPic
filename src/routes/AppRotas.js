@@ -32,7 +32,7 @@ export default function AppRotas() {
                 tabBarActiveTintColor: "#EF9C66",
                 tabBarInactiveTintColor: 'gray',
                 tabBarStyle: {
-                    display: mostrarNavBar === "Resultado" || mostrarNavBar === "Instrucao" ? "none" : "flex",
+                    display: mostrarNavBar === "Resultado" || mostrarNavBar === "Instrucao" || mostrarNavBar === "Camera" ? "none" : "flex",
                 }
             })}>
                 <Tab.Screen 
@@ -55,14 +55,15 @@ export default function AppRotas() {
                     }}
                 />
                 <Tab.Screen 
-                    name="Camera" 
+                    name="CameraScreen" 
                     component={Camera} 
                     options={{ 
                         tabBarLabel: 'Scan', 
                         headerShown: false 
                     }}
                     listeners={{
-                        focus: () => setMostrarNavBar(null), // Mostra a tab bar ao focar na ScanScreen
+                        focus: () => setMostrarNavBar("Camera"),
+                        blur: () => setMostrarNavBar(null) // Mostra a tab bar ao focar na ScanScreen
                     }}
                 />
                 <Tab.Screen 

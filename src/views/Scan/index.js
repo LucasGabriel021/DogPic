@@ -29,7 +29,7 @@ export default function ScanScreen({navigation}) {
           if(!resultado.canceled) {
                // console.log(resultado);
                setImagemSelecionada({ uri: resultado.assets[0].uri });
-               setImagemBase64(resultado.assets[0].base64); // 
+               setImagemBase64(resultado.assets[0].base64); 
 
           } else {
                alert("Você não selecionou nenhuma imagem!");

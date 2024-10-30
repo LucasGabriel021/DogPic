@@ -1,14 +1,32 @@
 import React, { useState, useRef } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { Button, StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import { Camera, CameraType } from 'expo-camera/legacy';
+import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function ScanScreen() {
-    const [type, setType] = useState(CameraType.back); // Alterado para CameraType.back
+export default function CameraScreen({ navigation }) {
+    const [type, setType] = useState(CameraType.back);
     const [permission, requestPermission] = Camera.useCameraPermissions();
-    const [foto, setFoto] = useState(null);
+    const [imagem, setImagem] = useState(null);
+    const [imagemBase64, setImagemBase64] = useState(null);
     const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
+    const [cameraReady, setCameraReady] = useState(null);
+    const [isFocused, setIsFocused] = useState(null); // Estado para controlar o foco na tela
     const cameraRef = useRef(null); // UseRef para referência da câmera
+
+    // Resetar estado ao sair da tela
+    useFocusEffect(
+        React.useCallback(() => {
+            setIsFocused(true); // Define que a camera seja montada
+            return () => {
+                setIsFocused(false); // Define que a cemra seja desmontada
+                setImagem(null);
+                setCameraReady(false);
+            }
+        }, [])
+    );
 
     if (!permission) {
         return <View />;
@@ -23,15 +41,27 @@ export default function ScanScreen() {
         );
     }
 
-    function toggleCameraType() {
-        setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
-    }
-
-    async function selecionarImagem() {
-        if (cameraRef.current) {
+    async function tirarFoto() {
+        if (cameraReady && cameraRef.current) {
             const dadoFoto = await cameraRef.current.takePictureAsync();
             const processarFoto = await processarImagem(dadoFoto.uri);
-            setFoto(processarFoto.uri); // Corrigido para usar processarFoto.uri
+            setImagem(processarFoto.uri); // Corrigido para usar processarFoto.uri
+        }
+    }
+
+    async function pegarFoto() {
+        let resultado = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            quality: 1,
+            base: true,
+        });
+
+        if(!resultado.canceled) {
+            setImagem({ uri: resultado.assets[0].uri });
+            setImagemBase64(resultado.assets[0].base64);
+        } else {
+            alert("Não foi selecionada nenhuma imagem!");
         }
     }
 
@@ -46,31 +76,45 @@ export default function ScanScreen() {
 
     function toggleFlash() {
         setFlashMode(current => (
-            current === Camera.Constants.FlashMode.off ? Camera.Constants.FlashMode.on : Camera.Constants.FlashMode.off
+            current === Camera.Constants.FlashMode.off ? Camera.Constants.FlashMode.torch : Camera.Constants.FlashMode.off
         ));
     }
 
     return (
         <View style={estilos.container}>
-            <Camera
-                style={estilos.camera}
-                type={type}
-                flashMode={flashMode}
-                ref={cameraRef} // Referência da câmera
-            >
-                <View style={estilos.buttonContainer}>
-                    <TouchableOpacity style={estilos.button} onPress={toggleCameraType}>
-                        <Text style={estilos.text}>V</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={estilos.button} onPress={toggleFlash}>
-                        <Text style={estilos.text}>{flashMode === Camera.Constants.FlashMode.off ? "Flash On" : "Flash Off"}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={estilos.button} onPress={selecionarImagem}>
-                        <Text style={estilos.text}>T</Text>
-                    </TouchableOpacity>
-                </View>
-            </Camera>
-            {foto && <Image source={{ uri: foto }} style={estilos.preview} />}
+            {isFocused && (
+                <>
+                    <Camera
+                        style={estilos.camera}
+                        type={type}
+                        flashMode={flashMode}
+                        ref={cameraRef}
+                        onCameraReady={() => {
+                            setCameraReady(true);
+                        }}
+                    >
+                        <View style={estilos.buttonContainer}>
+                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                                <Ionicons name={"close-outline"} color={"#313131"} size={30} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={toggleFlash}>
+                                <Ionicons name={"flash-outline"} color={"#313131"} size={30} />
+                            </TouchableOpacity>
+                        </View>
+                    </Camera>
+                    <View style={estilos.menuFoto}>
+                        <TouchableOpacity style={estilos.orgBtns} onPress={pegarFoto}>
+                            <Ionicons name={"image-outline"} size={30} color={"868686"} />
+                            <Text>Fotos</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={estilos.btnTirarFoto} onPress={tirarFoto} />
+                        <TouchableOpacity style={estilos.orgBtns} onPress={() => navigation.navigate("Instrucao")}>
+                            <Ionicons name={"help-circle-outline"} size={30} color={"868686"} />
+                            <Text style={{textAlign: "center"}}>Dicas para fotos</Text>
+                        </TouchableOpacity>
+                    </View>
+                </>
+            )}
         </View>
     );
 }
@@ -80,20 +124,25 @@ const estilos = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
+    loadingContainer: {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: [{ translateX: -50 }, { translateY: -50 }],
+        alignItems: "center",
+    },
     camera: {
         flex: 1,
     },
     buttonContainer: {
-        flex: 1,
+        width: "100%",
         flexDirection: 'row',
-        backgroundColor: 'transparent',
-        margin: 64,
+        alignItems: "flex-start",
+        justifyContent: "space-between",
+        paddingHorizontal: 24,
+        paddingVertical: 72
     },
-    button: {
-        flex: 1,
-        alignSelf: 'flex-end',
-        alignItems: 'center',
-    },
+
     text: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -109,4 +158,23 @@ const estilos = StyleSheet.create({
         borderRadius: 15,
         overflow: 'hidden',
     },
+    menuFoto: {
+        width: "100%",
+        padding: 24,
+        backgroundColor: "#fff",
+        justifyContent: "center",
+        columnGap: 60,
+        flexDirection: "row"
+    },
+    orgBtns: {
+        flex: 1,
+        rowGap: 8,
+        alignItems: "center",
+    },
+    btnTirarFoto: {
+        width: 64,
+        height: 64,
+        borderRadius: 999,
+        backgroundColor: "#EF9C66"
+    }
 });
