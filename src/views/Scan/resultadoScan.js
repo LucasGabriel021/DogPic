@@ -10,7 +10,7 @@ const { height } = Dimensions.get("window");
 const screenWidth = Dimensions.get("window").width;
 const altura = height * 0.4;
 
-export default function ResultadoScan({ route }) {
+export default function ResultadoScan({ route, navigation }) {
      const { resultados, imagemScan } = route.params;
      // console.log("Parametros: ", resultados);
 
@@ -19,6 +19,8 @@ export default function ResultadoScan({ route }) {
      const [imagem, setImagem] = useState(placeholder);
      const [titulo, setTitulo] = useState("");
      const [descricao, setDescricao] = useState("");
+     const [doencas, setDoencas] = useState("");
+     const [prevencoes, setPrevencoes] = useState("");
 
      const coresGrafico = [
           "#EF9C66", 
@@ -42,6 +44,8 @@ export default function ResultadoScan({ route }) {
                setTitulo(infoRaca.racaPt);
                setDescricao(infoRaca.descricao);
                setImagem(imagemScan);
+               setPrevencoes(infoRaca.tratamentosDoencas);
+               setDoencas(infoRaca.possiveisDoencas);
           } else {
                console.log("Raça não encontrada!");
           }
@@ -100,13 +104,13 @@ export default function ResultadoScan({ route }) {
                     </View>
                     <View style={estilos.conteudo}>
                          <Text style={estilos.subtitulo}>Possíveis doenças</Text>
-                         <Text style={estilos.paragrafo}>{descricao}</Text>
+                         <Text style={estilos.paragrafo}>{doencas}</Text>
                     </View>
                     <View style={estilos.conteudo}>
                          <Text style={estilos.subtitulo}>Prevenções</Text>
-                         <Text style={estilos.paragrafo}>{descricao}</Text>
+                         <Text style={estilos.paragrafo}>{prevencoes}</Text>
                     </View>
-                    <Botao texto="Refazer análise" onPress={() => console.log("Refazer análise")} ativo={true}/>
+                    <Botao texto="Refazer análise" onPress={() => navigation.goBack()} ativo={true}/>
                </View>
           </ScrollView>
 }

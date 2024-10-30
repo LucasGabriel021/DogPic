@@ -26,6 +26,14 @@ export default function Cachorro({route}) {
                          <Text style={estilos.titulo}>Sobre mim</Text>
                          <Text style={estilos.descricao}>{item.descricao}</Text>
                     </View>
+                    <View>
+                         <Text style={estilos.titulo}>Possíveis doenças</Text>
+                         <Text style={estilos.descricao}>{item.possiveisDoencas}</Text>
+                    </View>
+                    <View>
+                         <Text style={estilos.titulo}>Prevenções</Text>
+                         <Text style={estilos.descricao}>{item.tratamentosDoencas}</Text>
+                    </View>
                </View>
           </View>
      </ScrollView>
@@ -62,7 +70,7 @@ const estilos = StyleSheet.create({
           fontSize: 16,
           lineHeight: 26,
           color: "#313131",
-          fontFamily: "CabinRegular"
+          fontFamily: "CabinBold"
      },
      descricao: {
           fontSize: 14,

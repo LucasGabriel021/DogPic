@@ -8,7 +8,7 @@ import placeholder from "../../../assets/img/placeholder-dog.png";
 import { analiseDogClarifai } from "../../services/analiseDogScan";
 
 const { height } = Dimensions.get("screen");
-const imagemHeight = height * 0.7;
+const imagemHeight = height * 0.4;
 
 export default function ScanScreen({navigation}) {
      const [imagemSelecionada, setImagemSelecionada] = useState(placeholder);
@@ -101,8 +101,8 @@ const estilos = StyleSheet.create({
           borderRadius: 6
      },
      containerBotoes: {
+          width: "100%",
           marginTop: 16,
-          flexDirection: "row",
-          columnGap: 16
+          rowGap: 16
      },
 });
