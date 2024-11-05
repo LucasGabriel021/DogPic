@@ -1,15 +1,14 @@
-import { FontAwesome5 } from "@expo/vector-icons";
 import React from "react";
-import { Text, Image, StyleSheet, Dimensions, ScrollView, View, Pressable } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, Image, StyleSheet, Dimensions, ScrollView, View } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const { height } = Dimensions.get("window");
-const imagemHeight = height * 0.5; // 40% da altura da tela
+const imagemHeight = height * 0.5;
 
 export default function Cachorro({route}) {
      const { item } = route.params; // Obtendo os parâmetros passados pela navegação
 
-     console.log("Item: ", item);
+     // console.log("Item: ", item);
 
      return <ScrollView>
           <View style={estilos.container}>

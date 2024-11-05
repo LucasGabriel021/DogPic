@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, Dimensions, StyleSheet, View, Image, ScrollView } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { PieChart } from "react-native-chart-kit";
 
 import placeholder from "../../../assets/img/placeholder-dog.png";
@@ -21,6 +22,7 @@ export default function ResultadoScan({ route, navigation }) {
      const [descricao, setDescricao] = useState("");
      const [doencas, setDoencas] = useState("");
      const [prevencoes, setPrevencoes] = useState("");
+     const [porte, setPorte] = useState("");
 
      const coresGrafico = [
           "#EF9C66", 
@@ -46,6 +48,7 @@ export default function ResultadoScan({ route, navigation }) {
                setImagem(imagemScan);
                setPrevencoes(infoRaca.tratamentosDoencas);
                setDoencas(infoRaca.possiveisDoencas);
+               setPorte(infoRaca.porte);
           } else {
                console.log("Raça não encontrada!");
           }
@@ -78,7 +81,13 @@ export default function ResultadoScan({ route, navigation }) {
                <Image source={imagem} style={estilos.imagem}/>
                <View style={estilos.container}>
                     <View style={estilos.conteudo}>
-                         <Text style={estilos.titulo}>Análise da foto</Text>
+                         <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8}}>
+                              <Text style={estilos.titulo}>Análise da foto</Text>
+                              <View style={estilos.etiqueta}>
+                                   <Text style={{color: "#ffffff", fontFamily: "CabinRegular"}}>{porte}</Text>
+                                   <FontAwesome5 name="paw" size={12} color={"#ffffff"}/>
+                              </View>
+                         </View>
                          <Text style={estilos.paragrafo}>O cão que examinou possui <Text style={{ color: "#EF9C66", fontWeight: "bold" }}>{porcentagem}%</Text> das características de um <Text style={{ fontWeight: "bold" }}>{titulo}</Text></Text>
                     </View>
                     <View style={estilos.conteudo}>
@@ -147,5 +156,14 @@ const estilos = StyleSheet.create({
           color: "#313131",
           textAlign: "justify",
           flexWrap: 'wrap',
+     }, 
+     etiqueta: {
+          paddingHorizontal: 12,
+          paddingVertical: 8,
+          flexDirection: "row",
+          alignItems: "center",
+          columnGap: 8,
+          backgroundColor: "#EF9C66",
+          borderRadius: 18
      }
 });

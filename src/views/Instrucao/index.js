@@ -15,8 +15,6 @@ import BotaoLg from "../../components/BotaoLg";
 export default function Instrucao({navigation}) {
      const { paragrafo, secao1, secao2, secao3 } = textos;
 
-     console.log("Paragrafo: ", paragrafo);
-
      return <ScrollView>
                <View style={estilos.container}>
                     <Text style={estilos.descricao}>{paragrafo}</Text>
@@ -43,7 +41,7 @@ export default function Instrucao({navigation}) {
                               </View>
                          </View> 
                     </View>
-                    <BotaoLg texto={"Identificar"} ativo={true} onPress={() => navigation.navigate("Scanner")}/>
+                    <BotaoLg texto={"Identificar"} ativo={true} onPress={() => navigation.navigate("CameraScreen")}/>
                </View>
      </ScrollView>
 }

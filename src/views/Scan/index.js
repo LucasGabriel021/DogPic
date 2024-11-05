@@ -19,12 +19,18 @@ export default function CameraScreen({ navigation }) {
      const [isFocused, setIsFocused] = useState(false);
      const cameraRef = useRef(null);
 
+     const resetStates = () => {
+          setImagem(null);
+          setImagemBase64(null);
+     };
+
      useFocusEffect(
           React.useCallback(() => {
                setIsFocused(true);
                return () => {
                     setIsFocused(false);
                     setCameraReady(false);
+                    resetStates();
                };
           }, [])
      );
@@ -51,18 +57,14 @@ export default function CameraScreen({ navigation }) {
      const tirarFoto = async () => {
           if (cameraReady && cameraRef.current) {
                try {
-                    console.log("1 - Câmera pronta, tentando tirar foto...");
                     const dadoFoto = await cameraRef.current.takePictureAsync({ base64: true });
-                    console.log("2 - Foto tirada com sucesso: ", dadoFoto);
                     const manipulado = await ImageManipulator.manipulateAsync(
                          dadoFoto.uri,
                          [],
                          { base64: true }
                     );
-                    console.log("3 - Imagem manipulada: ", manipulado);
 
                     if (manipulado.base64) {
-                         console.log("Teste")
                          setImagem({ uri: manipulado.uri });
                          setImagemBase64(manipulado.base64);
                     } else {
@@ -70,9 +72,6 @@ export default function CameraScreen({ navigation }) {
                     }
                } catch (error) {
                     console.error("Erro ao tirar a foto: ", error);
-               } finally {
-                    console.log("4 - Setando isProcessing para false");
-                    setIsProcessing(false);
                }
           } else {
                alert("Câmera não está pronta");
@@ -116,6 +115,7 @@ export default function CameraScreen({ navigation }) {
                } catch (error) {
                     console.error("Erro durante a análise: ", error);
                } finally {
+                    resetStates();
                     setLoading(false);
                }
           } else {
@@ -148,7 +148,7 @@ export default function CameraScreen({ navigation }) {
                                         <Ionicons name={"close-outline"} color={"#313131"} size={30} />
                                    </TouchableOpacity>
                                    <TouchableOpacity onPress={toggleFlash}>
-                                        <Ionicons name={"flash-outline"} color={"#313131"} size={30} />
+                                        <Ionicons name={flashMode === Camera.Constants.FlashMode.off ? "flash-outline" : "flash-off-outline"} color={"#313131"} size={30} />
                                    </TouchableOpacity>
                               </View>
                          </Camera>
