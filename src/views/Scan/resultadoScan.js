@@ -110,7 +110,7 @@ export default function ResultadoScan({ route, navigation }) {
                          <Text style={estilos.subtitulo}>Prevenções</Text>
                          <Text style={estilos.paragrafo}>{prevencoes}</Text>
                     </View>
-                    <Botao texto="Refazer análise" onPress={() => navigation.goBack()} ativo={true}/>
+                    <Botao texto="Refazer análise" onPress={() => navigation.navigate("Camera")} ativo={true}/>
                </View>
           </ScrollView>
 }

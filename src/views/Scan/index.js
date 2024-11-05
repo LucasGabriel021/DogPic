@@ -1,24 +1,85 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Image, Dimensions, ActivityIndicator } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { Button, StyleSheet, Text, TouchableOpacity, View, Image, ActivityIndicator } from "react-native";
+import { Camera, CameraType } from 'expo-camera/legacy';
 import * as ImagePicker from 'expo-image-picker';
-import * as FileSystem from 'expo-file-system';
+import * as ImageManipulator from 'expo-image-manipulator';
+import { Ionicons } from '@expo/vector-icons';
 
-import BotaoPegarFoto from "./components/BotaoPegarFoto";
-import placeholder from "../../../assets/img/placeholder-dog.png";
 import { analiseDogClarifai } from "../../services/analiseDogScan";
 
-const { height } = Dimensions.get("screen");
-const imagemHeight = height * 0.4;
-
-export default function ScanScreen({navigation}) {
-     const [imagemSelecionada, setImagemSelecionada] = useState(placeholder);
-     const [imagemBase64, setImagemBase64] = useState(null); // Armazenar a versão base64
+export default function CameraScreen({ navigation }) {
      const [loading, setLoading] = useState(false);
-     
-     /**
-      * Função que seleciona a imagem na galeria do dispositivo do usuário
-      */
-     const pickImageAsync = async () => {
+     const [type, setType] = useState(CameraType.back);
+     const [permission, requestPermission] = Camera.useCameraPermissions();
+     const [imagem, setImagem] = useState(null);
+     const [imagemBase64, setImagemBase64] = useState(null);
+     const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
+     const [cameraReady, setCameraReady] = useState(null);
+     const [isFocused, setIsFocused] = useState(null); // Estado para controlar o foco na tela
+     const cameraRef = useRef(null); // UseRef para referência da câmera
+
+     // Resetar estado ao sair da tela
+     useFocusEffect(
+          React.useCallback(() => {
+               setIsFocused(true); // Define que a camera seja montada
+               return () => {
+                    setIsFocused(false); // Define que a cemra seja desmontada
+                    setCameraReady(false);
+               }
+          }, [])
+     );
+
+     useEffect(() => {
+          if(imagem && imagemBase64) {
+               console.log("Executar processarImagem")
+               processarImagem(imagemBase64);
+          }
+     }, [imagemBase64]);
+
+
+     if (!permission) {
+          return <View />;
+     }
+
+     if (!permission.granted) {
+          return (
+               <View style={estilos.container}>
+                    <Text style={{ textAlign: 'center' }}>Permita o acesso à câmera</Text>
+                    <Button onPress={requestPermission} title="Garantir permissão" />
+               </View>
+          );
+     }
+
+
+     const tirarFoto = async () => {
+          if (cameraReady && cameraRef.current) {
+               try {
+                    const dadoFoto = await cameraRef.current.takePictureAsync({base64: true});
+                    const manipulado = await ImageManipulator.manipulateAsync(
+                         dadoFoto.uri,
+                         [],
+                         { base64: true }
+                    );
+
+                    setImagem({ uri: manipulado.uri });
+                    setImagemBase64(manipulado.base64);
+
+                    if(manipulado.base64) {
+                         await processarImagem(manipulado.base64);
+                    } else {
+                         console.error("Erro: Base64 não gerado");
+                    }
+
+               } catch (error) {
+                    console.error("Erro ao tirar a foto: ", error);
+               }
+          } else {
+               alert("Câmera não está pronta");
+          }
+     }
+
+     const pegarFoto = async () => {
           let resultado = await ImagePicker.launchImageLibraryAsync({
                mediaTypes: ImagePicker.MediaTypeOptions.Images,
                allowsEditing: true,
@@ -26,83 +87,150 @@ export default function ScanScreen({navigation}) {
                base64: true,
           });
 
-          if(!resultado.canceled) {
-               // console.log(resultado);
-               setImagemSelecionada({ uri: resultado.assets[0].uri });
-               setImagemBase64(resultado.assets[0].base64); 
-
+          if (!resultado.canceled) {
+               console.log("Pegou a imagem")
+               setImagem({ uri: resultado.assets[0].uri });
+               setImagemBase64(resultado.assets[0].base64);
           } else {
-               alert("Você não selecionou nenhuma imagem!");
+               alert("Não foi selecionada nenhuma imagem!");
           }
      }
 
-     const handleScan = async () => {
+     const processarImagem = async (imagemBase64) => {
           if (imagemBase64) {
                setLoading(true); // Iniciar loading
-              try {
-                  const resultadoAnalise = await analiseDogClarifai(imagemBase64);
-                  console.log("Resultado da análise: ", resultadoAnalise);
-      
-                  // Acessando os resultados
-                  const outputs = resultadoAnalise.outputs;
-                  if (outputs && outputs.length > 0) {
-                      const data = outputs[0].data; // Acessa o primeiro output
-                      const classes = data.concepts; // Exibir as raças e suas respectivas probabilidades
-                      const topClasses = classes.slice(0, 5).map(concept => ({
-                         name: concept.name,
-                         probability: (concept.value * 100).toFixed(2)
-                      }));
+               try {
+                    const resultadoAnalise = await analiseDogClarifai(imagemBase64);
+                    console.log("Resultado da análise: ", resultadoAnalise);
 
-                      console.log("Dados: ", topClasses);
+                    // Acessando os resultados
+                    const outputs = resultadoAnalise.outputs;
+                    if (outputs && outputs.length > 0) {
+                         const data = outputs[0].data; // Acessa o primeiro output
+                         const classes = data.concepts; // Exibir as raças e suas respectivas probabilidades
+                         const topClasses = classes.slice(0, 5).map(concept => ({
+                              name: concept.name,
+                              probability: (concept.value * 100).toFixed(2)
+                         }));
 
-                      // Navegar para a tela de Resultados e passar os parâmetros
-                      navigation.navigate("Resultado", {imagemScan: imagemSelecionada, resultados: topClasses});
-                  }
-              } catch (error) {
-                  console.error("Erro durante a análise: ", error);
-              } finally {
-               setLoading(false);
-              }
+                         console.log("Dados: ", topClasses);
+
+                         // Navegar para a tela de Resultados e passar os parâmetros
+                         navigation.navigate("Resultado", { imagemScan: imagem, resultados: topClasses });
+                    }
+               } catch (error) {
+                    console.error("Erro durante a análise: ", error);
+               } finally {
+                    setLoading(false);
+               }
           } else {
-              alert("Por favor, selecione uma imagem primeiro");
+               alert("Por favor, selecione uma imagem primeiro");
           }
-      };
-      
+     };
+
+     const toggleFlash = () => {
+          setFlashMode(current => (
+               current === Camera.Constants.FlashMode.off ? Camera.Constants.FlashMode.torch : Camera.Constants.FlashMode.off
+          ));
+     }
+     
 
      return (
           <View style={estilos.container}>
-               <View style={estilos.containerImagem}>
-                    <Image source={imagemSelecionada} style={estilos.imagem}/>
-               </View>
-               <View style={estilos.containerBotoes}>
-                    <BotaoPegarFoto tema="primary" texto="Selecionar foto" onPress={pickImageAsync}/>
-                    <BotaoPegarFoto texto="Scannear" onPress={handleScan}/>
-               </View>
-               {loading && <ActivityIndicator size="large" color="#000000" style={{marginTop: 20}}/>}
+               {isFocused && (
+                    <>
+                         <Camera
+                              style={estilos.camera}
+                              type={type}
+                              flashMode={flashMode}
+                              ref={cameraRef}
+                              onCameraReady={() => {
+                                   setCameraReady(true);
+                              }}
+                         >
+                              <View style={estilos.buttonContainer}>
+                                   <TouchableOpacity onPress={() => navigation.goBack()}>
+                                        <Ionicons name={"close-outline"} color={"#313131"} size={30} />
+                                   </TouchableOpacity>
+                                   <TouchableOpacity onPress={toggleFlash}>
+                                        <Ionicons name={"flash-outline"} color={"#313131"} size={30} />
+                                   </TouchableOpacity>
+                              </View>
+                         </Camera>
+                         <View style={estilos.menuFoto}>
+                              {loading && <ActivityIndicator size="large" color="#000000" style={{marginTop: 20}}/>}
+                              <TouchableOpacity style={estilos.orgBtns} onPress={pegarFoto}>
+                                   <Ionicons name={"image-outline"} size={30} color={"868686"} />
+                                   <Text>Fotos</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={estilos.btnTirarFoto} onPress={tirarFoto} />
+                              <TouchableOpacity style={estilos.orgBtns} onPress={() => navigation.navigate("Instrucao")}>
+                                   <Ionicons name={"help-circle-outline"} size={30} color={"868686"} />
+                                   <Text style={{ textAlign: "center" }}>Dicas para fotos</Text>
+                              </TouchableOpacity>
+                         </View>
+                    </>
+               )}
           </View>
-     )
+     );
 }
 
 const estilos = StyleSheet.create({
      container: {
           flex: 1,
           justifyContent: 'center',
+     },
+     loadingContainer: {
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: [{ translateX: -50 }, { translateY: -50 }],
           alignItems: "center",
-          padding: 24
      },
-     containerImagem: {
+     camera: {
+          flex: 1,
+     },
+     buttonContainer: {
           width: "100%",
-          height: imagemHeight,
-          borderRadius: 6
+          flexDirection: 'row',
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+          paddingHorizontal: 24,
+          paddingVertical: 72
      },
-     imagem: {
+
+     text: {
+          fontSize: 24,
+          fontWeight: 'bold',
+          color: 'white',
+     },
+     preview: {
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          margin: 20,
+          width: 300,
+          height: 300,
+          borderRadius: 15,
+          overflow: 'hidden',
+     },
+     menuFoto: {
           width: "100%",
-          height: "100%",
-          borderRadius: 6
+          padding: 24,
+          backgroundColor: "#fff",
+          justifyContent: "center",
+          columnGap: 60,
+          flexDirection: "row"
      },
-     containerBotoes: {
-          width: "100%",
-          marginTop: 16,
-          rowGap: 16
+     orgBtns: {
+          flex: 1,
+          rowGap: 8,
+          alignItems: "center",
      },
+     btnTirarFoto: {
+          width: 64,
+          height: 64,
+          borderRadius: 999,
+          backgroundColor: "#EF9C66"
+     }
 });

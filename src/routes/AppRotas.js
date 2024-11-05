@@ -7,8 +7,7 @@ const Tab = createBottomTabNavigator();
 
 import HomeStack from "./HomeStack";
 import DogLocScreen from "../views/DogLoc/index";
-import ScanScreen from '../views/Scan';
-import Camera from "../views/Scan/camera";
+import Camera from "../views/Scan/index";
 
 export default function AppRotas() {
     const [mostrarNavBar, setMostrarNavBar] = useState(null);
@@ -21,7 +20,7 @@ export default function AppRotas() {
 
                     if (route.name === "Home") {
                         icone = "home-outline";
-                    } else if (route.name === "ScanScreen") {
+                    } else if (route.name === "CameraScreen") {
                         icone = "scan-outline";
                     } else if (route.name === "DogLocScreen") {
                         icone = "location-outline";
@@ -43,17 +42,6 @@ export default function AppRotas() {
                     }}>
                     {() => <HomeStack setMostrarNavBar={setMostrarNavBar} />}
                 </Tab.Screen>
-                <Tab.Screen 
-                    name="ScanScreen" 
-                    component={ScanScreen} 
-                    options={{ 
-                        tabBarLabel: 'Scan', 
-                        headerShown: false 
-                    }}
-                    listeners={{
-                        focus: () => setMostrarNavBar(null), // Mostra a tab bar ao focar na ScanScreen
-                    }}
-                />
                 <Tab.Screen 
                     name="CameraScreen" 
                     component={Camera} 

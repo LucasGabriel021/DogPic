@@ -6,9 +6,8 @@ const Stack = createStackNavigator();
 import Home from "../views/Home/index";
 import Instrucao from '../views/Instrucao/index';
 import Raca from "../views/Raca/index";
-import Scan from "../views/Scan/index";
+import Camera from "../views/Scan/index";
 import ResultadoScan from "../views/Scan/resultadoScan";
-import Camera from "../views/Scan/camera";
 
 export default function HomeStack({ setMostrarNavBar }) {
     return (
@@ -39,14 +38,6 @@ export default function HomeStack({ setMostrarNavBar }) {
                 }}
             />
             <Stack.Screen 
-                name="Scanner" 
-                component={Scan} 
-                options={{ title: "Scanner" }} 
-                listeners={{
-                    focus: () => setMostrarNavBar(null), // Garante que a tab bar será exibida ao entrar no Scanner
-                }}
-            />
-            <Stack.Screen 
                 name="Resultado" 
                 component={ResultadoScan} 
                 options={{ title: "Resultado" }} 
@@ -58,7 +49,7 @@ export default function HomeStack({ setMostrarNavBar }) {
             <Stack.Screen 
                 name="Camera" 
                 component={Camera} 
-                options={{ title: "Resultado" }} 
+                options={{ headerShown: false }} 
                 listeners={{
                     focus: () => setMostrarNavBar("Camera"), // Oculta a tab bar na tela de Resultado
                     blur: () => setMostrarNavBar(null), // Mostra a tab bar ao sair da tela de Resultado
