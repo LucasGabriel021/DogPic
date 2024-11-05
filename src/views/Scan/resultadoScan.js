@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, Dimensions, StyleSheet, View, Image, ScrollView, Pressable } from "react-native";
+import { Text, Dimensions, StyleSheet, View, Image, ScrollView } from "react-native";
 import { PieChart } from "react-native-chart-kit";
 
 import placeholder from "../../../assets/img/placeholder-dog.png";

@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { Button, StyleSheet, Text, TouchableOpacity, View, Image, ActivityIndicator } from "react-native";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Camera, CameraType } from 'expo-camera/legacy';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { Ionicons } from '@expo/vector-icons';
-
 import { analiseDogClarifai } from "../../services/analiseDogScan";
+import Loading from "../../components/Loading";
 
 export default function CameraScreen({ navigation }) {
      const [loading, setLoading] = useState(false);
@@ -15,28 +15,25 @@ export default function CameraScreen({ navigation }) {
      const [imagem, setImagem] = useState(null);
      const [imagemBase64, setImagemBase64] = useState(null);
      const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
-     const [cameraReady, setCameraReady] = useState(null);
-     const [isFocused, setIsFocused] = useState(null); // Estado para controlar o foco na tela
-     const cameraRef = useRef(null); // UseRef para referência da câmera
+     const [cameraReady, setCameraReady] = useState(false);
+     const [isFocused, setIsFocused] = useState(false);
+     const cameraRef = useRef(null);
 
-     // Resetar estado ao sair da tela
      useFocusEffect(
           React.useCallback(() => {
-               setIsFocused(true); // Define que a camera seja montada
+               setIsFocused(true);
                return () => {
-                    setIsFocused(false); // Define que a cemra seja desmontada
+                    setIsFocused(false);
                     setCameraReady(false);
-               }
+               };
           }, [])
      );
 
      useEffect(() => {
-          if(imagem && imagemBase64) {
-               console.log("Executar processarImagem")
+          if (imagemBase64) {
                processarImagem(imagemBase64);
           }
      }, [imagemBase64]);
-
 
      if (!permission) {
           return <View />;
@@ -51,33 +48,36 @@ export default function CameraScreen({ navigation }) {
           );
      }
 
-
      const tirarFoto = async () => {
           if (cameraReady && cameraRef.current) {
                try {
-                    const dadoFoto = await cameraRef.current.takePictureAsync({base64: true});
+                    console.log("1 - Câmera pronta, tentando tirar foto...");
+                    const dadoFoto = await cameraRef.current.takePictureAsync({ base64: true });
+                    console.log("2 - Foto tirada com sucesso: ", dadoFoto);
                     const manipulado = await ImageManipulator.manipulateAsync(
                          dadoFoto.uri,
                          [],
                          { base64: true }
                     );
+                    console.log("3 - Imagem manipulada: ", manipulado);
 
-                    setImagem({ uri: manipulado.uri });
-                    setImagemBase64(manipulado.base64);
-
-                    if(manipulado.base64) {
-                         await processarImagem(manipulado.base64);
+                    if (manipulado.base64) {
+                         console.log("Teste")
+                         setImagem({ uri: manipulado.uri });
+                         setImagemBase64(manipulado.base64);
                     } else {
                          console.error("Erro: Base64 não gerado");
                     }
-
                } catch (error) {
                     console.error("Erro ao tirar a foto: ", error);
+               } finally {
+                    console.log("4 - Setando isProcessing para false");
+                    setIsProcessing(false);
                }
           } else {
                alert("Câmera não está pronta");
           }
-     }
+     };
 
      const pegarFoto = async () => {
           let resultado = await ImagePicker.launchImageLibraryAsync({
@@ -88,34 +88,29 @@ export default function CameraScreen({ navigation }) {
           });
 
           if (!resultado.canceled) {
-               console.log("Pegou a imagem")
                setImagem({ uri: resultado.assets[0].uri });
                setImagemBase64(resultado.assets[0].base64);
           } else {
                alert("Não foi selecionada nenhuma imagem!");
           }
-     }
+     };
 
      const processarImagem = async (imagemBase64) => {
           if (imagemBase64) {
-               setLoading(true); // Iniciar loading
+               setLoading(true);
                try {
                     const resultadoAnalise = await analiseDogClarifai(imagemBase64);
                     console.log("Resultado da análise: ", resultadoAnalise);
 
-                    // Acessando os resultados
                     const outputs = resultadoAnalise.outputs;
                     if (outputs && outputs.length > 0) {
-                         const data = outputs[0].data; // Acessa o primeiro output
-                         const classes = data.concepts; // Exibir as raças e suas respectivas probabilidades
+                         const data = outputs[0].data;
+                         const classes = data.concepts;
                          const topClasses = classes.slice(0, 5).map(concept => ({
                               name: concept.name,
                               probability: (concept.value * 100).toFixed(2)
                          }));
 
-                         console.log("Dados: ", topClasses);
-
-                         // Navegar para a tela de Resultados e passar os parâmetros
                          navigation.navigate("Resultado", { imagemScan: imagem, resultados: topClasses });
                     }
                } catch (error) {
@@ -129,14 +124,14 @@ export default function CameraScreen({ navigation }) {
      };
 
      const toggleFlash = () => {
-          setFlashMode(current => (
+          setFlashMode(current =>
                current === Camera.Constants.FlashMode.off ? Camera.Constants.FlashMode.torch : Camera.Constants.FlashMode.off
-          ));
-     }
-     
+          );
+     };
 
      return (
           <View style={estilos.container}>
+               {loading && <Loading />}
                {isFocused && (
                     <>
                          <Camera
@@ -158,7 +153,6 @@ export default function CameraScreen({ navigation }) {
                               </View>
                          </Camera>
                          <View style={estilos.menuFoto}>
-                              {loading && <ActivityIndicator size="large" color="#000000" style={{marginTop: 20}}/>}
                               <TouchableOpacity style={estilos.orgBtns} onPress={pegarFoto}>
                                    <Ionicons name={"image-outline"} size={30} color={"868686"} />
                                    <Text>Fotos</Text>
@@ -196,9 +190,8 @@ const estilos = StyleSheet.create({
           alignItems: "flex-start",
           justifyContent: "space-between",
           paddingHorizontal: 24,
-          paddingVertical: 72
+          paddingVertical: 72,
      },
-
      text: {
           fontSize: 24,
           fontWeight: 'bold',
@@ -220,7 +213,7 @@ const estilos = StyleSheet.create({
           backgroundColor: "#fff",
           justifyContent: "center",
           columnGap: 60,
-          flexDirection: "row"
+          flexDirection: "row",
      },
      orgBtns: {
           flex: 1,
@@ -231,6 +224,6 @@ const estilos = StyleSheet.create({
           width: 64,
           height: 64,
           borderRadius: 999,
-          backgroundColor: "#EF9C66"
+          backgroundColor: "#EF9C66",
      }
 });
