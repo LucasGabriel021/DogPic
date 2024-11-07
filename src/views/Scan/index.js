@@ -94,6 +94,15 @@ export default function CameraScreen({ navigation }) {
           }
      };
 
+     const toggleFlash = () => {
+          setFlashMode(current =>
+               current === Camera.Constants.FlashMode.off ? Camera.Constants.FlashMode.torch : Camera.Constants.FlashMode.off
+          );
+     };
+
+     /**
+      * Fução que vai fazer a requisição na API Modelo do Clarifai e retornar 4 resultados
+      */
      const processarImagem = async (imagemBase64) => {
           if (imagemBase64) {
                setLoading(true);
@@ -105,12 +114,20 @@ export default function CameraScreen({ navigation }) {
                     if (outputs && outputs.length > 0) {
                          const data = outputs[0].data;
                          const classes = data.concepts;
-                         const topClasses = classes.slice(0, 5).map(concept => ({
+
+                         const topClasses = classes.slice(0, 4).map(concept => ({
                               name: concept.name,
-                              probability: (concept.value * 100).toFixed(2)
+                              probability: (concept.value * 100)
                          }));
 
-                         navigation.navigate("Resultado", { imagemScan: imagem, resultados: topClasses });
+                         const probabilidadeTotal = topClasses.reduce((sum, item) => sum + item.probability, 0);
+
+                         const normalizarProbabilidades = topClasses.map(item => ({
+                              name: item.name,
+                              probability: ((item.probability / probabilidadeTotal) * 100).toFixed(2)
+                         }));
+
+                         navigation.navigate("Resultado", { imagemScan: imagem, resultados: normalizarProbabilidades });
                     }
                } catch (error) {
                     console.error("Erro durante a análise: ", error);
@@ -121,12 +138,6 @@ export default function CameraScreen({ navigation }) {
           } else {
                alert("Por favor, selecione uma imagem primeiro");
           }
-     };
-
-     const toggleFlash = () => {
-          setFlashMode(current =>
-               current === Camera.Constants.FlashMode.off ? Camera.Constants.FlashMode.torch : Camera.Constants.FlashMode.off
-          );
      };
 
      return (
@@ -157,7 +168,9 @@ export default function CameraScreen({ navigation }) {
                                    <Ionicons name={"image-outline"} size={30} color={"868686"} />
                                    <Text>Fotos</Text>
                               </TouchableOpacity>
-                              <TouchableOpacity style={estilos.btnTirarFoto} onPress={tirarFoto} />
+                              <TouchableOpacity style={estilos.btnTirarFoto} onPress={tirarFoto}>
+                                   <View style={estilos.btnTirarFotoInterno}/>
+                              </TouchableOpacity>
                               <TouchableOpacity style={estilos.orgBtns} onPress={() => navigation.navigate("Instrucao")}>
                                    <Ionicons name={"help-circle-outline"} size={30} color={"868686"} />
                                    <Text style={{ textAlign: "center" }}>Dicas para fotos</Text>
@@ -224,6 +237,16 @@ const estilos = StyleSheet.create({
           width: 64,
           height: 64,
           borderRadius: 999,
+          backgroundColor: "#EF9C66",
+          justifyContent: "center",
+          alignItems: "center"
+     },
+     btnTirarFotoInterno: {
+          width: 58,
+          height: 58,
+          borderRadius: 999,
+          borderWidth: 3,
+          borderColor: "#fff",
           backgroundColor: "#EF9C66",
      }
 });

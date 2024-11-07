@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, Dimensions, StyleSheet, View, Image, ScrollView } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { PieChart } from "react-native-chart-kit";
+import ProgressBar from 'react-native-progress/Bar';
 
 import placeholder from "../../../assets/img/placeholder-dog.png";
 import racas from "../../mocks/racas";
@@ -9,13 +9,12 @@ import Botao from "../../components/BotaoLg";
 
 const { height } = Dimensions.get("window");
 const screenWidth = Dimensions.get("window").width;
-const altura = height * 0.4;
+const altura = height * 0.5;
 
 export default function ResultadoScan({ route, navigation }) {
      const { resultados, imagemScan } = route.params;
      // console.log("Parametros: ", resultados);
 
-     const [raca, setRaca] = useState("");
      const [porcentagem, setPorcentagem] = useState("");
      const [imagem, setImagem] = useState(placeholder);
      const [titulo, setTitulo] = useState("");
@@ -23,14 +22,6 @@ export default function ResultadoScan({ route, navigation }) {
      const [doencas, setDoencas] = useState("");
      const [prevencoes, setPrevencoes] = useState("");
      const [porte, setPorte] = useState("");
-
-     const coresGrafico = [
-          "#EF9C66", 
-          "#E3915C",
-          "#FCDC94",
-          "#DE8F5F",
-          "#FFB26F", 
-     ];
 
      /**
       * Função que pega as informações da raça no BD com porcetagem 
@@ -54,69 +45,43 @@ export default function ResultadoScan({ route, navigation }) {
           }
      }
 
-     /**
-      * Função mapeia os dados vindo da análise e formata 
-      * para a construção do gráfico
-      */
-     const chartData = resultados.map((item, index) => {
-          // console.log("Mapeando item: ", item);
-          return {
-              name: item.name,
-              population: parseFloat(item.probability),
-              color: coresGrafico[index % coresGrafico.length],
-              legendFontColor: "#7F7F7F",
-              legendFontSize: 12
-          };
-     });
-
      useEffect(() => {
           if (resultados && resultados.length > 0) {
-               setRaca(resultados[0].name);
                setPorcentagem(resultados[0].probability);
                pegarInfosRacas(resultados[0].name);
           }
      }, [resultados]); // Executa sempre que resultados muda
 
-     return <ScrollView style={{paddingHorizontal: 24}}>
+     return <ScrollView>
                <Image source={imagem} style={estilos.imagem}/>
                <View style={estilos.container}>
-                    <View style={estilos.conteudo}>
-                         <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8}}>
-                              <Text style={estilos.titulo}>Análise da foto</Text>
-                              <View style={estilos.etiqueta}>
-                                   <Text style={{color: "#ffffff", fontFamily: "CabinRegular"}}>{porte}</Text>
-                                   <FontAwesome5 name="paw" size={12} color={"#ffffff"}/>
-                              </View>
-                         </View>
-                         <Text style={estilos.paragrafo}>O cão que examinou possui <Text style={{ color: "#EF9C66", fontWeight: "bold" }}>{porcentagem}%</Text> das características de um <Text style={{ fontWeight: "bold" }}>{titulo}</Text></Text>
+                    <View style={[estilos.conteudo, {rowGap: 24}]}>
+                         <Text style={estilos.titulo}>Análise obtida pela imagem</Text>
+                         {resultados.map((item, index) => {
+                              const racaEncontrada = racas.find(raca => raca.raca === item.name);
+                              const imagemRaca = racaEncontrada ? { uri: racaEncontrada.imagem } : placeholder;
+                         
+                              return (
+                                   <View style={{flexDirection: "row", columnGap: 8, alignItems: "center"}} key={index}>
+                                        <Image source={imagemRaca} style={{width: 54, height: 54, borderRadius: 12, elevation: 2}}/>
+                                        <View style={{rowGap: 2}}>
+                                             <Text style={{color: "#515151", fontWeight: "bold"}}>{item.name}</Text>
+                                             <Text style={{color: "#9E9E9E"}}>Corresponde a {item.probability}%</Text>
+                                        </View>
+                                   </View>
+                              )
+                         })}
                     </View>
                     <View style={estilos.conteudo}>
-                         <Text style={estilos.subtitulo}>Demais raças analisadas</Text>
-                         <View>
-                              <PieChart 
-                                   data={chartData} 
-                                   width={screenWidth - 48} 
-                                   height={160} 
-                                   chartConfig={{
-                                        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                   }}
-                                   accessor={"population"}
-                                   backgroundColor={"transparent"}
-                                   absolute
-                              />
-                         </View>
-                    </View>
-                    <View style={{width: "100%", height: 2, backgroundColor: "#F3F4F6", borderRadius: 4}}/>
-                    <View style={estilos.conteudo}>
-                         <Text style={estilos.subtitulo}>Descrição</Text>
-                         <Text style={estilos.paragrafo}>{descricao}</Text>
+                         <Text style={estilos.titulo}>Descrição</Text>
+                         <Text style={estilos.paragrafo}>{descricao} Seu porte é considerado <Text style={{fontWeight: "bold"}}>{porte}.</Text></Text>
                     </View>
                     <View style={estilos.conteudo}>
-                         <Text style={estilos.subtitulo}>Possíveis doenças</Text>
+                         <Text style={estilos.titulo}>Possíveis doenças</Text>
                          <Text style={estilos.paragrafo}>{doencas}</Text>
                     </View>
                     <View style={estilos.conteudo}>
-                         <Text style={estilos.subtitulo}>Prevenções</Text>
+                         <Text style={estilos.titulo}>Prevenções</Text>
                          <Text style={estilos.paragrafo}>{prevencoes}</Text>
                     </View>
                     <Botao texto="Refazer análise" onPress={() => navigation.navigate("Camera")} ativo={true}/>
@@ -128,23 +93,20 @@ const estilos = StyleSheet.create({
      imagem: {
           width: "100%",
           height: altura,
-          borderRadius: 6,
-          marginTop: 16
      },
      container: {
-          paddingVertical: 24,
-          rowGap: 16
+          padding: 24,
+          rowGap: 16,
      },
      conteudo: {
           rowGap: 8,
-          width: "100%"
+          width: "100%",
+          elevation: 0.5,
+          padding: 16,
+          backgroundColor: "#ECECEC",
+          borderRadius: 16
      },
      titulo: {
-          fontSize: 18,
-          fontWeight: "bold",
-          color: "#313131"
-     },
-     subtitulo: {
           fontSize: 16,
           fontWeight: "bold",
           color: "#313131",
@@ -153,17 +115,8 @@ const estilos = StyleSheet.create({
           fontSize: 14,
           lineHeight: 20,
           fontWeight: "normal",
-          color: "#313131",
+          color: "#515151",
           textAlign: "justify",
           flexWrap: 'wrap',
      }, 
-     etiqueta: {
-          paddingHorizontal: 12,
-          paddingVertical: 8,
-          flexDirection: "row",
-          alignItems: "center",
-          columnGap: 8,
-          backgroundColor: "#EF9C66",
-          borderRadius: 18
-     }
 });
