@@ -1,8 +1,5 @@
 import axios from "axios";
 
-// const API_KEY = "AIzaSyBO-6NSbrHp50_oT89u9O_IkGNGQ8GzmKo"; // Credencial do Google Vision API
-// const BASE_URL = `https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}`;
-
 // Credenciais do modelo do Clarifai
 const PAT = '88174510e2b74d99bac75a454c6c4c52';
 const USER_ID = 'datastrategy';       
