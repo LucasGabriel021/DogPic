@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { SearchBar } from 'react-native-elements';
 
 import Botao from "./Botao";
@@ -58,7 +58,6 @@ const estilos = StyleSheet.create({
      secaoBtns: {
           marginTop: 8,
           flexDirection: "row",
-          width: "100%",
           columnGap: 4
      }
 });

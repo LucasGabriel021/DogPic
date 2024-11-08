@@ -155,11 +155,11 @@ export default function CameraScreen({ navigation }) {
                               }}
                          >
                               <View style={estilos.buttonContainer}>
-                                   <TouchableOpacity onPress={() => navigation.goBack()}>
-                                        <Ionicons name={"close-outline"} color={"#313131"} size={30} />
+                                   <TouchableOpacity onPress={() => navigation.goBack()} style={[estilos.btnIcone, {backgroundColor: "#fff"}]}>
+                                        <Ionicons name={"close-outline"} color={"#313131"} size={20}/>
                                    </TouchableOpacity>
-                                   <TouchableOpacity onPress={toggleFlash}>
-                                        <Ionicons name={flashMode === Camera.Constants.FlashMode.off ? "flash-outline" : "flash-off-outline"} color={"#313131"} size={30} />
+                                   <TouchableOpacity onPress={toggleFlash} style={[estilos.btnIcone, {borderWidth: 2, borderColor: "#fff"}]}>
+                                        <Ionicons name={flashMode === Camera.Constants.FlashMode.off ? "flash-outline" : "flash-off-outline"} color={"#fff"} size={20}/>
                                    </TouchableOpacity>
                               </View>
                          </Camera>
@@ -248,5 +248,13 @@ const estilos = StyleSheet.create({
           borderWidth: 3,
           borderColor: "#fff",
           backgroundColor: "#EF9C66",
+     },
+     btnIcone: {
+          padding: 8,
+          borderRadius: 9999,
+          width: 40,
+          height: 40,
+          justifyContent: "center",
+          alignItems: "center"
      }
 });

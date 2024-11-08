@@ -1,6 +1,9 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Dimensions } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+const { width } = Dimensions.get("screen");
+const largura = width * 0.4
 
 export default function Quadrado({imagem, icone, style}) {
      return <View style={estilos.container}>
@@ -9,7 +12,7 @@ export default function Quadrado({imagem, icone, style}) {
           </View>
           <View style={{height: 24, width: "100%", alignItems: "flex-end", justifyContent: "flex-end"}}>
                <View style={estilos.boxIcone}>
-                    <Icon name={icone} size={16} color="#FFFFFF"/>
+                    <Icon name={icone} size={14} color="#FFFFFF"/>
                </View>   
           </View>
      </View>
@@ -17,8 +20,8 @@ export default function Quadrado({imagem, icone, style}) {
 
 const estilos = StyleSheet.create({
      container: {
-          width: 171,
-          height: 171,
+          width: largura,
+          height: largura,
           backgroundColor: "#ffffff",
           borderRadius: 10,
           elevation: 4,
@@ -28,13 +31,13 @@ const estilos = StyleSheet.create({
           overflow: "hidden"
      },
      imagem: {
-          height: 80,
-          width: 80,
+          height: 60,
+          width: 60,
           resizeMode: "cover"
      },
      boxIcone: {
-          width: 25,
-          height: 24,
+          width: 20,
+          height: 20,
           backgroundColor: "#EF9C66",
           justifyContent: "center",
           alignItems: "center",

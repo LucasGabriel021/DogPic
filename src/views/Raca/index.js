@@ -31,7 +31,7 @@ export default function Cachorro({route}) {
                                    </View>
                               </View>
                          </View>
-                         <View style={{width: "100%", rowGap: 16}}>
+                         <View style={{width: "100%", rowGap: 16, marginTop: 8}}>
                               <View style={estilos.card}>
                                    <Image source={Prevencao} style={estilos.imagemCard}/>
                                    <View style={estilos.containerTexto}>
