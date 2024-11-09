@@ -1,12 +1,12 @@
 import React from "react";
-import { Text, Pressable, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
 
 export default function Botao({ativo, texto, onPress}) {
      const estilos = estilosFunc(ativo);
 
-     return <Pressable onPress={onPress} style={estilos.botao}>
+     return <TouchableOpacity onPress={onPress} style={estilos.botao}>
           <Text style={estilos.texto}>{texto}</Text>
-     </Pressable>
+     </TouchableOpacity>
 }
 
 const estilosFunc = (ativo) => StyleSheet.create({

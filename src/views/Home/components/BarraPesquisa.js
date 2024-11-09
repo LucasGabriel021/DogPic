@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { SearchBar } from 'react-native-elements';
 
-import Botao from "./Botao";
+import Botao from "../../../components/Botao";
 
 export default function BarraPesquisa({setPesquisa, pesquisa, setFiltroPorte}) {
      const [btnAtivo, setBtnAtivo] = useState("Todas");
@@ -10,7 +10,7 @@ export default function BarraPesquisa({setPesquisa, pesquisa, setFiltroPorte}) {
      const aplicarFiltro = (filtro) => {
           setBtnAtivo(filtro);
           setFiltroPorte(filtro);
-          console.log("Filtro aplicado: ", filtro);
+          // console.log("Filtro aplicado: ", filtro);
      }
 
      return <View>

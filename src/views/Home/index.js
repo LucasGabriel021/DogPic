@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Image, Pressable, FlatList, Dimensions } from "
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Topo from "./components/Topo";
-import BarraPesquisa from "../../components/BarraPesquisa";
+import BarraPesquisa from "./components/BarraPesquisa";
 import cachorro from "../../../assets/img/cachorro01.png";
 import racas from "../../mocks/racas";
 

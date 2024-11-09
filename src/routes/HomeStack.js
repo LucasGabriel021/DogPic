@@ -7,7 +7,8 @@ import Home from "../views/Home/index";
 import Instrucao from '../views/Instrucao/index';
 import Raca from "../views/Raca/index";
 import Camera from "../views/Scan/index";
-import ResultadoScan from "../views/Scan/resultadoScan";
+import ResultadoScan from "../views/Scan/ResultadoScan";
+import Anuncio from "../views/Perdidos/Anuncio";
 
 export default function HomeStack({ setMostrarNavBar }) {
     return (
@@ -53,6 +54,15 @@ export default function HomeStack({ setMostrarNavBar }) {
                 listeners={{
                     focus: () => setMostrarNavBar("Camera"), // Oculta a tab bar na tela de Resultado
                     blur: () => setMostrarNavBar(null), // Mostra a tab bar ao sair da tela de Resultado
+                }}
+            />
+            <Stack.Screen
+                name="Anuncio"
+                component={Anuncio}
+                options={{title: "Criar anúncio"}}
+                listeners={{
+                    focus: () => setMostrarNavBar("Anuncio"),
+                    blur: () => setMostrarNavBar(null),
                 }}
             />
         </Stack.Navigator>
