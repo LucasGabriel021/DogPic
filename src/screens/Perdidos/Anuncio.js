@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, FlatList, TextInput } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import { SafeAreaView } from "react-native-safe-area-context";
+import {Picker} from '@react-native-picker/picker';
 
 import Botao from "../../components/BotaoLg";
+import racas from "../../mocks/racas";
 
 export default function Anuncio({navigation}) {
      const [fotoAnuncio, setFotoAnuncio] = useState(null);
+     const [selecaoRaca, setSelecaoRaca] = useState(null);
 
      const pegarFotoAnuncio = async () => {
           let resultado = await ImagePicker.launchImageLibraryAsync({
@@ -32,16 +35,20 @@ export default function Anuncio({navigation}) {
                          <TextInput style={estilos.input}/>
                     </View>
                     <View>
+                         <Text style={estilos.textInput}>Descrição do anúncio</Text>
+                         <TextInput style={[estilos.input, {height: 100, textAlignVertical: "top"}]} editable numberOfLines={5} multiline maxLength={100} />
+                    </View>
+                    <View>
                          <Text style={estilos.textInput}>Raça do cachorro</Text>
-                         <TextInput style={estilos.input}/>
+                         <Picker style={estilos.picker} selectedValue={selecaoRaca} onValueChange={(value) => setSelecaoRaca(value)}>
+                              {racas.map((item, index) => {
+                                   return <Picker.Item key={index} label={item.racaPt} value={item.racaPt}/>;
+                              })}
+                         </Picker>
                     </View>
                     <View>
                          <Text style={estilos.textInput}>Ultima localização</Text>
                          <TextInput style={estilos.input}/>
-                    </View>
-                    <View>
-                         <Text style={estilos.textInput}>Descrição do anúncio</Text>
-                         <TextInput style={[estilos.input, {height: 100, textAlignVertical: "top"}]} editable numberOfLines={5} multiline maxLength={100} />
                     </View>
                     <Botao ativo={false} texto={"Adicione uma foto"} onPress={pegarFotoAnuncio}/>
                     <View style={{width: "100%", height: 2, backgroundColor: "#E8ECF4", marginVertical: 16}}/>
@@ -59,7 +66,7 @@ const estilos = StyleSheet.create({
      container: {
           flex: 1,
           paddingHorizontal: 24,
-          rowGap: 8,
+          rowGap: 12,
           backgroundColor: "#F1F1F1",
      },
      textInput: {
@@ -74,6 +81,16 @@ const estilos = StyleSheet.create({
           height: 50,
           backgroundColor: "#fff",
           borderRadius: 8,
+          marginTop: 8,
+          elevation: 0.5,
+          paddingHorizontal: 16,
+          paddingVertical: 8,
+          color: "#313131"
+     },
+     picker: {
+          width: "100%",
+          height: 50,
+          backgroundColor: "#fff",
           marginTop: 8,
           elevation: 0.5,
           paddingHorizontal: 16,

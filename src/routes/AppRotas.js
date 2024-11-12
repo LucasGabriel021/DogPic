@@ -6,8 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
 
 import HomeStack from "./HomeStack";
-import Localizar from "../views/Perdidos/index";
-import Camera from "../views/Scan/index";
+import Localizar from "../screens/Perdidos/index";
+import Camera from "../screens/Scan/index";
 
 export default function AppRotas() {
     const [mostrarNavBar, setMostrarNavBar] = useState(null);

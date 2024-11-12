@@ -3,12 +3,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-import Home from "../views/Home/index";
-import Instrucao from '../views/Instrucao/index';
-import Raca from "../views/Raca/index";
-import Camera from "../views/Scan/index";
-import ResultadoScan from "../views/Scan/ResultadoScan";
-import Anuncio from "../views/Perdidos/Anuncio";
+import Home from "../screens/Home/index";
+import Instrucao from '../screens/Instrucao/index';
+import Raca from "../screens/Raca/index";
+import Camera from "../screens/Scan/index";
+import ResultadoScan from "../screens/Scan/ResultadoScan";
+import Anuncio from "../screens/Perdidos/Anuncio";
 
 export default function HomeStack({ setMostrarNavBar }) {
     return (
