@@ -6,7 +6,6 @@ import { Ionicons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
 
 import HomeStack from "./HomeStack";
-import Localizar from "../screens/Perdidos/index";
 import Camera from "../screens/Scan/index";
 
 export default function AppRotas() {
@@ -22,8 +21,6 @@ export default function AppRotas() {
                         icone = "home-outline";
                     } else if (route.name === "CameraScreen") {
                         icone = "scan-outline";
-                    } else if (route.name === "Localizar") {
-                        icone = "location-outline";
                     }
 
                     return <Ionicons name={icone} size={focused ? 24 : 20} color={color} />;
@@ -31,7 +28,7 @@ export default function AppRotas() {
                 tabBarActiveTintColor: "#EF9C66",
                 tabBarInactiveTintColor: 'gray',
                 tabBarStyle: {
-                    display: mostrarNavBar === "Resultado" || mostrarNavBar === "Instrucao" || mostrarNavBar === "Camera" || mostrarNavBar === "Anuncio" ? "none" : "flex",
+                    display: mostrarNavBar === "Resultado" || mostrarNavBar === "Instrucao" || mostrarNavBar === "Camera" ? "none" : "flex",
                 }
             })}>
                 <Tab.Screen 
@@ -52,17 +49,6 @@ export default function AppRotas() {
                     listeners={{
                         focus: () => setMostrarNavBar("Camera"),
                         blur: () => setMostrarNavBar(null) // Mostra a tab bar ao focar na ScanScreen
-                    }}
-                />
-                <Tab.Screen 
-                    name="Localizar" 
-                    component={Localizar} 
-                    options={{ 
-                        tabBarLabel: 'Localizar', 
-                        headerShown: false 
-                    }}
-                    listeners={{
-                        focus: () => setMostrarNavBar(null), // Mostra a tab bar ao focar na DogLocScreen
                     }}
                 />
             </Tab.Navigator>
