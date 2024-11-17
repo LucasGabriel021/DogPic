@@ -5,6 +5,7 @@ const Stack = createStackNavigator();
 
 import Home from "../screens/Home/index";
 import Autenticacao from "../screens/Autenticacao/index";
+import Registrar from "../screens/Autenticacao/Registrar";
 import Instrucao from '../screens/Instrucao/index';
 import Raca from "../screens/Raca/index";
 import Camera from "../screens/Scan/index";
@@ -29,6 +30,15 @@ export default function AppStack({ setMostrarNavBar }) {
                 options={{ title: "Autenticação" }} 
                 listeners={{
                     focus: () => setMostrarNavBar("Autenticacao"), // Garante que a tab bar será exibida ao entrar na Instrução
+                    blur: () => setMostrarNavBar(null)
+               }}
+            />
+            <Stack.Screen 
+                name="Registrar" 
+                component={Registrar} 
+                options={{ title: "Cadastrar" }} 
+                listeners={{
+                    focus: () => setMostrarNavBar("Registrar"), // Garante que a tab bar será exibida ao entrar na Instrução
                     blur: () => setMostrarNavBar(null)
                }}
             />

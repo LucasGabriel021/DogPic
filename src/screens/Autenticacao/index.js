@@ -14,7 +14,7 @@ export default function Autenticacao({ navigation }) {
                <Image source={cachorro} style={estilos.imagem} resizeMode="contain"/>
                <Text style={estilos.titulo}>Faça parte da {"\n"} família DogPic</Text>
                <View style={{marginTop: 8, width: "100%", rowGap: 8}}>
-                    <Botao ativo={true} texto={"Registrar"} onPress={() => console.log("Cadatsrar")}/>
+                    <Botao ativo={true} texto={"Registrar"} onPress={() => navigation.navigate("Registrar")}/>
                     <Botao texto={"Login"} onPress={() => console.log("Login")}/>
                </View>
           </SafeAreaView>
