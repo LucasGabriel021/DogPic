@@ -1,31 +1,14 @@
-import React, { useState } from "react";
-import { View, StyleSheet, FlatList, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View, StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useFocusEffect } from "@react-navigation/native";
 
 import Topo from "./components/Topo";
 import Card from "./components/Card";
 import buscarAnuncios from "../../services/buscarAnuncios";
 
 export default function Localizar({navigation}) {
-     const [listaAnuncios, setListaAnuncios] = useState([]);
-
-     useFocusEffect(
-          React.useCallback(() => {
-               const fetchAnuncios = async () => {
-                    const anuncios = await buscarAnuncios();
-                    setListaAnuncios(anuncios);
-               }
-               fetchAnuncios();
-          }, [])
-     )
-
-     const renderItem = ({ item }) => {
-          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao}/>
-     }
-
      return (
-          <ScrollView style={estilos.safeArea}>
+          <SafeAreaView style={estilos.safeArea}>
                <View style={estilos.container}>
                     <Topo navigation={navigation}/>
                     <FlatList 
@@ -35,7 +18,7 @@ export default function Localizar({navigation}) {
                          keyExtractor={(item) => item.id}
                     />
                </View>
-          </ScrollView>
+          </SafeAreaView>
      )
 }
 

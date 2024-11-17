@@ -6,7 +6,7 @@ export default async function buscarAnuncios() {
           const querySnapshot = await getDocs(collection(firestore, "anuncios"));
           const arrayAnuncios = querySnapshot.docs.map(doc => ({
                id: doc.id,
-               ...doc.data(),
+               ...doc.data(), // Resto dos dados
           }));
           
           console.log("Dados: ", arrayAnuncios);

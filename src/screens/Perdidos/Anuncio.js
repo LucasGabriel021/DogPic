@@ -32,7 +32,6 @@ export default function Anuncio({navigation}) {
           if (!resultado.canceled) {
                setFotoAnuncio({ uri: resultado.assets[0].uri });
                setFotoSelecionada(true);
-               console.log("Foto: ", fotoAnuncio);
           } else {
                alert("Não foi selecionada nenhuma imagem!");
           }
