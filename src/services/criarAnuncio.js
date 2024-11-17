@@ -1,4 +1,6 @@
 import { firestore, storage } from "../config/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
 
 export default async function addDados(dados) {
      // console.log("DADOS:", dados);
@@ -10,23 +12,23 @@ export default async function addDados(dados) {
                // Enviar imagem
                const response = await fetch(foto.uri);
                const blob = await response.blob();
-               const imageRef = storage.ref().child(`anuncios/${Date.now()}`);
-               await imageRef.put(blob);
+               const imageRef = ref(storage, `anuncio/${Date.now()}`);
+               await uploadBytes(imageRef, blob);
 
                // Obter a URL da imagem armazenada
-               imageUrl = await imageRef.getDownloadURL();
+               imageUrl = await getDownloadURL(imageRef);
           }
 
-          await firestore.collection("anuncios").add({
+          await addDoc(collection(firestore, "anuncios"), {
                nome, 
-               descricao,
+               descricao, 
                localizacao,
                raca,
                imageUrl,
-               createdAt: new Date(),
+               createAt: new Date(),
           });
 
-          console.log("Anuncio criado!");
+          console.log("Anuncio criado: ", nome);
      } catch(error) {
           console.error("Erro ao criar anúncio: ", error);
      }

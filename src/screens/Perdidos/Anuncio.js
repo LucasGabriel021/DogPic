@@ -1,38 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import React, { useState } from "react";
+import { Text, View, StyleSheet, TextInput, Image, Dimensions, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
-import { SafeAreaView } from "react-native-safe-area-context";
 import {Picker} from '@react-native-picker/picker';
+import { Ionicons } from '@expo/vector-icons';
 
 import Botao from "../../components/BotaoLg";
 import racas from "../../mocks/racas";
-
 import addDados from "../../services/criarAnuncio";
+import Loading from "./components/Loading";
+
+const { height } = Dimensions.get("window");
+const altura = height * 0.2;
 
 export default function Anuncio({navigation}) {
      const [fotoAnuncio, setFotoAnuncio] = useState(null);
+     const [fotoSelecionada, setFotoSelecionada] = useState(false);
      const [nomeCachorro, setNomeCachorro] = useState("");
      const [descricaoAnuncio, setDescricaoAnuncio] = useState("");
      const [ultimaLocalizacao, setUltimaLocalizacao] = useState("");
      const [selecaoRaca, setSelecaoRaca] = useState(null);
-     const [dados, setDados] = useState({
-          foto: null,
-          nome: "",
-          descricao: "",
-          localizacao: "",
-          raca: null
-     });
-
-     useEffect(() => {
-          setDados({
-               foto: fotoAnuncio,
-               nome: nomeCachorro,
-               descricao: descricaoAnuncio,
-               localizacao: ultimaLocalizacao,
-               raca: selecaoRaca
-          })
-
-     }, [fotoAnuncio, nomeCachorro, descricaoAnuncio, ultimaLocalizacao, selecaoRaca])
+     const [loading, setLoading] = useState(false);
 
      const pegarFotoAnuncio = async () => {
           let resultado = await ImagePicker.launchImageLibraryAsync({
@@ -44,40 +31,88 @@ export default function Anuncio({navigation}) {
 
           if (!resultado.canceled) {
                setFotoAnuncio({ uri: resultado.assets[0].uri });
+               setFotoSelecionada(true);
                console.log(fotoAnuncio);
           } else {
                alert("Não foi selecionada nenhuma imagem!");
           }
      };
 
+     const validaFormulario = () => {
+          if(!fotoAnuncio || !nomeCachorro || !descricaoAnuncio || !ultimaLocalizacao || !selecaoRaca) {
+               alert("Por favor, preencha todos os campos.");
+               return false;
+          }
+          return true;
+     }
+
+     const enviarFormulario = () => {
+          if(validaFormulario()) {
+               setLoading(true);
+               addDados({
+                    foto: fotoAnuncio,
+                    nome: nomeCachorro,
+                    descricao: descricaoAnuncio,
+                    localizacao: ultimaLocalizacao,
+                    raca: selecaoRaca
+               })
+               .then(() => {
+                    setLoading(false);
+                    alert("Anúncio criado com sucesso!");
+                    navigation.goBack();
+               })
+               .catch((error) => {
+                    setLoading(false);
+                    console.error("Erro ao criar anúncio ", error);
+                    alert("Houve um problema ap criar o anúncio. Tente novamente");
+               });
+          }
+     }
+
      return (
-          <SafeAreaView style={estilos.safeArea}>
+          <ScrollView style={estilos.safeArea}>
                <View style={estilos.container}>
                     <View>
-                         <Text style={estilos.textInput}>Nome do cachorro</Text>
-                         <TextInput style={estilos.input} value={nomeCachorro} onChangeText={(value) => setNomeCachorro(value)}/>
+                         <Text style={estilos.textInput}>Nome do cachorro *</Text>
+                         <TextInput placeholder="Ex: Thor" placeholderTextColor="#bebebe" style={estilos.input} value={nomeCachorro} onChangeText={(value) => setNomeCachorro(value)}/>
                     </View>
                     <View>
-                         <Text style={estilos.textInput}>Descrição do anúncio</Text>
-                         <TextInput style={[estilos.input, {height: 100, textAlignVertical: "top"}]} editable numberOfLines={5} multiline maxLength={100} value={descricaoAnuncio} onChangeText={(value) => setDescricaoAnuncio(value)}/>
+                         <Text style={estilos.textInput}>Descrição do anúncio *</Text>
+                         <TextInput placeholder="Ex: Cachorro está desaparecido" placeholderTextColor="#bebebe" style={[estilos.input, {height: 100, textAlignVertical: "top"}]} editable numberOfLines={5} multiline maxLength={100} value={descricaoAnuncio} onChangeText={(value) => setDescricaoAnuncio(value)}/>
                     </View>
                     <View>
-                         <Text style={estilos.textInput}>Raça do cachorro</Text>
+                         <Text style={estilos.textInput}>Raça do cachorro *</Text>
                          <Picker style={estilos.picker} selectedValue={selecaoRaca} onValueChange={(value) => setSelecaoRaca(value)}>
+                         <Picker.Item label="Selecione uma raça" value="default" enabled={false} />
                               {racas.map((item, index) => {
                                    return <Picker.Item key={index} label={item.racaPt} value={item.racaPt}/>;
                               })}
                          </Picker>
                     </View>
                     <View>
-                         <Text style={estilos.textInput}>Ultima localização</Text>
-                         <TextInput style={estilos.input} value={ultimaLocalizacao} onChangeText={(value) => setUltimaLocalizacao(value)}/>
+                         <Text style={estilos.textInput}>Ultima localização *</Text>
+                         <TextInput placeholder="Ex: Brasília - DF" placeholderTextColor="#bebebe" style={estilos.input} value={ultimaLocalizacao} onChangeText={(value) => setUltimaLocalizacao(value)}/>
                     </View>
-                    <Botao ativo={false} texto={"Adicione uma foto"} onPress={pegarFotoAnuncio}/>
+                    <View>
+                         <Botao ativo={false} texto={"Adicione uma foto"} onPress={pegarFotoAnuncio}/>
+                         {fotoSelecionada && 
+                              <View style={{marginTop: 16, position: "relative"}}>
+                                   <TouchableOpacity style={estilos.btnRemoverFoto} onPress={() => {
+                                        setFotoAnuncio(null);
+                                        setFotoSelecionada(false);
+                                   }}>
+                                        <Ionicons name="close" size={18} color="#313131"/>
+                                   </TouchableOpacity>
+                                   <Image source={fotoAnuncio} style={estilos.imagem}/>
+                                   <Text style={{fontSize: 12, color: "#EF9C66", fontWeight: "bold", textAlign: "center", marginTop: 4}}>Image adicionada com sucesso</Text>
+                              </View>
+                         }
+                    </View>
                     <View style={{width: "100%", height: 2, backgroundColor: "#E8ECF4", marginVertical: 16}}/>
-                    <Botao ativo={true} texto={"Criar anúncio"} onPress={() => addDados(dados)}/>
+                    <Botao ativo={true} texto={"Criar anúncio"} onPress={enviarFormulario}/>
+                    {loading && <Loading/>}
                </View>
-          </SafeAreaView>
+          </ScrollView>
      )
 }
 
@@ -88,9 +123,10 @@ const estilos = StyleSheet.create({
      },
      container: {
           flex: 1,
-          paddingHorizontal: 24,
+          padding: 24,
           rowGap: 12,
           backgroundColor: "#F1F1F1",
+          position: "relative"
      },
      textInput: {
           fontFamily: "CabinMedium",
@@ -119,5 +155,24 @@ const estilos = StyleSheet.create({
           paddingHorizontal: 16,
           paddingVertical: 8,
           color: "#313131"
+     },
+     imagem: {
+          width: "100%",
+          height: altura,
+          borderRadius: 6,
+     },
+     btnRemoverFoto: {
+          width: 28, 
+          height: 28, 
+          borderRadius: 900, 
+          backgroundColor: "#fff", 
+          justifyContent: "center", 
+          alignItems: "center", 
+          position: "absolute",
+          top: 0,
+          right: 0,
+          zIndex: 10,
+          marginTop: 8,
+          marginRight: 8
      }
 })
