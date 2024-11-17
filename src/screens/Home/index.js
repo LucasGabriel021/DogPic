@@ -42,7 +42,7 @@ export default function Home({navigation}) {
 
      return <SafeAreaView style={estilos.safeArea}>
           <View style={estilos.container}>
-               <Topo/>
+               <Topo navigation={ navigation }/>
                <View style={{flex: 1, rowGap: 16}}>
                     <Pressable style={estilos.card} onPress={() => navigation.navigate("Instrucao")}>
                          <Text style={estilos.textoCard}>Ver instruções de uso</Text>
