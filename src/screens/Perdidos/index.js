@@ -1,19 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useFocusEffect } from "@react-navigation/native";
 
 import Topo from "./components/Topo";
 import Card from "./components/Card";
+import buscarAnuncios from "../../services/buscarAnuncios";
 
 export default function Localizar({navigation}) {
+     const [listaAnuncios, setListaAnuncios] = useState([]);
+
+     useFocusEffect(
+          React.useCallback(() => {
+               const fetchAnuncios = async () => {
+                    const anuncios = await buscarAnuncios();
+                    setListaAnuncios(anuncios);
+               }
+               fetchAnuncios();
+          }, [])
+     )
+
+     const render = ({ item }) => {
+          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao}/>
+     }
+
      return (
           <SafeAreaView style={estilos.safeArea}>
                <View style={estilos.container}>
                     <Topo navigation={navigation}/>
-                    <View style={{marginTop: 16, rowGap: 8}}>
-                         <Card nome={"Thor"} raca={"Shi Tzu"} localizacao={"Brasília"}/>
-                         <Card nome={"Thor"} raca={"Shi Tzu"} localizacao={"São Paulo"}/>
-                    </View>
+                    <FlatList 
+                         style={{marginTop: 8}}
+                         data={listaAnuncios}
+                         renderItem={render}
+                         keyExtractor={(item) => item.id}
+                    />
                </View>
           </SafeAreaView>
      )

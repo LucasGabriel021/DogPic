@@ -7,10 +7,10 @@ import placeholder from "../../../../assets/img/placeholder-dog.png";
 const { width } = Dimensions.get("window");
 const larguraImg = width * 0.25;
 
-export default function Topo({nome, raca, localizacao}) {
+export default function Topo({nome, raca, localizacao, imagem}) {
      return (
           <View style={estilos.container}>
-               <Image source={placeholder} style={estilos.imagem}/>
+               <Image source={imagem ? { uri: imagem } : placeholder} style={estilos.imagem}/>
                <View style={{justifyContent: "space-between", paddingVertical: 4}}>
                     <View>
                          <Text style={[estilos.texto, {fontSize: 16, fontWeight: "bold"}]}>{nome}</Text>
@@ -33,6 +33,7 @@ const estilos = StyleSheet.create({
           backgroundColor: "#fff",
           flexDirection: "row",
           columnGap: 8,
+          marginVertical: 8
      },
      imagem: {
           width: larguraImg,
