@@ -1,26 +1,55 @@
 import React from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, Image, StyleSheet, Dimensions, ScrollView, View } from "react-native";
 
-export default function DetalhesAnuncio({ route }) {
+const { height } = Dimensions.get("window");
+const imagemHeight = height * 0.5;
+
+export default function Cachorro({route}) {
      const { item } = route.params;
-     console.log("Item do card: ", item);
 
-     return (
-          <SafeAreaView style={estilos.safeArea}>
-               <Text>Teste</Text>
-          </SafeAreaView>
-     )
+     return <ScrollView>
+          <View style={estilos.container}>
+               <Image style={estilos.imagem} source={{uri: item.imageUrl}} accessibilityLabel="Cachorro"/>
+               <View style={estilos.containerInfos}>
+                    <View style={estilos.conteudo}>
+                         <Text style={[estilos.titulo, {fontSize: 20}]}>{item.nome}</Text>
+                         <Text style={estilos.paragrafo}>{item.raca}</Text>
+                    </View>
+               </View>
+          </View>
+     </ScrollView>
 }
 
 const estilos = StyleSheet.create({
-     safeArea: {
-          flex: 1,
-          backgroundColor: "#F1F1F1",
-     },
      container: {
-          flex: 1,
-          padding: 24,
-          backgroundColor: "#F1F1F1",
+          flex: 1
      },
-})
+     imagem: {
+          width: "100%",
+          height: imagemHeight,
+     },
+     containerInfos: {
+          padding: 24,
+          rowGap: 16
+     },
+     textoRaca: {
+          fontSize: 18,
+          fontWeight: "bold",
+          color: "#EF9C66",
+          fontFamily: "CabinBold"
+     },
+     titulo: {
+          fontSize: 16,
+          lineHeight: 26,
+          color: "#313131",
+          fontFamily: "CabinBold"
+     },
+     paragrafo: {
+          width: "auto",
+          fontSize: 14,
+          lineHeight: 20,
+          color: "#515151",
+          fontFamily: "CabinRegular",
+          textAlign: "justify"
+     },
+});
