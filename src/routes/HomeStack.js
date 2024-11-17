@@ -3,11 +3,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-import Home from "../views/Home/index";
-import Instrucao from '../views/Instrucao/index';
-import Raca from "../views/Raca/index";
-import Camera from "../views/Scan/index";
-import ResultadoScan from "../views/Scan/resultadoScan";
+import Home from "../screens/Home/index";
+import Instrucao from '../screens/Instrucao/index';
+import Raca from "../screens/Raca/index";
+import Camera from "../screens/Scan/index";
+import ResultadoScan from "../screens/Scan/ResultadoScan";
+import Anuncio from "../screens/Perdidos/Anuncio";
+import DetalhesAnuncio from '../screens/Perdidos/DetalhesAnuncio';
 
 export default function HomeStack({ setMostrarNavBar }) {
     return (
@@ -53,6 +55,24 @@ export default function HomeStack({ setMostrarNavBar }) {
                 listeners={{
                     focus: () => setMostrarNavBar("Camera"), // Oculta a tab bar na tela de Resultado
                     blur: () => setMostrarNavBar(null), // Mostra a tab bar ao sair da tela de Resultado
+                }}
+            />
+            <Stack.Screen
+                name="Anuncio"
+                component={Anuncio}
+                options={{title: "Criar anúncio"}}
+                listeners={{
+                    focus: () => setMostrarNavBar("Anuncio"),
+                    blur: () => setMostrarNavBar(null),
+                }}
+            />
+            <Stack.Screen
+                name="DetalhesAnuncio"
+                component={DetalhesAnuncio}
+                options={{title: "Anúncio"}}
+                listeners={{
+                    focus: () => setMostrarNavBar("DetalhesAnuncio"),
+                    blur: () => setMostrarNavBar(null),
                 }}
             />
         </Stack.Navigator>

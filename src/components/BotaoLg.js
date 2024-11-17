@@ -1,14 +1,14 @@
 import React from "react";
-import { Text, Pressable, StyleSheet, Dimensions } from "react-native";
+import { Text, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 
 const { widthScreen } = Dimensions.get("window");
 
 export default function Botao({ativo, texto, onPress}) {
      const estilos = estilosFunc(ativo);
 
-     return <Pressable onPress={onPress} style={estilos.botao}>
+     return <TouchableOpacity onPress={onPress} style={estilos.botao}>
           <Text style={estilos.texto}>{texto}</Text>
-     </Pressable>
+     </TouchableOpacity>
 }
 
 const estilosFunc = (ativo) => StyleSheet.create({
@@ -17,8 +17,7 @@ const estilosFunc = (ativo) => StyleSheet.create({
           paddingVertical: 8,
           backgroundColor: ativo ? "#EF9C66" : "#ffffff",
           borderRadius: 6,
-          flex: 1,
-          elevation: 6,
+          elevation: 2,
           height: 56,
           width: "100%",
           justifyContent: "center"

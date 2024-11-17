@@ -7,7 +7,7 @@ import profileDefault from "../../../../assets/img/profile-default.png";
 export default function Topo() {
      return <View style={estilos.topo}>
           <Image source={logo} style={estilos.imgLogo} accessibilityLabel="DogPic"/>
-          <Image source={profileDefault} style={estilos.imgProfile} accessibilityLabel="Perfil"/>
+          {/* <Image source={profileDefault} style={estilos.imgProfile} accessibilityLabel="Perfil"/> */}
      </View>
 }
 

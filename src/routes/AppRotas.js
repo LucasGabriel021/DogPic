@@ -6,8 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
 
 import HomeStack from "./HomeStack";
-import DogLocScreen from "../views/DogLoc/index";
-import Camera from "../views/Scan/index";
+import Localizar from "../screens/Perdidos/index";
+import Camera from "../screens/Scan/index";
 
 export default function AppRotas() {
     const [mostrarNavBar, setMostrarNavBar] = useState(null);
@@ -22,7 +22,7 @@ export default function AppRotas() {
                         icone = "home-outline";
                     } else if (route.name === "CameraScreen") {
                         icone = "scan-outline";
-                    } else if (route.name === "DogLocScreen") {
+                    } else if (route.name === "Localizar") {
                         icone = "location-outline";
                     }
 
@@ -31,7 +31,7 @@ export default function AppRotas() {
                 tabBarActiveTintColor: "#EF9C66",
                 tabBarInactiveTintColor: 'gray',
                 tabBarStyle: {
-                    display: mostrarNavBar === "Resultado" || mostrarNavBar === "Instrucao" || mostrarNavBar === "Camera" ? "none" : "flex",
+                    display: mostrarNavBar === "Resultado" || mostrarNavBar === "Instrucao" || mostrarNavBar === "Camera" || mostrarNavBar === "Anuncio" || mostrarNavBar === "DetalhesAnuncio" ? "none" : "flex",
                 }
             })}>
                 <Tab.Screen 
@@ -55,10 +55,10 @@ export default function AppRotas() {
                     }}
                 />
                 <Tab.Screen 
-                    name="DogLocScreen" 
-                    component={DogLocScreen} 
+                    name="Localizar" 
+                    component={Localizar} 
                     options={{ 
-                        tabBarLabel: 'DogLoc', 
+                        tabBarLabel: 'Localizar', 
                         headerShown: false 
                     }}
                     listeners={{
