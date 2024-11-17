@@ -2,12 +2,43 @@ import React, { useState } from "react";
 import { Text, View, StyleSheet, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { auth } from "../../config/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
 import Botao from "../../components/BotaoLg";
 
 export default function Registrar({ navigation }) {
      const [nome, setNome] = useState("");
      const [email, setEmail] = useState("");
      const [senha, setSenha] = useState("");
+
+     const realizarRegistro = async () => {
+          try {
+               // Criar usuário
+               const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+               const user = userCredential.user;
+
+               await updateProfile(user, {
+                    displayName: nome,
+               });
+
+               alert("Cadastro realizado com sucesso");
+               navigation.navigate("HomeScreen");
+          } catch (error) {
+               // Tratar erros
+               if (error.code === 'auth/email-already-in-use') {
+                    alert("Este e-mail já está em uso. Tente outro.");
+               } else if (error.code === 'auth/invalid-email') {
+                    alert("O e-mail fornecido é inválido. Verifique e tente novamente.");
+               } else if (error.code === 'auth/weak-password') {
+                    alert("A senha deve ter pelo menos 6 caracteres.");
+               } else {
+                    // Outros erros
+                    console.error("Erro ao criar usuário: ", error);
+                    alert("Ocorreu um erro, tente novamente.");
+               }
+          }
+     }
 
      return (
           <SafeAreaView style={estilos.container}>
@@ -19,14 +50,14 @@ export default function Registrar({ navigation }) {
                     </View>
                     <View style={{marginTop: 8}}>
                          <Text style={estilos.textInput}>Informe seu e-mail *</Text>
-                         <TextInput style={estilos.input} value={email} onChangeText={(value) => setEmail(value)}/>
+                         <TextInput keyboardType="email-address" style={estilos.input} value={email} onChangeText={(value) => setEmail(value)}/>
                     </View>
                     <View style={{marginTop: 8}}>
                          <Text style={estilos.textInput}>Informe sua senha *</Text>
-                         <TextInput style={estilos.input} value={senha} onChangeText={(value) => setSenha(value)}/>
+                         <TextInput style={estilos.input} value={senha} onChangeText={(value) => setSenha(value)} secureTextEntry/>
                     </View>
                </View>
-               <Botao ativo={true} texto={"Cadastrar"} onPress={() => console.log("Cadastrar usuário")}/>
+               <Botao ativo={true} texto={"Cadastrar"} onPress={realizarRegistro}/>
           </SafeAreaView>
      )
 }
