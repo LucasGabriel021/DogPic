@@ -1,4 +1,4 @@
-import Ract from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -7,9 +7,9 @@ import placeholder from "../../../../assets/img/placeholder-dog.png";
 const { width } = Dimensions.get("window");
 const larguraImg = width * 0.25;
 
-export default function Topo({nome, raca, localizacao, imagem}) {
+export default function Card({nome, raca, localizacao, imagem, onPress}) {
      return (
-          <View style={estilos.container}>
+          <TouchableOpacity style={estilos.container} onPress={onPress}>
                <Image source={imagem ? { uri: imagem } : placeholder} style={estilos.imagem}/>
                <View style={{justifyContent: "space-between", paddingVertical: 4}}>
                     <View>
@@ -21,7 +21,7 @@ export default function Topo({nome, raca, localizacao, imagem}) {
                          <Text style={[estilos.texto, {color: "#5B5B5B"}]}>{localizacao}</Text>
                     </View>
                </View>
-          </View>
+          </TouchableOpacity>
      )
 }
 

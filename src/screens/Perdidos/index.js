@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, FlatList, ScrollView } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -21,11 +21,11 @@ export default function Localizar({navigation}) {
      )
 
      const renderItem = ({ item }) => {
-          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao}/>
+          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} onPress={() => navigation.navigate("DetalhesAnuncio", { item })}/>
      }
 
      return (
-          <ScrollView style={estilos.safeArea}>
+          <SafeAreaView style={estilos.safeArea}>
                <View style={estilos.container}>
                     <Topo navigation={navigation}/>
                     <FlatList 
@@ -35,7 +35,7 @@ export default function Localizar({navigation}) {
                          keyExtractor={(item) => item.id}
                     />
                </View>
-          </ScrollView>
+          </SafeAreaView>
      )
 }
 

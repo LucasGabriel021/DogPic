@@ -9,6 +9,7 @@ import Raca from "../screens/Raca/index";
 import Camera from "../screens/Scan/index";
 import ResultadoScan from "../screens/Scan/ResultadoScan";
 import Anuncio from "../screens/Perdidos/Anuncio";
+import DetalhesAnuncio from '../screens/Perdidos/DetalhesAnuncio';
 
 export default function HomeStack({ setMostrarNavBar }) {
     return (
@@ -62,6 +63,15 @@ export default function HomeStack({ setMostrarNavBar }) {
                 options={{title: "Criar anúncio"}}
                 listeners={{
                     focus: () => setMostrarNavBar("Anuncio"),
+                    blur: () => setMostrarNavBar(null),
+                }}
+            />
+            <Stack.Screen
+                name="DetalhesAnuncio"
+                component={DetalhesAnuncio}
+                options={{title: "Anúncio"}}
+                listeners={{
+                    focus: () => setMostrarNavBar("DetalhesAnuncio"),
                     blur: () => setMostrarNavBar(null),
                 }}
             />
