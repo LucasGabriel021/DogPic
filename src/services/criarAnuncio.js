@@ -1,9 +1,8 @@
 import { firestore, storage } from "../config/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 export default async function addDados(dados) {
-     // console.log("DADOS:", dados);
      const { foto, nome, descricao, localizacao, raca } = dados;
 
      try {
@@ -19,7 +18,13 @@ export default async function addDados(dados) {
                imageUrl = await getDownloadURL(imageRef);
           }
 
-          await addDoc(collection(firestore, "anuncios"), {
+          // Gerar ID único
+          const anuncioId = `${nome}_${Date.now()}`;
+
+          // Criar documento com ID personalizado
+          const anuncioRef = doc(firestore, "anuncios", anuncioId);
+
+          await setDoc(anuncioRef, {
                nome, 
                descricao, 
                localizacao,
