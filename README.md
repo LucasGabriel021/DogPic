@@ -9,6 +9,11 @@ Projeto de finalização de curso
 - Exibir Detalhes da Raça de Cachorro: Apresenta uma visão completa da raça de cachorro selecionada, incluindo foto, características, necessidades de cuidados e saúde.
 - Upload ou Captura de Foto para Identificação da(s) Raça(s): Oferece ao usuário a opção de carregar uma foto existente ou tirar uma nova foto do cachorro. Utiliza tecnologia de reconhecimento de imagem para identificar a raça e fornecer informações detalhadas sobre o animal.
 
+<p>
+  <img src="assets/img/screenHome.jpeg" alt="DogPic" style="display:inline; width:45%;" />
+  <img src="assets/img/screenScan.jpeg" alt="DogPic" style="display:inline; width:45%;" />
+</p>
+
 ## Ferramentas utilizadas
 
 - Expo
