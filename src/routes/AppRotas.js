@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
-import HomeStack from "./HomeStack";
+import AppStack from "./AppStack";
 import Localizar from "../screens/Perdidos/index";
 import Camera from "../screens/Scan/index";
 
@@ -40,7 +40,7 @@ export default function AppRotas() {
                         tabBarLabel: 'DogLoc', 
                         headerShown: false 
                     }}>
-                    {() => <HomeStack setMostrarNavBar={setMostrarNavBar} />}
+                    {() => <AppStack setMostrarNavBar={setMostrarNavBar} />}
                 </Tab.Screen>
                 <Tab.Screen 
                     name="CameraScreen" 

@@ -11,11 +11,11 @@ import ResultadoScan from "../screens/Scan/ResultadoScan";
 import Anuncio from "../screens/Perdidos/Anuncio";
 import DetalhesAnuncio from '../screens/Perdidos/DetalhesAnuncio';
 
-export default function HomeStack({ setMostrarNavBar }) {
+export default function AppStack({ setMostrarNavBar }) {
     return (
         <Stack.Navigator initialRouteName="Home">
             <Stack.Screen 
-                name="HomeStack" 
+                name="HomeScreen" 
                 component={Home} 
                 options={{ headerShown: false }} 
                 listeners={{
