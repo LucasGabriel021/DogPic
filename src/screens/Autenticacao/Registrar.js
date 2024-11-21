@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import { Text, View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { auth } from "../../config/firebase";
@@ -44,6 +44,9 @@ export default function Registrar({ navigation }) {
           <SafeAreaView style={estilos.container}>
                <Text style={estilos.titulo}>Faça seu cadastro para começar</Text>
                <View style={{marginTop: 8}}>
+                    <TouchableOpacity>
+                         
+                    </TouchableOpacity>
                     <View>
                          <Text style={estilos.textInput}>Informe seu nome *</Text>
                          <TextInput style={estilos.input} value={nome} onChangeText={(value) => setNome(value)}/>
