@@ -1,13 +1,15 @@
 import React, { useState, } from "react";
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions, ScrollView } from "react-native";
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions, ScrollView, Alert } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 import { auth } from "../../config/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import uploadImagemPerfil from "../../services/uploadImagemPerfil";
 
-import uploadImagem from "../../utils/uploadImagem";
+import pegarImagem from "../../utils/pegarImagem";
 import Botao from "../../components/BotaoLg";
 import bgLogin from "../../../assets/img/bg-login.png";
+import Loading from "../../components/Loading";
 
 const { height } = Dimensions.get("window");
 const altura = height * 0.3;
@@ -18,37 +20,43 @@ export default function Registrar({ navigation }) {
      const [email, setEmail] = useState("");
      const [senha, setSenha] = useState("");
      const [mostrarImagem, setMostrarImagem] = useState(false);
+     const [loading, setLoading] = useState(false);
 
      const realizarRegistro = async () => {
           try {
+               setLoading(true);
                // Criar usuário
                const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
                const user = userCredential.user;
 
+               let fotoURL = null;
+               if(imagemPerfil?.uri) {
+                    fotoURL = await uploadImagemPerfil(imagemPerfil.uri, user.uid);
+               }
+
                await updateProfile(user, {
                     displayName: nome,
+                    photoURL: fotoURL
                });
 
-               alert("Cadastro realizado com sucesso");
-               navigation.navigate("HomeScreen");
+               Alert.alert("Cadastro realizado com sucesso");
+               navigation.navigate("Perfil");
           } catch (error) {
-               // Tratar erros
                if (error.code === 'auth/email-already-in-use') {
-                    alert("Este e-mail já está em uso. Tente outro.");
+                    Alert.alert("Este e-mail já está em uso. Tente outro.");
                } else if (error.code === 'auth/invalid-email') {
-                    alert("O e-mail fornecido é inválido. Verifique e tente novamente.");
+                    Alert.alert("O e-mail fornecido é inválido. Verifique e tente novamente.");
                } else if (error.code === 'auth/weak-password') {
-                    alert("A senha deve ter pelo menos 6 caracteres.");
+                    Alert.alert("A senha deve ter pelo menos 6 caracteres.");
                } else {
-                    // Outros erros
                     console.error("Erro ao criar usuário: ", error);
-                    alert("Ocorreu um erro, tente novamente.");
+                    Alert.alert("Ocorreu um erro, tente novamente.");
                }
           }
      }
 
-     const uploadFotoPerfil = async () => {
-          const uri = await uploadImagem();
+     const pegarFotoPerfil = async () => {
+          const uri = await pegarImagem();
           if (uri) {
                setImagemPerfil({ uri });
                setMostrarImagem(true);
@@ -57,12 +65,13 @@ export default function Registrar({ navigation }) {
 
      return (
           <ScrollView>
+               {loading && <Loading/>}
                <Image source={bgLogin} style={estilos.imagemBg} />
                <View style={estilos.container}>
                     <Text style={estilos.titulo}>Faça seu cadastro para começar</Text>
                     <View style={{ marginTop: 12 }}>
                          <View style={{ width: "100%", alignItems: "center", marginBottom: 16 }}>
-                              <TouchableOpacity style={estilos.btnImagem} onPress={() => uploadFotoPerfil()}>
+                              <TouchableOpacity style={estilos.btnImagem} onPress={() => pegarFotoPerfil()}>
                                    {mostrarImagem ?
                                         <Image source={imagemPerfil} style={estilos.imagemPerfil} />
                                         :

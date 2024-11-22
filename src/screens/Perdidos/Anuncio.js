@@ -7,7 +7,7 @@ import Botao from "../../components/BotaoLg";
 import racas from "../../mocks/racas";
 import addDados from "../../services/criarAnuncio";
 import Loading from "./components/Loading";
-import uploadImagem from "../../utils/uploadImagem";
+import pegarImagem from "../../utils/pegarImagem";
 
 const { height } = Dimensions.get("window");
 const altura = height * 0.2;
@@ -22,7 +22,7 @@ export default function Anuncio({navigation}) {
      const [loading, setLoading] = useState(false);
 
      const pegarFotoAnuncio = async () => {
-          const uri = await uploadImagem();
+          const uri = await pegarImagem();
 
           if(uri) {
                setFotoAnuncio({ uri });

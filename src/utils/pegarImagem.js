@@ -1,7 +1,7 @@
 import { Alert } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 
-export default async function uploadImagem() {
+export default async function pegarImagem() {
      let resultado = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           allowsEditing: true,

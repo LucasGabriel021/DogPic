@@ -1,12 +1,13 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import LottieView from 'lottie-react-native';
 
-import Animacao from "../../assets/animations/animation2.json";
+import Animacao from "../../assets/animations/animation.json";
 
-export default function Loading() {
+export default function LoadingAnalise() {
      return <View style={estilos.container}>
           <LottieView source={Animacao} style={estilos.animation} autoPlay loop accessibilityLabel="Animação de carregamento"/>
+          <Text style={estilos.texto} accessibilityLabel="Analisando a imagem...">Analisando a imagem...</Text>
      </View>
 }
 

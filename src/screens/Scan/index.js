@@ -6,7 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { Ionicons } from '@expo/vector-icons';
 import { analiseDogClarifai } from "../../services/analiseDogScan";
-import Loading from "../../components/Loading";
+import LoadingAnalise from "../../components/LoadingAnalise";
 
 export default function CameraScreen({ navigation }) {
      const [loading, setLoading] = useState(false);
@@ -142,7 +142,7 @@ export default function CameraScreen({ navigation }) {
 
      return (
           <View style={estilos.container}>
-               {loading && <Loading />}
+               {loading && <LoadingAnalise />}
                {isFocused && (
                     <>
                          <Camera

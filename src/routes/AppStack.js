@@ -12,6 +12,7 @@ import Camera from "../screens/Scan/index";
 import ResultadoScan from "../screens/Scan/ResultadoScan";
 import Anuncio from "../screens/Perdidos/Anuncio";
 import DetalhesAnuncio from '../screens/Perdidos/DetalhesAnuncio';
+import Perfil from '../screens/Perfil/index';
 
 export default function AppStack({ setMostrarNavBar }) {
     return (
@@ -30,6 +31,15 @@ export default function AppStack({ setMostrarNavBar }) {
                 options={{ title: "Autenticação" }} 
                 listeners={{
                     focus: () => setMostrarNavBar("Autenticacao"), // Garante que a tab bar será exibida ao entrar na Instrução
+                    blur: () => setMostrarNavBar(null)
+               }}
+            />
+            <Stack.Screen 
+                name="Perfil" 
+                component={Perfil} 
+                options={{ title: "Perfil" }} 
+                listeners={{
+                    focus: () => setMostrarNavBar("Perfil"), // Garante que a tab bar será exibida ao entrar na Instrução
                     blur: () => setMostrarNavBar(null)
                }}
             />
