@@ -1,24 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../../config/firebase";
+import { UserContext } from "../../../context/UserContext";
 
 import logo from "../../../../assets/img/logo-horizontal.png";
 
 export default function Topo({ navigation }) {
-     const [user, setUser] = useState(null);
-
-     /**
-      * Atualiza o componente após o usuário estiver feito o cadastro ou login
-      */
-     useEffect(() => {
-          const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-               setUser(currentUser);
-          });
-
-          return () => unsubscribe();
-     }, []);
+     const { user } = useContext(UserContext);
 
      const verificarAutenticacao = () => {
           if(user) {
@@ -28,12 +16,20 @@ export default function Topo({ navigation }) {
           }
      }
 
-     return <View style={estilos.topo}>
-          <Image source={logo} style={estilos.imgLogo} accessibilityLabel="DogPic"/>
-          <TouchableOpacity onPress={() => verificarAutenticacao()}>
-          <Ionicons name="person-circle" size={32} color="#8391A1"/>
-          </TouchableOpacity>
-     </View>
+     return (
+          <View style={estilos.topo}>
+               <Image source={logo} style={estilos.imgLogo} accessibilityLabel="DogPic"/>
+               {user ? 
+                    <TouchableOpacity onPress={() => verificarAutenticacao()}>
+                         <Image source={{ uri: user.photoURL }} style={estilos.imgProfile} accessibilityLabel="Usuário"/> 
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity onPress={() => verificarAutenticacao()}>
+                         <Ionicons name="person-circle" size={32} color="#8391A1"/>
+                    </TouchableOpacity>
+               }
+          </View>
+     )
 }
 
 const estilos = StyleSheet.create({
@@ -50,6 +46,7 @@ const estilos = StyleSheet.create({
      },
      imgProfile: {
           height: 38,
-          width: 38
+          width: 38,
+          borderRadius: 999
      }
 });

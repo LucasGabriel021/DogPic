@@ -3,6 +3,7 @@ import { useFonts, Cabin_400Regular, Cabin_500Medium, Cabin_700Bold } from "@exp
 import React, { useEffect } from 'react';
 import * as SplashScreen from "expo-splash-screen";
 import { View } from 'react-native';
+import { UserProvider } from './src/context/UserContext';
 
 import AppRotas from "./src/routes/AppRotas";
 
@@ -35,14 +36,18 @@ export default function App() {
    * será chamado o método hideAsync() para ocultar o Splash Screen
    */
   useEffect(() => {
-    if(fontCarregada) {
+    if (fontCarregada) {
       SplashScreen.hideAsync();
     }
   }, [fontCarregada]);
 
-  if(!fontCarregada) {
-    return <View/>
+  if (!fontCarregada) {
+    return <View />
   }
 
-  return <AppRotas/>
+  return (
+    <UserProvider>
+      <AppRotas />
+    </UserProvider>
+  )
 }

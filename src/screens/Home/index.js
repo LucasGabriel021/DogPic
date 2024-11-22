@@ -10,13 +10,15 @@ import racas from "../../mocks/racas";
 const { widthScreen } = Dimensions.get("window");
 
 const renderItem = ({item}, navigation) => {
-     return <Pressable style={estilos.cardLista} onPress={() => navigation.navigate("Raca", { item })}>
-          <Image source={{uri: item.imagem}} accessibilityLabel="Cachorro" style={estilos.imagemLista}/>
-          <View>
-               <Text style={estilos.textoRaca}>{item.raca}</Text>
-               <Text style={estilos.textoPorte}>{item.porte}</Text>
-          </View>
-     </Pressable>
+     return (
+          <Pressable style={estilos.cardLista} onPress={() => navigation.navigate("Raca", { item })}>
+               <Image source={{uri: item.imagem}} accessibilityLabel="Cachorro" style={estilos.imagemLista}/>
+               <View>
+                    <Text style={estilos.textoRaca}>{item.raca}</Text>
+                    <Text style={estilos.textoPorte}>{item.porte}</Text>
+               </View>
+          </Pressable>
+     )
 }
 
 export default function Home({navigation}) {
@@ -40,23 +42,25 @@ export default function Home({navigation}) {
           setItensFiltrados(resultados);
      }, [pesquisa, filtroPorte]); // Toda vez que esse valores forem alterados o useEffect será executado
 
-     return <SafeAreaView style={estilos.safeArea}>
-          <View style={estilos.container}>
-               <Topo navigation={ navigation }/>
-               <View style={{flex: 1, rowGap: 16}}>
-                    <Pressable style={estilos.card} onPress={() => navigation.navigate("Instrucao")}>
-                         <Text style={estilos.textoCard}>Ver instruções de uso</Text>
-                         <Image style={estilos.imagemCard} source={cachorro} accessibilityLabel="Cachorro"/>
-                    </Pressable>
-                    <BarraPesquisa pesquisa={pesquisa} setPesquisa={setPesquisa} setFiltroPorte={setFiltroPorte}/>
-                    <FlatList
-                         data={itensFiltrados}
-                         renderItem={(props) => renderItem(props, navigation)}
-                         keyExtractor={item => item.id}
-                    />
+     return (
+          <SafeAreaView style={estilos.safeArea}>
+               <View style={estilos.container}>
+                    <Topo navigation={ navigation }/>
+                    <View style={{flex: 1, rowGap: 16}}>
+                         <Pressable style={estilos.card} onPress={() => navigation.navigate("Instrucao")}>
+                              <Text style={estilos.textoCard}>Ver instruções de uso</Text>
+                              <Image style={estilos.imagemCard} source={cachorro} accessibilityLabel="Cachorro"/>
+                         </Pressable>
+                         <BarraPesquisa pesquisa={pesquisa} setPesquisa={setPesquisa} setFiltroPorte={setFiltroPorte}/>
+                         <FlatList
+                              data={itensFiltrados}
+                              renderItem={(props) => renderItem(props, navigation)}
+                              keyExtractor={item => item.id}
+                         />
+                    </View>
                </View>
-          </View>
-     </SafeAreaView>
+          </SafeAreaView>
+     )
      
 }
 
