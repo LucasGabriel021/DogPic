@@ -1,4 +1,4 @@
-import React, { useState, } from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions, ScrollView, Alert } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -66,7 +66,7 @@ export default function Registrar({ navigation }) {
      return (
           <ScrollView>
                {loading && <Loading/>}
-               <Image source={bgLogin} style={estilos.imagemBg} />
+               <Image source={bgLogin} style={estilos.imagemBg}/>
                <View style={estilos.container}>
                     <Text style={estilos.titulo}>Faça seu cadastro para começar</Text>
                     <View style={{ marginTop: 12 }}>
@@ -93,6 +93,9 @@ export default function Registrar({ navigation }) {
                          </View>
                     </View>
                     <Botao ativo={true} texto={"Cadastrar"} onPress={realizarRegistro} />
+                    <TouchableOpacity style={{marginTop: 12}} onPress={() => navigation.navigate("Login")}>
+                         <Text style={estilos.textoLogin}>Já tem uma conta? <Text style={[estilos.textoLogin, { color: "#EF9C66" }]}>Faça o login agora</Text></Text>
+                    </TouchableOpacity>
                </View>
           </ScrollView>
      )
@@ -140,6 +143,13 @@ const estilos = StyleSheet.create({
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "#F7E2C4"
+     },
+     textoLogin: {
+          fontFamily: "CabinMedium",
+          fontSize: 12,
+          fontWeight: "normal",
+          color: "#313131", 
+          textAlign: "center"
      },
      imagemPerfil: {
           width: 100,

@@ -15,7 +15,7 @@ export default function Autenticacao({ navigation }) {
                <Text style={estilos.titulo}>Faça parte da {"\n"} família DogPic</Text>
                <View style={{marginTop: 8, width: "100%", rowGap: 8}}>
                     <Botao ativo={true} texto={"Registrar"} onPress={() => navigation.navigate("Registrar")}/>
-                    <Botao texto={"Login"} onPress={() => navigation.navigate("Perfil")}/>
+                    <Botao texto={"Login"} onPress={() => navigation.navigate("Login")}/>
                </View>
           </SafeAreaView>
      )
