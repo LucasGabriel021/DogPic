@@ -1,26 +1,88 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
+import fazerLogout from '../utils/fazerLogout';
 
 const Stack = createStackNavigator();
 
 import Home from "../screens/Home/index";
+import Autenticacao from "../screens/Autenticacao/index";
+import Registrar from "../screens/Autenticacao/Registrar";
+import Login from "../screens/Autenticacao/Login";
+import RecuperarSenha from "../screens/Autenticacao/RecuperarSenha";
 import Instrucao from '../screens/Instrucao/index';
 import Raca from "../screens/Raca/index";
 import Camera from "../screens/Scan/index";
 import ResultadoScan from "../screens/Scan/ResultadoScan";
 import Anuncio from "../screens/Perdidos/Anuncio";
 import DetalhesAnuncio from '../screens/Perdidos/DetalhesAnuncio';
+import Perfil from '../screens/Perfil/index';
+import { TouchableOpacity } from 'react-native';
 
-export default function HomeStack({ setMostrarNavBar }) {
+export default function AppStack({ setMostrarNavBar }) {
     return (
         <Stack.Navigator initialRouteName="Home">
             <Stack.Screen 
-                name="HomeStack" 
+                name="HomeScreen" 
                 component={Home} 
                 options={{ headerShown: false }} 
                 listeners={{
                     focus: () => setMostrarNavBar(null), // Garante que a tab bar será exibida ao entrar na HomeStack
                 }}
+            />
+            <Stack.Screen 
+                name="Autenticacao" 
+                component={Autenticacao} 
+                options={{ title: "Autenticação" }} 
+                listeners={{
+                    focus: () => setMostrarNavBar("Autenticacao"), // Garante que a tab bar será exibida ao entrar na Instrução
+                    blur: () => setMostrarNavBar(null)
+               }}
+            />
+            <Stack.Screen 
+                name="Perfil" 
+                component={Perfil} 
+                options={({navigation}) => ({
+                    title: "Perfil",
+                    headerRight: () => {
+                        return (
+                            <TouchableOpacity onPress={() => fazerLogout(navigation)}>
+                                <Ionicons name="exit" size={24} color={"#313131"} style={{marginRight: 16}}/>
+                            </TouchableOpacity>
+                        )
+                    }
+                })} 
+                listeners={{
+                    focus: () => setMostrarNavBar("Perfil"), // Garante que a tab bar será exibida ao entrar na Instrução
+                    blur: () => setMostrarNavBar(null)
+               }}
+            />
+            <Stack.Screen 
+                name="Registrar" 
+                component={Registrar} 
+                options={{ title: "Cadastrar" }} 
+                listeners={{
+                    focus: () => setMostrarNavBar("Registrar"), // Garante que a tab bar será exibida ao entrar na Instrução
+                    blur: () => setMostrarNavBar(null)
+               }}
+            />
+            <Stack.Screen 
+                name="Login" 
+                component={Login} 
+                options={{ title: "Login" }} 
+                listeners={{
+                    focus: () => setMostrarNavBar("Login"), // Garante que a tab bar será exibida ao entrar na Instrução
+                    blur: () => setMostrarNavBar(null)
+               }}
+            />
+            <Stack.Screen 
+                name="RecuperarSenha" 
+                component={RecuperarSenha} 
+                options={{ title: "Recuperar senha" }} 
+                listeners={{
+                    focus: () => setMostrarNavBar("RecuperarSenha"), // Garante que a tab bar será exibida ao entrar na Instrução
+                    blur: () => setMostrarNavBar(null)
+               }}
             />
             <Stack.Screen 
                 name="Instrucao" 

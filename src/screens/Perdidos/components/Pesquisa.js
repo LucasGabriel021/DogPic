@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import BarraPesquisa from "./BarraPesquisa";
 
-export default function Topo({navigation}) {
+export default function Pesquisa({navigation}) {
      return (
           <View style={estilos.container}>
                <View style={{flex: 1}}>

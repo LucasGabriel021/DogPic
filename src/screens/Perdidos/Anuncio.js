@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput, Image, Dimensions, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
-import * as ImagePicker from 'expo-image-picker';
+import { Alert, Text, View, StyleSheet, TextInput, Image, Dimensions, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -8,6 +7,7 @@ import Botao from "../../components/BotaoLg";
 import racas from "../../mocks/racas";
 import addDados from "../../services/criarAnuncio";
 import Loading from "./components/Loading";
+import pegarImagem from "../../utils/pegarImagem";
 
 const { height } = Dimensions.get("window");
 const altura = height * 0.2;
@@ -22,24 +22,17 @@ export default function Anuncio({navigation}) {
      const [loading, setLoading] = useState(false);
 
      const pegarFotoAnuncio = async () => {
-          let resultado = await ImagePicker.launchImageLibraryAsync({
-               mediaTypes: ImagePicker.MediaTypeOptions.Images,
-               allowsEditing: true,
-               quality: 1,
-               base64: true,
-          });
+          const uri = await pegarImagem();
 
-          if (!resultado.canceled) {
-               setFotoAnuncio({ uri: resultado.assets[0].uri });
+          if(uri) {
+               setFotoAnuncio({ uri });
                setFotoSelecionada(true);
-          } else {
-               alert("Não foi selecionada nenhuma imagem!");
           }
-     };
+     }
 
      const validaFormulario = () => {
           if(!fotoAnuncio || !nomeCachorro || !descricaoAnuncio || !ultimaLocalizacao || !selecaoRaca) {
-               alert("Por favor, preencha todos os campos.");
+               Alert.alert("Por favor, preencha todos os campos.");
                return false;
           }
           return true;
@@ -57,13 +50,13 @@ export default function Anuncio({navigation}) {
                })
                .then(() => {
                     setLoading(false);
-                    alert("Anúncio criado com sucesso!");
+                    Alert.alert("Anúncio criado com sucesso!");
                     navigation.goBack();
                })
                .catch((error) => {
                     setLoading(false);
                     console.error("Erro ao criar anúncio ", error);
-                    alert("Houve um problema ap criar o anúncio. Tente novamente");
+                    Alert.alert("Houve um problema ap criar o anúncio. Tente novamente");
                });
           }
      }

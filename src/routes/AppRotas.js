@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
-import HomeStack from "./HomeStack";
+import AppStack from "./AppStack";
 import Localizar from "../screens/Perdidos/index";
 import Camera from "../screens/Scan/index";
 
@@ -31,7 +31,7 @@ export default function AppRotas() {
                 tabBarActiveTintColor: "#EF9C66",
                 tabBarInactiveTintColor: 'gray',
                 tabBarStyle: {
-                    display: mostrarNavBar === "Resultado" || mostrarNavBar === "Instrucao" || mostrarNavBar === "Camera" || mostrarNavBar === "Anuncio" || mostrarNavBar === "DetalhesAnuncio" ? "none" : "flex",
+                    display: mostrarNavBar === "Resultado" || mostrarNavBar === "Autenticacao" || mostrarNavBar === "Perfil" || mostrarNavBar === "Registrar" || mostrarNavBar === "Login" || mostrarNavBar === "RecuperarSenha" || mostrarNavBar === "Instrucao" || mostrarNavBar === "Camera" || mostrarNavBar === "Anuncio" || mostrarNavBar === "DetalhesAnuncio" ? "none" : "flex",
                 }
             })}>
                 <Tab.Screen 
@@ -40,7 +40,7 @@ export default function AppRotas() {
                         tabBarLabel: 'DogLoc', 
                         headerShown: false 
                     }}>
-                    {() => <HomeStack setMostrarNavBar={setMostrarNavBar} />}
+                    {() => <AppStack setMostrarNavBar={setMostrarNavBar} />}
                 </Tab.Screen>
                 <Tab.Screen 
                     name="CameraScreen" 

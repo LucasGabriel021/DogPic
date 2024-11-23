@@ -16,7 +16,7 @@ const estilosFunc = (ativo) => StyleSheet.create({
           backgroundColor: ativo ? "#EF9C66" : "#ffffff",
           borderRadius: 16,
           flex: 1,
-          elevation: 6,
+          elevation: 4,
      },
      texto: {
           color: ativo ? "#ffffff" : "#EF9C66",
