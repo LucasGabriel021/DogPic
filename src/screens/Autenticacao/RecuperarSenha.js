@@ -14,12 +14,19 @@ export default function RecuperarSenha({ navigation }) {
      const [loading, setLoading] = useState(false);
 
      const enviar = () => {
-          if(!email) {
-               Alert.alert("Por favor, insira um e-mail.");
-               return;
+          try {
+               if(!email) {
+                    Alert.alert("Por favor, insira um e-mail.");
+                    return;
+               }
+               setLoading(true);
+               enviarEmailRecuperacao(email, navigation);
+          } catch (error) {
+               console.error("Erro ao recuperar a senha: ", error);
+          } finally {
+               setLoading(false);
           }
-          setLoading(true);
-          enviarEmailRecuperacao(email, navigation);
+
      }
 
      return (

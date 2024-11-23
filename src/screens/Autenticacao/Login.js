@@ -5,28 +5,41 @@ import bgLogin from "../../../assets/img/bg-login.png";
 import Loading from "../../components/Loading";
 import Botao from "../../components/BotaoLg";
 import fazerLogin from "../../utils/fazerLogin";
-import enviarEmailRecuperacao from "../../utils/enviarEmailRecuperacao";
+import { redefinirStackAutenticacao } from "../../utils/redefinirStack";
 
 const { height } = Dimensions.get("window");
 const altura = height * 0.3;
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
      const [email, setEmail] = useState("");
      const [senha, setSenha] = useState("");
      const [loading, setLoading] = useState(false);
 
      const logar = () => {
-          if(!email || !senha) {
-               Alert.alert("Por favor, preencha todos os campos.")
+          if (!email || !senha) {
+               Alert.alert("Por favor, preencha todos os campos.");
+               return;
           }
           setLoading(true);
-          fazerLogin(email, senha, navigation);
+
+          fazerLogin(
+               email,
+               senha,
+               () => {
+                    redefinirStackAutenticacao(navigation);
+                    setLoading(false);
+               },
+               (errorMessage) => {
+                    Alert.alert("Erro: ", errorMessage);
+                    setLoading(false);
+               }
+          );
      }
 
      return (
           <ScrollView contentContainerStyle={estilos.scrollContainer}>
-               {loading && <Loading/>}
-               <Image source={bgLogin} style={estilos.imagemBg}/>
+               {loading && <Loading />}
+               <Image source={bgLogin} style={estilos.imagemBg} />
                <View style={estilos.container}>
                     <Text style={estilos.titulo}>Bem vindo de volta</Text>
                     <View style={{ marginTop: 12 }}>
@@ -52,8 +65,8 @@ export default function Login({navigation}) {
 }
 
 const estilos = StyleSheet.create({
-     scrollContainer: { 
-          flexGrow: 1, 
+     scrollContainer: {
+          flexGrow: 1,
           justifyContent: "center"
      },
      container: {
@@ -110,7 +123,7 @@ const estilos = StyleSheet.create({
           fontFamily: "CabinMedium",
           fontSize: 12,
           fontWeight: "normal",
-          color: "#313131", 
+          color: "#313131",
           textAlign: "center"
      },
 })

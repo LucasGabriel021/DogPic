@@ -2,24 +2,28 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { Alert } from "react-native";
 
-export default async function fazerLogin(email, senha, navigation) {
+export default async function fazerLogin(email, senha, onSucess, onError) {
      try {
           await signInWithEmailAndPassword(auth, email, senha);
-          navigation.navigate("Perfil");
+          if(onSucess) {
+            onSucess();
+          }
      } catch (error) {
           console.error("Erro em realizar o login. Tente novamente! ", error);
-          switch (error.code) {
-               case "auth/invalid-email":
-                   Alert.alert("O e-mail informado é inválido.");
-                   break;
-               case "auth/user-not-found":
-                   Alert.alert("Usuário não encontrado.");
-                   break;
-               case "auth/wrong-password":
-                   Alert.alert("Senha incorreta.");
-                   break;
-               default:
-                   Alert.alert("Não foi possível realizar o login. Tente novamente.");
+          if(onError) {
+            switch (error.code) {
+                case "auth/invalid-email":
+                    onError("O e-mail informado é inválido.");
+                    break;
+                case "auth/user-not-found":
+                    onError("Usuário não encontrado.");
+                    break;
+                case "auth/wrong-password":
+                    onError("Senha incorreta.");
+                    break;
+                default:
+                    onError("Não foi possível realizar o login. Tente novamente.");
+           }
           }
      }
 }

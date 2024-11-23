@@ -5,12 +5,12 @@ import { Alert } from "react-native";
 
 import uploadImagemPerfil from "../services/uploadImagemPerfil";
 
-export default async function fazerCadastro(foto, nome, email, senha, navigation) {
+export default async function fazerCadastro(foto, nome, email, senha, onSucess, onError) {
      try {
-          // console.log("Imagem: ", foto);
           // Criar usuário
           const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
           const user = userCredential.user;
+
 
           let fotoURL = null;
           if(foto?.uri) {
@@ -22,18 +22,27 @@ export default async function fazerCadastro(foto, nome, email, senha, navigation
                photoURL: fotoURL
           });
 
-          Alert.alert("Cadastro realizado com sucesso");
-          navigation.navigate("Perfil");
+          if(onSucess) {
+               onSucess();
+          }
+          
      } catch (error) {
-          if (error.code === 'auth/email-already-in-use') {
-               Alert.alert("Este e-mail já está em uso. Tente outro.");
-          } else if (error.code === 'auth/invalid-email') {
-               Alert.alert("O e-mail fornecido é inválido. Verifique e tente novamente.");
-          } else if (error.code === 'auth/weak-password') {
-               Alert.alert("A senha deve ter pelo menos 6 caracteres.");
-          } else {
-               console.error("Erro ao criar usuário: ", error);
-               Alert.alert("Ocorreu um erro, tente novamente.");
+          if(onError) {
+               switch(error.code) {
+                    case "auth/email-already-in-use": 
+                         onError("Este e-mail já está em uso. Tente outro.");
+                         break;
+                    case "auth/invalid-email":
+                         onError("O e-mail fornecido é inválido. Verifique e tente novamente.");
+                         break;
+                    case "auth/weak-password":
+                         onError("A senha deve ter pelo menos 6 caracteres.");
+                         break;
+                    default: 
+                         console.error("Erro ao criar usuário: ", error);
+                         onError("Ocorreu um erro, tente novamente.");
+                         break;
+               }
           }
      }
 }
