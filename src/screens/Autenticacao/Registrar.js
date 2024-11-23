@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions, ScrollView, Alert } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
-import { auth } from "../../config/firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import uploadImagemPerfil from "../../services/uploadImagemPerfil";
+import fazerCadastro from "../../utils/fazerCadastro";
 
 import pegarImagem from "../../utils/pegarImagem";
 import Botao from "../../components/BotaoLg";
@@ -22,36 +20,16 @@ export default function Registrar({ navigation }) {
      const [mostrarImagem, setMostrarImagem] = useState(false);
      const [loading, setLoading] = useState(false);
 
-     const realizarRegistro = async () => {
-          try {
+     const cadastrar = async () => {
+          if(imagemPerfil && nome !== "" && email !== "" && senha !== "") {
                setLoading(true);
-               // Criar usuário
-               const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
-               const user = userCredential.user;
-
-               let fotoURL = null;
-               if(imagemPerfil?.uri) {
-                    fotoURL = await uploadImagemPerfil(imagemPerfil.uri, user.uid);
+               try {
+                    await fazerCadastro(imagemPerfil, nome, email, senha, navigation);
+               } catch (error) {
+                    console.error("Erro ao cadastrar: ", error);
                }
-
-               await updateProfile(user, {
-                    displayName: nome,
-                    photoURL: fotoURL
-               });
-
-               Alert.alert("Cadastro realizado com sucesso");
-               navigation.navigate("Perfil");
-          } catch (error) {
-               if (error.code === 'auth/email-already-in-use') {
-                    Alert.alert("Este e-mail já está em uso. Tente outro.");
-               } else if (error.code === 'auth/invalid-email') {
-                    Alert.alert("O e-mail fornecido é inválido. Verifique e tente novamente.");
-               } else if (error.code === 'auth/weak-password') {
-                    Alert.alert("A senha deve ter pelo menos 6 caracteres.");
-               } else {
-                    console.error("Erro ao criar usuário: ", error);
-                    Alert.alert("Ocorreu um erro, tente novamente.");
-               }
+          } else {
+               Alert.alert("Preencha todos os campos antes de continuar.");
           }
      }
 
@@ -92,7 +70,7 @@ export default function Registrar({ navigation }) {
                               <TextInput style={estilos.input} placeholder="******" placeholderTextColor="#bebebe" value={senha} onChangeText={(value) => setSenha(value)} secureTextEntry />
                          </View>
                     </View>
-                    <Botao ativo={true} texto={"Cadastrar"} onPress={realizarRegistro} />
+                    <Botao ativo={true} texto={"Cadastrar"} onPress={cadastrar} />
                     <TouchableOpacity style={{marginTop: 12}} onPress={() => navigation.navigate("Login")}>
                          <Text style={estilos.textoLogin}>Já tem uma conta? <Text style={[estilos.textoLogin, { color: "#EF9C66" }]}>Faça o login agora</Text></Text>
                     </TouchableOpacity>
