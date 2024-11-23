@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput, Dimensions, Alert, Image, ScrollView } from "react-native";
+import { Text, View, StyleSheet, TextInput, Dimensions, Alert, Image, TouchableOpacity } from "react-native";
 
 import Loading from "../../components/Loading";
 import Botao from "../../components/BotaoLg";
@@ -14,18 +14,27 @@ export default function RecuperarSenha({ navigation }) {
      const [loading, setLoading] = useState(false);
 
      const enviar = () => {
-          try {
-               if(!email) {
-                    Alert.alert("Por favor, insira um e-mail.");
-                    return;
-               }
-               setLoading(true);
-               enviarEmailRecuperacao(email, navigation);
-          } catch (error) {
-               console.error("Erro ao recuperar a senha: ", error);
-          } finally {
-               setLoading(false);
+          if(!email) {
+               Alert.alert("Por favor, insira um e-mail.");
+               return;
           }
+          setLoading(true);
+
+          enviarEmailRecuperacao(
+               email,
+               () => {
+                    setLoading(false);
+                    navigation.goBack();
+                    Alert.alert(
+                         "E-mail enviado!",
+                         "Um e-mail de redefinição de senha foi enviado para o endereço informado."
+                    );
+               }, 
+               (errorMessage) => {
+                    Alert.alert("Erro: ", errorMessage);
+                    setLoading(false);
+               }
+          );
 
      }
 
@@ -42,6 +51,9 @@ export default function RecuperarSenha({ navigation }) {
                               <TextInput keyboardType="email-address" placeholder="Informe seu e-mail" placeholderTextColor="#bebebe" style={estilos.input} value={email} onChangeText={(value) => setEmail(value)} />
                          </View>
                          <Botao ativo={true} texto={"Enviar e-mail de recuperação"} onPress={() => enviar()} />
+                         <TouchableOpacity style={{marginTop: 24}} onPress={() => navigation.navigate("Login")}>
+                              <Text style={estilos.textoLogin}>Lembra da senha? <Text style={[estilos.textoRegistre, { color: "#EF9C66" }]}>Faça o login agora</Text></Text>
+                         </TouchableOpacity>
                     </View>
                </View>
           </View>
@@ -97,7 +109,7 @@ const estilos = StyleSheet.create({
           alignItems: "center",
           backgroundColor: "#F7E2C4"
      },
-     textoRegistre: {
+     textoLogin: {
           fontFamily: "CabinMedium",
           fontSize: 12,
           fontWeight: "normal",
