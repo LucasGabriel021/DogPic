@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
+import fazerLogout from '../utils/fazerLogout';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ import ResultadoScan from "../screens/Scan/ResultadoScan";
 import Anuncio from "../screens/Perdidos/Anuncio";
 import DetalhesAnuncio from '../screens/Perdidos/DetalhesAnuncio';
 import Perfil from '../screens/Perfil/index';
+import { TouchableOpacity } from 'react-native';
 
 export default function AppStack({ setMostrarNavBar }) {
     return (
@@ -38,7 +40,16 @@ export default function AppStack({ setMostrarNavBar }) {
             <Stack.Screen 
                 name="Perfil" 
                 component={Perfil} 
-                options={{ title: "Perfil" }} 
+                options={({navigation}) => ({
+                    title: "Perfil",
+                    headerRight: () => {
+                        return (
+                            <TouchableOpacity onPress={() => fazerLogout(navigation)}>
+                                <Ionicons name="exit" size={24} color={"#313131"} style={{marginRight: 16}}/>
+                            </TouchableOpacity>
+                        )
+                    }
+                })} 
                 listeners={{
                     focus: () => setMostrarNavBar("Perfil"), // Garante que a tab bar será exibida ao entrar na Instrução
                     blur: () => setMostrarNavBar(null)

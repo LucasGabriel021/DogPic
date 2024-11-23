@@ -30,7 +30,7 @@ export default function Perfil() {
                          <Text style={estilos.texto}>Histórico de scanners</Text>   
                     </TouchableOpacity>
                     <TouchableOpacity style={estilos.btn}>
-                         <Text style={estilos.texto}>Anúncios</Text>
+                         <Text style={[estilos.texto, {color: "#EF9C66"}]}>Anúncios</Text>
                     </TouchableOpacity>
                </View>
           </View>

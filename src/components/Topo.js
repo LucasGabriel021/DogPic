@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "../context/UserContext";
 
-import logo from "../../../../assets/img/logo-horizontal.png";
+import logo from "../../assets/img/logo-horizontal.png";
 
 export default function Topo({ navigation }) {
      const { user } = useContext(UserContext);

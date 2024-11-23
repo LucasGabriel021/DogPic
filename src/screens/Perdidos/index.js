@@ -3,9 +3,10 @@ import { View, StyleSheet, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
 
-import Topo from "./components/Topo";
+import Pesquisa from "./components/Pesquisa";
 import Card from "./components/Card";
 import buscarAnuncios from "../../services/buscarAnuncios";
+import Topo from "../../components/Topo";
 
 export default function Localizar({navigation}) {
      const [listaAnuncios, setListaAnuncios] = useState([]);
@@ -27,7 +28,8 @@ export default function Localizar({navigation}) {
      return (
           <SafeAreaView style={estilos.safeArea}>
                <View style={estilos.container}>
-                    <Topo navigation={navigation}/>
+                    <Topo navigation={ navigation }/>
+                    <Pesquisa navigation={navigation}/>
                     <FlatList 
                          style={{marginTop: 8}}
                          data={listaAnuncios}
@@ -46,7 +48,7 @@ const estilos = StyleSheet.create({
      },
      container: {
           flex: 1,
-          padding: 24,
+          paddingHorizontal: 24,
           backgroundColor: "#F1F1F1",
      },
 })

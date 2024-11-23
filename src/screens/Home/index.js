@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Image, Pressable, FlatList, Dimensions } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import Topo from "./components/Topo";
+import Topo from "../../components/Topo";
 import BarraPesquisa from "./components/BarraPesquisa";
 import cachorro from "../../../assets/img/cachorro01.png";
 import racas from "../../mocks/racas";
