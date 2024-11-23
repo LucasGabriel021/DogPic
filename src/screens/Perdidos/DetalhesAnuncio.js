@@ -6,6 +6,7 @@ const imagemHeight = height * 0.5;
 
 export default function Cachorro({route}) {
      const { item } = route.params;
+     console.log("Item: ", item);
 
      return <ScrollView>
           <View style={estilos.container}>

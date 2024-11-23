@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Alert, Text, View, StyleSheet, TextInput, Image, Dimensions, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
+import { Alert, Text, View, StyleSheet, TextInput, Image, Dimensions, ScrollView, TouchableOpacity } from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
 import { UserContext } from "../../context/UserContext";
@@ -7,7 +7,7 @@ import { UserContext } from "../../context/UserContext";
 import Botao from "../../components/BotaoLg";
 import racas from "../../mocks/racas";
 import addDados from "../../services/criarAnuncio";
-import Loading from "./components/Loading";
+import Loading from "../../components/Loading";
 import pegarImagem from "../../utils/pegarImagem";
 
 const { height } = Dimensions.get("window");
@@ -16,7 +16,6 @@ const altura = height * 0.2;
 export default function Anuncio({navigation}) {
      const { user } = useContext(UserContext);
 
-     const [usuario, setUsuario] = useState("");
      const [fotoAnuncio, setFotoAnuncio] = useState(null);
      const [fotoSelecionada, setFotoSelecionada] = useState(false);
      const [nomeCachorro, setNomeCachorro] = useState("");
@@ -46,7 +45,8 @@ export default function Anuncio({navigation}) {
           if(validaFormulario()) {
                setLoading(true);
                addDados({
-                    usuario: user.email,
+                    email: user.email,
+                    nomeUsuario: user.displayName,
                     foto: fotoAnuncio,
                     nome: nomeCachorro,
                     descricao: descricaoAnuncio,
@@ -68,6 +68,7 @@ export default function Anuncio({navigation}) {
 
      return (
           <ScrollView style={estilos.safeArea}>
+               {loading && <Loading/>}
                <View style={estilos.container}>
                     <View>
                          <Text style={estilos.textInput}>Nome do cachorro *</Text>
@@ -107,7 +108,6 @@ export default function Anuncio({navigation}) {
                     </View>
                     <View style={{width: "100%", height: 2, backgroundColor: "#E8ECF4", marginVertical: 16}}/>
                     <Botao ativo={true} texto={"Criar anúncio"} onPress={enviarFormulario}/>
-                    {loading && <Loading/>}
                </View>
           </ScrollView>
      )

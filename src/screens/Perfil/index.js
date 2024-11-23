@@ -141,6 +141,7 @@ const estilos = StyleSheet.create({
           borderRadius: 999,
           position: "absolute",
           right: 0,
-          bottom: 0
+          bottom: 0,
+          zIndex: 999
      }
 });

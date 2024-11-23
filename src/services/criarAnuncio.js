@@ -3,7 +3,8 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, doc, setDoc } from "firebase/firestore";
 
 export default async function addDados(dados) {
-     const { usuario, foto, nome, descricao, localizacao, raca } = dados;
+     const { email, nomeUsuario, foto, nome, descricao, localizacao, raca } = dados;
+     console.log("Dados do usuário: " + email + "-" + nomeUsuario);
 
      try {
           let imageUrl = null;
@@ -25,7 +26,8 @@ export default async function addDados(dados) {
           const anuncioRef = doc(firestore, "anuncios", anuncioId);
 
           await setDoc(anuncioRef, {
-               usuario,
+               email,
+               nomeUsuario,
                nome, 
                descricao, 
                localizacao,
