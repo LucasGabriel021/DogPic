@@ -5,6 +5,7 @@ import bgLogin from "../../../assets/img/bg-login.png";
 import Loading from "../../components/Loading";
 import Botao from "../../components/BotaoLg";
 import fazerLogin from "../../utils/fazerLogin";
+import enviarEmailRecuperacao from "../../utils/enviarEmailRecuperacao";
 
 const { height } = Dimensions.get("window");
 const altura = height * 0.3;
@@ -37,7 +38,7 @@ export default function Login({navigation}) {
                               <Text style={estilos.textInput}>Senha</Text>
                               <TextInput style={estilos.input} placeholder="******" placeholderTextColor="#bebebe" value={senha} onChangeText={(value) => setSenha(value)} secureTextEntry />
                          </View>
-                         <TouchableOpacity style={{ marginVertical: 12 }} onPress={() => console.log("Esqueceu senha")}>
+                         <TouchableOpacity style={{ marginVertical: 12 }} onPress={() => navigation.navigate("RecuperarSenha")}>
                               <Text style={estilos.textoEsqueceu}>Esqueceu sua senha?</Text>
                          </TouchableOpacity>
                     </View>
@@ -112,9 +113,4 @@ const estilos = StyleSheet.create({
           color: "#313131", 
           textAlign: "center"
      },
-     imagemPerfil: {
-          width: 100,
-          height: 100,
-          borderRadius: 999,
-     }
 })
