@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions, ScrollView, Alert } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { redefinirStackAutenticacao } from "../../utils/redefinirStack";
 
 import fazerCadastro from "../../utils/fazerCadastro";
 
@@ -21,16 +22,26 @@ export default function Registrar({ navigation }) {
      const [loading, setLoading] = useState(false);
 
      const cadastrar = async () => {
-          if(imagemPerfil && nome !== "" && email !== "" && senha !== "") {
-               setLoading(true);
-               try {
-                    await fazerCadastro(imagemPerfil, nome, email, senha, navigation);
-               } catch (error) {
-                    console.error("Erro ao cadastrar: ", error);
-               }
-          } else {
-               Alert.alert("Preencha todos os campos antes de continuar.");
+          if(!imagemPerfil || !nome || !email || !senha) {
+               Alert.alert("Por favor, preencha todos os campos.");
+               return;
           }
+          setLoading(true);
+
+          fazerCadastro(
+               imagemPerfil,
+               nome,
+               email,
+               senha,
+               () => {
+                    redefinirStackAutenticacao(navigation);
+                    setLoading(false);
+               },
+               (errorMessage) => {
+                    Alert.alert("Erro: ", errorMessage);
+                    setLoading(false);
+               }
+          );
      }
 
      const pegarFotoPerfil = async () => {
