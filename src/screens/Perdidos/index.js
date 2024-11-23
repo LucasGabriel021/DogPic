@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
 
 import Pesquisa from "./components/Pesquisa";
-import Card from "./components/Card";
+import Card from "../../components/Card";
 import buscarAnuncios from "../../services/buscarAnuncios";
 import Topo from "../../components/Topo";
 
@@ -29,9 +29,9 @@ export default function Localizar({navigation}) {
           <SafeAreaView style={estilos.safeArea}>
                <View style={estilos.container}>
                     <Topo navigation={ navigation }/>
-                    <Pesquisa navigation={navigation}/>
+                    <Pesquisa navigation={ navigation }/>
                     <FlatList 
-                         style={{marginTop: 8}}
+                         style={{marginTop: 16}}
                          data={listaAnuncios}
                          renderItem={renderItem}
                          keyExtractor={(item) => item.id}
