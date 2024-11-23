@@ -30,7 +30,7 @@ export default function Perfil({ navigation }) {
      }
 
      const renderItem = ({ item }) => {
-          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} onPress={() => navigation.navigate("DetalhesAnuncio", { item })}/>
+          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} opcoes={true} onPress={() => navigation.navigate("DetalhesAnuncio", { item })}/>
      }
 
      return (
@@ -70,6 +70,9 @@ export default function Perfil({ navigation }) {
                               keyExtractor={(item) => item.id}
                               renderItem={renderItem}
                          />
+                         <TouchableOpacity style={estilos.btnIconeAdd} onPress={() => navigation.navigate("Anuncio")}>
+                              <Ionicons name="add" size={24} color={"#fff"}/>
+                         </TouchableOpacity>
                     </View> 
                }
           </View>
@@ -124,7 +127,20 @@ const estilos = StyleSheet.create({
           color: "#EF9C66"
      },
      conteudo: {
+          flex: 1,
           marginTop: 24,
           position: "relative"
+     },
+     btnIconeAdd : {
+          width: 54,
+          height: 54,
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          padding: 12,
+          backgroundColor: "#EF9C66",
+          borderRadius: 999,
+          position: "absolute",
+          right: 0,
+          bottom: 0
      }
 });

@@ -4,7 +4,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import placeholder from "../../assets/img/placeholder-dog.png";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function Card({ imagem, nome, raca, localizacao, onPress }) {
+export default function Card({ imagem, nome, raca, localizacao, opcoes, onPress }) {
      return (
           <TouchableOpacity style={estilos.container} onPress={onPress}>
                <View style={{flexDirection: "row", columnGap: 16}}>
@@ -18,9 +18,11 @@ export default function Card({ imagem, nome, raca, localizacao, onPress }) {
                          </View>
                     </View>
                </View>
-               <TouchableOpacity>
-                    <Ionicons name="ellipsis-vertical" size={16} color={"#313131"}/>
-               </TouchableOpacity>
+               {opcoes && 
+                    <TouchableOpacity>
+                         <Ionicons name="ellipsis-vertical" size={16} color={"#313131"}/>
+                    </TouchableOpacity>
+               }
           </TouchableOpacity>
      )
 }

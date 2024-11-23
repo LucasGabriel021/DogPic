@@ -4,15 +4,12 @@ import { Ionicons } from '@expo/vector-icons';
 
 import BarraPesquisa from "./BarraPesquisa";
 
-export default function Pesquisa({navigation}) {
+export default function Pesquisa() {
      return (
           <View style={estilos.container}>
                <View style={{flex: 1}}>
                     <BarraPesquisa/>
                </View>
-               <TouchableOpacity style={estilos.btnAdd} onPress={() => navigation.navigate("Anuncio")}>
-                    <Ionicons name="add" size={24} color={"#fff"}/>
-               </TouchableOpacity>
           </View>
      )
 }

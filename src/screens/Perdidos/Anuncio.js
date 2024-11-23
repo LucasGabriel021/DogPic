@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Alert, Text, View, StyleSheet, TextInput, Image, Dimensions, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
+import { UserContext } from "../../context/UserContext";
 
 import Botao from "../../components/BotaoLg";
 import racas from "../../mocks/racas";
@@ -13,6 +14,9 @@ const { height } = Dimensions.get("window");
 const altura = height * 0.2;
 
 export default function Anuncio({navigation}) {
+     const { user } = useContext(UserContext);
+
+     const [usuario, setUsuario] = useState("");
      const [fotoAnuncio, setFotoAnuncio] = useState(null);
      const [fotoSelecionada, setFotoSelecionada] = useState(false);
      const [nomeCachorro, setNomeCachorro] = useState("");
@@ -42,6 +46,7 @@ export default function Anuncio({navigation}) {
           if(validaFormulario()) {
                setLoading(true);
                addDados({
+                    usuario: user.email,
                     foto: fotoAnuncio,
                     nome: nomeCachorro,
                     descricao: descricaoAnuncio,
