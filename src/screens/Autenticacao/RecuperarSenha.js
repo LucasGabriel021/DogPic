@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
+import { Text, View, StyleSheet, TextInput, Dimensions, Alert, Image, ScrollView } from "react-native";
 
 import Loading from "../../components/Loading";
 import Botao from "../../components/BotaoLg";
 import enviarEmailRecuperacao from "../../utils/enviarEmailRecuperacao";
+import bgLogin from "../../../assets/img/bg-login.png";
+
+const { height } = Dimensions.get("window");
+const altura = height * 0.3;
 
 export default function RecuperarSenha({ navigation }) {
      const [email, setEmail] = useState("");
@@ -19,16 +23,19 @@ export default function RecuperarSenha({ navigation }) {
      }
 
      return (
-          <View style={estilos.container}>
-               {loading && <Loading/>}
-               <View>
-                    <Text style={estilos.titulo}>Esqueceu sua senha?</Text>
-                    <Text style={estilos.paragrafo}>Não se preocupe! Isso ocorre. Por favor, insira o endereço de e-mail vinculado à sua conta.</Text>
-                    <View style={{ marginVertical: 24 }}>
-                         <Text style={estilos.textInput}>Email</Text>
-                         <TextInput keyboardType="email-address" placeholder="Informe seu e-mail" placeholderTextColor="#bebebe" style={estilos.input} value={email} onChangeText={(value) => setEmail(value)} />
+          <View style={{flex: 1, justifyContent: "center", backgroundColor: "#fff"}}>
+               <Image source={bgLogin} style={estilos.imagemBg}/>
+               <View style={estilos.container}>
+                    {loading && <Loading/>}
+                    <View style={{flex: 1}}>
+                         <Text style={estilos.titulo}>Esqueceu sua senha?</Text>
+                         <Text style={estilos.paragrafo}>Não se preocupe! Isso ocorre. Por favor, insira o endereço de e-mail vinculado à sua conta.</Text>
+                         <View style={{ marginVertical: 24 }}>
+                              <Text style={estilos.textInput}>Email</Text>
+                              <TextInput keyboardType="email-address" placeholder="Informe seu e-mail" placeholderTextColor="#bebebe" style={estilos.input} value={email} onChangeText={(value) => setEmail(value)} />
+                         </View>
+                         <Botao ativo={true} texto={"Enviar e-mail de recuperação"} onPress={() => enviar()} />
                     </View>
-                    <Botao ativo={true} texto={"Enviar e-mail de recuperação"} onPress={() => enviar()} />
                </View>
           </View>
      )
@@ -39,6 +46,10 @@ const estilos = StyleSheet.create({
           flex: 1,
           padding: 24,
           backgroundColor: "#fff"
+     },
+     imagemBg: {
+          width: "100%",
+          height: altura
      },
      titulo: {
           fontFamily: "CabinBold",
