@@ -19,6 +19,7 @@ export default function Anuncio({navigation}) {
      const [fotoAnuncio, setFotoAnuncio] = useState(null);
      const [fotoSelecionada, setFotoSelecionada] = useState(false);
      const [nomeCachorro, setNomeCachorro] = useState("");
+     const [idadeCachorro, setIdadeCachorro] = useState("");
      const [descricaoAnuncio, setDescricaoAnuncio] = useState("");
      const [ultimaLocalizacao, setUltimaLocalizacao] = useState("");
      const [selecaoRaca, setSelecaoRaca] = useState(null);
@@ -50,6 +51,7 @@ export default function Anuncio({navigation}) {
                     nomeUsuario: user.displayName,
                     foto: fotoAnuncio,
                     nome: nomeCachorro,
+                    idade: idadeCachorro,
                     descricao: descricaoAnuncio,
                     localizacao: ultimaLocalizacao,
                     raca: selecaoRaca,
@@ -75,6 +77,10 @@ export default function Anuncio({navigation}) {
                     <View>
                          <Text style={estilos.textInput}>Nome do cachorro *</Text>
                          <TextInput placeholder="Ex: Thor" placeholderTextColor="#bebebe" style={estilos.input} value={nomeCachorro} onChangeText={(value) => setNomeCachorro(value)}/>
+                    </View>
+                    <View>
+                         <Text style={estilos.textInput}>Idade do cachorro *</Text>
+                         <TextInput placeholder="Ex: 3" placeholderTextColor="#bebebe" style={estilos.input} value={idadeCachorro} onChangeText={(value) => setIdadeCachorro(value)}/>
                     </View>
                     <View>
                          <Text style={estilos.textInput}>Descrição do anúncio *</Text>

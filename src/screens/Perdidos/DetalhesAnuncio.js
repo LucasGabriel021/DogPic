@@ -6,6 +6,7 @@ import { auth } from "../../config/firebase";
 import generoMacho from "../../../assets/img/icone-macho.png";
 import generoFemea from "../../../assets/img/icone-femea.png";
 import placeholder from "../../../assets/img/placeholder-dog.png";
+import formatarDataDB from "../../services/formatarDataDB";
 
 const { height } = Dimensions.get("window");
 const imagemHeight = height * 0.5;
@@ -18,15 +19,8 @@ export default function Cachorro({route}) {
      const data = item.createAt;
      console.log("Data: ", data);
      const dateObject = new Date(data.seconds * 1000);
-     const formattedDate = dateObject.toLocaleDateString("pt-BR", {
-               day: "2-digit",
-               month: "2-digit",
-               year: "numeric",
-               hour: "2-digit",
-               minute: "2-digit",
-               second: "2-digit"
-     });
-     console.log("Data formatada: ", formattedDate);
+     const dataFormatada = formatarDataDB(dateObject);
+     console.log("Data formatada: ", dataFormatada);
 
      return <ScrollView>
           <View style={estilos.container}>
@@ -50,12 +44,23 @@ export default function Cachorro({route}) {
                               <View>
                                    <Text style={[estilos.titulo, {fontSize: 16}]}>{item.nomeUsuario}</Text>
                                    <Text style={[estilos.paragrafo]}>{item.email}</Text>
-                                   <Text style={[estilos.paragrafo, {fontSize: 12}]}>Postado dia: {formattedDate}</Text>
+                                   <Text style={[estilos.paragrafo, {fontSize: 12}]}>Postado dia: {dataFormatada}</Text>
                               </View>
                          </View>
                     </View>
+                    <View style={[estilos.conteudo, { marginTop: 8 , backgroundColor: "#FCDC94", padding: 8, borderWidth: 2, borderColor: "#EF9C66", borderRadius: 6}]}>
+                         <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+                              <Text style={estilos.titulo}>Raça</Text>
+                              <Text style={estilos.paragrafo}>{item.raca}</Text>
+                         </View>
+                         <View style={{width: 2, height: "100%", borderRadius: 9999, backgroundColor: "#EF9C66"}}/>
+                         <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+                              <Text style={estilos.titulo}>Raça</Text>
+                              <Text style={estilos.paragrafo}>{item.idade}</Text>
+                         </View>
+                    </View>
                     <View style={[estilos.conteudo, { marginTop: 16 }]}>
-                    <Text style={[estilos.paragrafo]}>{item.descricao}</Text>
+                         <Text style={[estilos.paragrafo]}>{item.descricao}</Text>
                     </View>
                </View>
           </View>
