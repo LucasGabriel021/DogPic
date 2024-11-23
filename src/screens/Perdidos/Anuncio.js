@@ -22,6 +22,7 @@ export default function Anuncio({navigation}) {
      const [descricaoAnuncio, setDescricaoAnuncio] = useState("");
      const [ultimaLocalizacao, setUltimaLocalizacao] = useState("");
      const [selecaoRaca, setSelecaoRaca] = useState(null);
+     const [selecaoSexo, setSelecaoSexo] = useState(null);
      const [loading, setLoading] = useState(false);
 
      const pegarFotoAnuncio = async () => {
@@ -34,7 +35,7 @@ export default function Anuncio({navigation}) {
      }
 
      const validaFormulario = () => {
-          if(!fotoAnuncio || !nomeCachorro || !descricaoAnuncio || !ultimaLocalizacao || !selecaoRaca) {
+          if(!fotoAnuncio || !nomeCachorro || !descricaoAnuncio || !ultimaLocalizacao || !selecaoRaca || !selecaoSexo) {
                Alert.alert("Por favor, preencha todos os campos.");
                return false;
           }
@@ -51,7 +52,8 @@ export default function Anuncio({navigation}) {
                     nome: nomeCachorro,
                     descricao: descricaoAnuncio,
                     localizacao: ultimaLocalizacao,
-                    raca: selecaoRaca
+                    raca: selecaoRaca,
+                    sexo: selecaoSexo
                })
                .then(() => {
                     setLoading(false);
@@ -76,7 +78,7 @@ export default function Anuncio({navigation}) {
                     </View>
                     <View>
                          <Text style={estilos.textInput}>Descrição do anúncio *</Text>
-                         <TextInput placeholder="Ex: Cachorro está desaparecido" placeholderTextColor="#bebebe" style={[estilos.input, {height: 100, textAlignVertical: "top"}]} editable numberOfLines={5} multiline maxLength={100} value={descricaoAnuncio} onChangeText={(value) => setDescricaoAnuncio(value)}/>
+                         <TextInput placeholder="Ex: Cachorro está desaparecido" placeholderTextColor="#bebebe" style={[estilos.input, {height: 100, textAlignVertical: "top"}]} editable numberOfLines={6} multiline maxLength={200} value={descricaoAnuncio} onChangeText={(value) => setDescricaoAnuncio(value)}/>
                     </View>
                     <View>
                          <Text style={estilos.textInput}>Raça do cachorro *</Text>
@@ -85,6 +87,14 @@ export default function Anuncio({navigation}) {
                               {racas.map((item, index) => {
                                    return <Picker.Item key={index} label={item.racaPt} value={item.racaPt}/>;
                               })}
+                         </Picker>
+                    </View>
+                    <View>
+                         <Text style={estilos.textInput}>Sexo do cachorro *</Text>
+                         <Picker style={estilos.picker} selectedValue={selecaoSexo} onValueChange={(value) => setSelecaoSexo(value)}>
+                              <Picker.Item label="Selecione o sexo" value="default" enabled={false} />
+                              <Picker.Item label="Macho" value="Macho"/>
+                              <Picker.Item label="Fêmea" value="Femea"/>
                          </Picker>
                     </View>
                     <View>

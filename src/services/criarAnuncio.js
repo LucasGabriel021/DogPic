@@ -3,7 +3,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, doc, setDoc } from "firebase/firestore";
 
 export default async function addDados(dados) {
-     const { email, nomeUsuario, foto, nome, descricao, localizacao, raca } = dados;
+     const { email, nomeUsuario, foto, nome, descricao, localizacao, raca, sexo } = dados;
      console.log("Dados do usuário: " + email + "-" + nomeUsuario);
 
      try {
@@ -32,6 +32,7 @@ export default async function addDados(dados) {
                descricao, 
                localizacao,
                raca,
+               sexo,
                imageUrl,
                createAt: new Date(),
           });
