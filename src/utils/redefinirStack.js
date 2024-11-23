@@ -12,4 +12,16 @@ function redefinirStackAutenticacao(navigation) {
      );
 }
 
-export { redefinirStackAutenticacao };
+function redefinirStackSair(navigation) {
+     navigation.dispatch(
+          CommonActions.reset({
+               index: 1,
+               routes: [
+                    { name: "HomeScreen" },
+                    { name: "Autenticacao" }
+               ]
+          })
+     )
+}
+
+export { redefinirStackAutenticacao, redefinirStackSair };

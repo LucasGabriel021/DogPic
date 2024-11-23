@@ -1,9 +1,11 @@
 import React from "react";
 import { Text, View, StyleSheet, Image, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useFocusEffect } from "@react-navigation/native";
 
 import cachorro from "../../../assets/img/cachorro04.png";
 import Botao from "../../components/BotaoLg";
+import { redefinirStackSair } from "../../utils/redefinirStack";
 
 const { height } = Dimensions.get("window");
 const altura = height * 0.4;
