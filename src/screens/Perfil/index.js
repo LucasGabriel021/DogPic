@@ -18,7 +18,8 @@ export default function Perfil({ navigation }) {
           React.useCallback(() => {
                const fetchAnuncios = async () => {
                     const anuncios = await buscarAnuncios();
-                    setListaAnuncios(anuncios);
+                    const anunciosPerfil = anuncios.filter(item => item.email === user.email);
+                    setListaAnuncios(anunciosPerfil);
                     console.log(listaAnuncios);
                }
                fetchAnuncios();
