@@ -156,5 +156,6 @@ const estilos = StyleSheet.create({
           fontWeight: "normal",
           color: "#313131",
           opacity: 0.5,
+          textAlign: "center"
      }
 });
