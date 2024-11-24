@@ -33,9 +33,18 @@ export default function AppStack({ setMostrarNavBar }) {
             <Stack.Screen 
                 name="Autenticacao" 
                 component={Autenticacao} 
-                options={{ title: "Autenticação" }} 
+                options={({navigation}) => ({
+                    title: "Autenticação",
+                    headerLeft: () => {
+                        return (
+                            <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")}>
+                                <Ionicons name="arrow-back" size={24} color={"#313131"} style={{marginLeft: 16}}/>
+                            </TouchableOpacity>
+                        )
+                    }
+                })} 
                 listeners={{
-                    focus: () => setMostrarNavBar("Autenticacao"), // Garante que a tab bar será exibida ao entrar na Instrução
+                    focus: () => setMostrarNavBar("Perfil"), // Garante que a tab bar será exibida ao entrar na Instrução
                     blur: () => setMostrarNavBar(null)
                }}
             />

@@ -40,7 +40,7 @@ export default function Home({navigation}) {
           });
           
           setItensFiltrados(resultados);
-     }, [pesquisa, filtroPorte]); // Toda vez que esse valores forem alterados o useEffect será executado
+     }, [pesquisa, filtroPorte]);
 
      return (
           <SafeAreaView style={estilos.safeArea}>
