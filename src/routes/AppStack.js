@@ -1,4 +1,5 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import fazerLogout from '../utils/fazerLogout';
@@ -17,7 +18,7 @@ import ResultadoScan from "../screens/Scan/ResultadoScan";
 import Anuncio from "../screens/Perdidos/Anuncio";
 import DetalhesAnuncio from '../screens/Perdidos/DetalhesAnuncio';
 import Perfil from '../screens/Perfil/index';
-import { TouchableOpacity } from 'react-native';
+import EditarPerfil from '../screens/Perfil/EditarPerfil';
 
 export default function AppStack({ setMostrarNavBar }) {
     return (
@@ -63,6 +64,15 @@ export default function AppStack({ setMostrarNavBar }) {
                 })} 
                 listeners={{
                     focus: () => setMostrarNavBar("Perfil"), // Garante que a tab bar será exibida ao entrar na Instrução
+                    blur: () => setMostrarNavBar(null)
+               }}
+            />
+            <Stack.Screen 
+                name="EditarPerfil" 
+                component={EditarPerfil} 
+                options={{ title: "Editar perfil" }} 
+                listeners={{
+                    focus: () => setMostrarNavBar("EditarPerfil"), // Garante que a tab bar será exibida ao entrar na Instrução
                     blur: () => setMostrarNavBar(null)
                }}
             />

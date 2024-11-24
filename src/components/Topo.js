@@ -47,6 +47,8 @@ const estilos = StyleSheet.create({
      imgProfile: {
           height: 38,
           width: 38,
-          borderRadius: 999
+          borderRadius: 999,
+          borderWidth: 3,
+          borderColor: "#EF9C66"
      }
 });

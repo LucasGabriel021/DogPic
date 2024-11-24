@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
 
      useEffect(() => {
           // Observa as mudanças no estado de autenticação
-          const unsubscribe = onAuthStateChanged(auth, (user) => {
+          const unsubscribe = onAuthStateChanged(auth, async (user) => {
                setUser(user);
           });
 
