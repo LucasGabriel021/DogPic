@@ -23,7 +23,7 @@ export default function Perfil({ navigation }) {
                     console.log(listaAnuncios);
                }
                fetchAnuncios();
-          }, [])     
+          }, [])
      )
 
      const aplicarFiltro = (filtro) => {
@@ -31,50 +31,55 @@ export default function Perfil({ navigation }) {
      }
 
      const renderItem = ({ item }) => {
-          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} opcoes={true} onPress={() => navigation.navigate("DetalhesAnuncio", { item })}/>
+          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} opcoes={true} onPress={() => navigation.navigate("DetalhesAnuncio", { item })} />
      }
 
      return (
           <View style={estilos.container}>
-               <View style={{alignItems: "center", rowGap: 16}}>
+               <View style={{ alignItems: "center", rowGap: 16 }}>
                     {user.photoURL ? (
-                         <Image source={{ uri: user.photoURL }} style={estilos.imagemPerfil}/>
+                         <Image source={{ uri: user.photoURL }} style={estilos.imagemPerfil} />
                     ) : (
-                         <Image source={placeholder} style={estilos.imagemPerfil}/>
+                         <Image source={placeholder} style={estilos.imagemPerfil} />
                     )}
-                    <View style={{alignItems: "center", rowGap: 4}}>
-                         <View style={{flexDirection: "row", columnGap: 8, alignItems: "center"}}>
+                    <View style={{ alignItems: "center", rowGap: 4 }}>
+                         <View style={{ flexDirection: "row", columnGap: 8, alignItems: "center" }}>
                               <Text style={estilos.nome}>{user.displayName}</Text>
                          </View>
                          <Text style={estilos.email}>{user.email}</Text>
                     </View>
                </View>
-               <View style={{flexDirection: "row", justifyContent: "center", columnGap: 8, marginTop: 24}}>
+               <View style={{ flexDirection: "row", justifyContent: "center", columnGap: 8, marginTop: 24 }}>
                     <TouchableOpacity style={estilos.btn} onPress={() => aplicarFiltro("Histórico")}>
-                         <Text style={[estilos.texto, btnAtivo === "Histórico" && estilos.textoAtivo]}>Histórico de scanners</Text>   
+                         <Text style={[estilos.texto, btnAtivo === "Histórico" && estilos.textoAtivo]}>Histórico de scanners</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={estilos.btn} onPress={() => aplicarFiltro("Anúncios")}>
                          <Text style={[estilos.texto, btnAtivo === "Anúncios" && estilos.textoAtivo]}>Anúncios</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={estilos.btnIcone}>
-                         <Ionicons name="pencil" size={16} color="#909090"/>
+                         <Ionicons name="pencil" size={16} color="#909090" />
                     </TouchableOpacity>
                </View>
                {btnAtivo === "Histórico" ?
                     <View style={estilos.conteudo}>
                          <Text>Histórico</Text>
-                    </View> 
+                    </View>
                     :
                     <View style={estilos.conteudo}>
-                         <FlatList 
-                              data={listaAnuncios}
-                              keyExtractor={(item) => item.id}
-                              renderItem={renderItem}
-                         />
+                         {listaAnuncios.length !== 0 ?
+                              <FlatList
+                                   data={listaAnuncios}
+                                   keyExtractor={(item) => item.id}
+                                   renderItem={renderItem}
+                              />
+                              :
+                              <Text style={estilos.textoInfo}>Ainda não há nenhum anúncio criado</Text>
+                         }
+
                          <TouchableOpacity style={estilos.btnIconeAdd} onPress={() => navigation.navigate("Anuncio")}>
-                              <Ionicons name="add" size={24} color={"#fff"}/>
+                              <Ionicons name="add" size={24} color={"#fff"} />
                          </TouchableOpacity>
-                    </View> 
+                    </View>
                }
           </View>
      )
@@ -104,16 +109,16 @@ const estilos = StyleSheet.create({
           color: "#8391A1"
      },
      btn: {
-          justifyContent: 'center', 
-          alignItems: 'center', 
+          justifyContent: 'center',
+          alignItems: 'center',
           paddingVertical: 8,
           paddingHorizontal: 12,
           backgroundColor: "#fff",
           borderRadius: 6
      },
      btnIcone: {
-          justifyContent: 'center', 
-          alignItems: 'center', 
+          justifyContent: 'center',
+          alignItems: 'center',
           paddingVertical: 8,
           paddingHorizontal: 12,
           backgroundColor: "#fff",
@@ -132,11 +137,11 @@ const estilos = StyleSheet.create({
           marginTop: 24,
           position: "relative"
      },
-     btnIconeAdd : {
+     btnIconeAdd: {
           width: 54,
           height: 54,
-          justifyContent: 'center', 
-          alignItems: 'center', 
+          justifyContent: 'center',
+          alignItems: 'center',
           padding: 12,
           backgroundColor: "#EF9C66",
           borderRadius: 999,
@@ -144,5 +149,12 @@ const estilos = StyleSheet.create({
           right: 0,
           bottom: 0,
           zIndex: 999,
+     },
+     textoInfo: {
+          fontFamily: "CabinMedium",
+          fontSize: 14,
+          fontWeight: "normal",
+          color: "#313131",
+          opacity: 0.5,
      }
 });
