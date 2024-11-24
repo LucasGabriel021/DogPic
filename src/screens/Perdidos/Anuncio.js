@@ -49,6 +49,7 @@ export default function Anuncio({navigation}) {
                addDados({
                     email: user.email,
                     nomeUsuario: user.displayName,
+                    fotoUsuario: user.photoURL,
                     foto: fotoAnuncio,
                     nome: nomeCachorro,
                     idade: idadeCachorro,

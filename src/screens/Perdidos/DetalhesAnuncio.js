@@ -40,7 +40,7 @@ export default function Cachorro({route}) {
                     </View>
                     <View style={[estilos.conteudo, { marginTop: 16 }]}>
                          <View style={{flexDirection: "row", columnGap: 8, alignItems: "center"}}>
-                              <Image source={{ uri: user.photoURL }} style={{width: 64, height: 64, borderRadius: 999}}/>
+                              <Image source={{ uri: item.fotoUsuario }} style={{width: 64, height: 64, borderRadius: 999}}/>
                               <View>
                                    <Text style={[estilos.titulo, {fontSize: 16}]}>{item.nomeUsuario}</Text>
                                    <Text style={[estilos.paragrafo]}>{item.email}</Text>
