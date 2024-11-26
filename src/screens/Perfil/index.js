@@ -10,6 +10,7 @@ import CardHistorico from "./components/CardHistorico";
 import buscarAnuncios from "../../services/buscarAnuncios";
 import buscarHistorico from "../../services/buscarHistorico";
 import formatarDataDB from "../../utils/formatarDataDB";
+import Loading from "../../components/Loading";
 
 export default function Perfil({ navigation }) {
      const user = auth.currentUser;
@@ -17,6 +18,7 @@ export default function Perfil({ navigation }) {
      const [btnAtivo, setBtnAtivo] = useState("Histórico");
      const [listaAnuncios, setListaAnuncios] = useState([]);
      const [listaHistoricos, setListaHistoricos] = useState([]);
+     const [loading, setLoading] = useState(false);
 
      useFocusEffect(
           React.useCallback(() => {
@@ -31,8 +33,14 @@ export default function Perfil({ navigation }) {
                     setListaHistoricos(historicoPerfil);
                }
 
-               fetchHistoricos();
-               fetchAnuncios();
+               const fetchData = async () => {
+                    setLoading(true);
+                    fetchHistoricos();
+                    fetchAnuncios();
+                    setLoading(false);
+               }
+
+               fetchData();
           }, [])
      )
 
@@ -45,17 +53,16 @@ export default function Perfil({ navigation }) {
      }
 
      const renderItemHistorico = ({ item }) => {
-          console.log("Item: ", item);
           const data = item.createAt;
           const dataObject = new Date(data.seconds * 1000);
           const dataFormatada = formatarDataDB(dataObject);
 
           return <CardHistorico imagem={item.imageUrl} nome={item.titulo} data={dataFormatada} icone={"trash-outline"} onPress={()=> {console.log("Histórico")}}/>
-          
      }
 
      return (
           <View style={estilos.container}>
+               {loading && <Loading/>}
                <View style={{ alignItems: "center", rowGap: 16 }}>
                     {user.photoURL ? (
                          <Image source={{ uri: user.photoURL }} style={estilos.imagemPerfil} />
