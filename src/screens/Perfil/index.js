@@ -8,12 +8,15 @@ import placeholder from "../../../assets/img/profile-default.png"
 import Card from "../../components/Card";
 import CardHistorico from "./components/CardHistorico";
 import buscarAnuncios from "../../services/buscarAnuncios";
+import buscarHistorico from "../../services/buscarHistorico";
+import formatarDataDB from "../../utils/formatarDataDB";
 
 export default function Perfil({ navigation }) {
      const user = auth.currentUser;
 
      const [btnAtivo, setBtnAtivo] = useState("Histórico");
      const [listaAnuncios, setListaAnuncios] = useState([]);
+     const [listaHistoricos, setListaHistoricos] = useState([]);
 
      useFocusEffect(
           React.useCallback(() => {
@@ -21,8 +24,14 @@ export default function Perfil({ navigation }) {
                     const anuncios = await buscarAnuncios();
                     const anunciosPerfil = anuncios.filter(item => item.email === user.email);
                     setListaAnuncios(anunciosPerfil);
-                    console.log(listaAnuncios);
                }
+               const fetchHistoricos = async () => {
+                    const historicos = await buscarHistorico();
+                    const historicoPerfil = historicos.filter(item => item.emailUser === user.email);
+                    setListaHistoricos(historicoPerfil);
+               }
+
+               fetchHistoricos();
                fetchAnuncios();
           }, [])
      )
@@ -33,6 +42,16 @@ export default function Perfil({ navigation }) {
 
      const renderItem = ({ item }) => {
           return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} icone={"ellipsis-vertical"} opcoes={true} onPress={() => navigation.navigate("DetalhesAnuncio", { item })} />
+     }
+
+     const renderItemHistorico = ({ item }) => {
+          console.log("Item: ", item);
+          const data = item.createAt;
+          const dataObject = new Date(data.seconds * 1000);
+          const dataFormatada = formatarDataDB(dataObject);
+
+          return <CardHistorico imagem={item.imageUrl} nome={item.titulo} data={dataFormatada} icone={"trash-outline"} onPress={()=> {console.log("Histórico")}}/>
+          
      }
 
      return (
@@ -63,7 +82,15 @@ export default function Perfil({ navigation }) {
                </View>
                {btnAtivo === "Histórico" ?
                     <View style={estilos.conteudo}>
-                         <CardHistorico nome={"Shi Tzu"} data={"18/03/2003"} icone={"trash-outline"} onPress={()=> {console.log("Histórico")}}/>
+                         {listaHistoricos.length !== 0 ?
+                              <FlatList
+                                   data={listaHistoricos}
+                                   keyExtractor={(item) => item.id}
+                                   renderItem={renderItemHistorico}
+                              />
+                              :
+                              <Text style={estilos.textoInfo}>Ainda não há nenhum histórico de scanners</Text>
+                         }
                     </View>
                     :
                     <View style={estilos.conteudo}>

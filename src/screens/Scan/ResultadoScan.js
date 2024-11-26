@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Text, Dimensions, StyleSheet, View, Image, ScrollView } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
-import ProgressBar from 'react-native-progress/Bar';
+import { auth } from "../../config/firebase";
 
 import placeholder from "../../../assets/img/placeholder-dog.png";
 import racas from "../../mocks/racas";
 import Botao from "../../components/BotaoLg";
+import salvarHistorico from "../../services/salvarHistorico";
 
 const { height } = Dimensions.get("window");
-const screenWidth = Dimensions.get("window").width;
 const altura = height * 0.5;
 
 export default function ResultadoScan({ route, navigation }) {
      const { resultados, imagemScan } = route.params;
-     // console.log("Parametros: ", resultados);
+     const user = auth.currentUser;
 
      const [porcentagem, setPorcentagem] = useState("");
      const [imagem, setImagem] = useState(placeholder);
@@ -28,18 +27,27 @@ export default function ResultadoScan({ route, navigation }) {
       * mais forte e apresenta ao usuário
       */
      const pegarInfosRacas = (raca) => {
-          // console.log("Nome da raça: ", raca);
-
           const infoRaca = racas.find(item => item.raca === raca);
-          // console.log("Pesquisa: ", infoRaca);
 
           if (infoRaca) {
+               const dados = { 
+                    nomeUser: user.displayName,
+                    emailUser: user.email,
+                    imagem: imagemScan, 
+                    titulo: infoRaca.racaPt, 
+                    descricao: infoRaca.descricao, 
+                    doencas: infoRaca.possiveisDoencas, 
+                    prevencoes: infoRaca.tratamentosDoencas,
+               }
+
                setTitulo(infoRaca.racaPt);
                setDescricao(infoRaca.descricao);
                setImagem(imagemScan);
                setPrevencoes(infoRaca.tratamentosDoencas);
                setDoencas(infoRaca.possiveisDoencas);
                setPorte(infoRaca.porte);
+
+               salvarHistorico(dados)
           } else {
                console.log("Raça não encontrada!");
           }
@@ -47,10 +55,9 @@ export default function ResultadoScan({ route, navigation }) {
 
      useEffect(() => {
           if (resultados && resultados.length > 0) {
-               setPorcentagem(resultados[0].probability);
                pegarInfosRacas(resultados[0].name);
           }
-     }, [resultados]); // Executa sempre que resultados muda
+     }, []);
 
      return <ScrollView>
                <Image source={imagem} style={estilos.imagem}/>

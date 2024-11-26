@@ -1,26 +1,21 @@
 import React, { useContext } from "react";
 import { Text, Image, StyleSheet, Dimensions, ScrollView, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { auth } from "../../config/firebase";
 
 import generoMacho from "../../../assets/img/icone-macho.png";
 import generoFemea from "../../../assets/img/icone-femea.png";
 import placeholder from "../../../assets/img/placeholder-dog.png";
-import formatarDataDB from "../../services/formatarDataDB";
+import formatarDataDB from "../../utils/formatarDataDB";
 
 const { height } = Dimensions.get("window");
 const imagemHeight = height * 0.5;
 
 export default function Cachorro({route}) {
-     const user = auth.currentUser;
      const { item } = route.params;
-     console.log("Item: ", item);
 
      const data = item.createAt;
-     console.log("Data: ", data);
      const dateObject = new Date(data.seconds * 1000);
      const dataFormatada = formatarDataDB(dateObject);
-     console.log("Data formatada: ", dataFormatada);
 
      return <ScrollView>
           <View style={estilos.container}>
@@ -116,7 +111,7 @@ const estilos = StyleSheet.create({
           alignItems: "center"
      },
      iconeGenero: {
-          width: 28,
-          height: 28
+          width: 18,
+          height: 24
      }
 });

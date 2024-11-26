@@ -1,23 +1,14 @@
 import { firestore, storage } from "../config/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, doc, setDoc } from "firebase/firestore";
+import fazerUploadImagemBd from "../utils/fazerUploadImagemBd";
 
 export default async function addDados(dados) {
      const { email, nomeUsuario, fotoUsuario, foto, nome, idade, descricao, localizacao, raca, sexo } = dados;
      console.log("Dados do usuário: " + email + "-" + nomeUsuario);
 
      try {
-          let imageUrl = null;
-          if(foto) {
-               // Enviar imagem
-               const response = await fetch(foto.uri);
-               const blob = await response.blob();
-               const imageRef = ref(storage, `anuncio/${Date.now()}`);
-               await uploadBytes(imageRef, blob);
-
-               // Obter a URL da imagem armazenada
-               imageUrl = await getDownloadURL(imageRef);
-          }
+          const imageUrl = foto ? await fazerUploadImagemBd(foto, "anuncio") : null;
 
           // Gerar ID único
           const anuncioId = `${nome}_${Date.now()}`;

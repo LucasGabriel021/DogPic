@@ -9,7 +9,7 @@ export default async function buscarAnuncios() {
                ...doc.data(), // Resto dos dados
           }));
           
-          console.log("Dados: ", arrayAnuncios);
+          // console.log("Anúncios: ", arrayAnuncios);
           return arrayAnuncios;
      } catch (error) {
           console.error("Erros ao buscar anuncios: ", error);
