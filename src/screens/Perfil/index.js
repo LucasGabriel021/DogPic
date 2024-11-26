@@ -56,7 +56,7 @@ export default function Perfil({ navigation }) {
                     <TouchableOpacity style={estilos.btn} onPress={() => aplicarFiltro("Anúncios")}>
                          <Text style={[estilos.texto, btnAtivo === "Anúncios" && estilos.textoAtivo]}>Anúncios</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={estilos.btnIcone}>
+                    <TouchableOpacity style={estilos.btnIcone} onPress={() => navigation.navigate("EditarPerfil")}>
                          <Ionicons name="pencil" size={16} color="#909090" />
                     </TouchableOpacity>
                </View>
