@@ -47,7 +47,7 @@ export default function EditarPerfil({ navigation }) {
           <View style={estilos.container}>
                <View style={{ width: "100%", alignItems: "center", marginBottom: 16 }}>
                     <TouchableOpacity style={estilos.btnImagem} onPress={() => selecionarFoto()}>
-                         <Image source={{ uri: novaFoto }} style={estilos.imagemPerfil} />
+                         <Image source={{ uri: foto }} style={estilos.imagemPerfil} />
                     </TouchableOpacity>
                     <Text style={estilos.texto}>Editar foto</Text>
                </View>

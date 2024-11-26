@@ -55,7 +55,7 @@ export default function Cachorro({route}) {
                          </View>
                          <View style={{width: 2, height: "100%", borderRadius: 9999, backgroundColor: "#EF9C66"}}/>
                          <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                              <Text style={estilos.titulo}>Raça</Text>
+                              <Text style={estilos.titulo}>Idade</Text>
                               <Text style={estilos.paragrafo}>{item.idade}</Text>
                          </View>
                     </View>

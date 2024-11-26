@@ -6,6 +6,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 import placeholder from "../../../assets/img/profile-default.png"
 import Card from "../../components/Card";
+import CardHistorico from "./components/CardHistorico";
 import buscarAnuncios from "../../services/buscarAnuncios";
 
 export default function Perfil({ navigation }) {
@@ -31,7 +32,7 @@ export default function Perfil({ navigation }) {
      }
 
      const renderItem = ({ item }) => {
-          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} opcoes={true} onPress={() => navigation.navigate("DetalhesAnuncio", { item })} />
+          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} icone={"ellipsis-vertical"} opcoes={true} onPress={() => navigation.navigate("DetalhesAnuncio", { item })} />
      }
 
      return (
@@ -62,7 +63,7 @@ export default function Perfil({ navigation }) {
                </View>
                {btnAtivo === "Histórico" ?
                     <View style={estilos.conteudo}>
-                         <Text>Histórico</Text>
+                         <CardHistorico nome={"Shi Tzu"} data={"18/03/2003"} icone={"trash-outline"} onPress={()=> {console.log("Histórico")}}/>
                     </View>
                     :
                     <View style={estilos.conteudo}>
