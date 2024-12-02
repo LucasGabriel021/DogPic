@@ -1,6 +1,6 @@
 import { doc, deleteDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
-import { storage } from "../config/firebase";
+import { storage, firestore } from "../config/firebase";
 
 export default async function excluirHistorico(documentoId, imagemUrl) {
      try {
@@ -10,7 +10,7 @@ export default async function excluirHistorico(documentoId, imagemUrl) {
                console.log("Imagem excluída com sucesso!");
           }
 
-          const documentoRef = doc(storage, "historico", documentoId);
+          const documentoRef = doc(firestore, "historico", documentoId);
           await deleteDoc(documentoRef);
           console.log("Histórico apagadao com sucesso!");
      } catch (error) {
