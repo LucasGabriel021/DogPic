@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Alert, Text, View, StyleSheet, TextInput, Image, Dimensions, ScrollView, TouchableOpacity } from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,6 +9,7 @@ import racas from "../../mocks/racas";
 import addDados from "../../services/criarAnuncio";
 import Loading from "../../components/Loading";
 import pegarImagem from "../../utils/pegarImagem";
+import reqEstadosIBGE from "../../services/reqEstadosIBGE";
 
 const { height } = Dimensions.get("window");
 const altura = height * 0.2;
@@ -21,10 +22,20 @@ export default function Anuncio({navigation}) {
      const [nomeCachorro, setNomeCachorro] = useState("");
      const [idadeCachorro, setIdadeCachorro] = useState("");
      const [descricaoAnuncio, setDescricaoAnuncio] = useState("");
-     const [ultimaLocalizacao, setUltimaLocalizacao] = useState("");
      const [selecaoRaca, setSelecaoRaca] = useState(null);
      const [selecaoSexo, setSelecaoSexo] = useState(null);
+     const [listaEstados, setListaEstados] = useState([]);
+     const [selecaoLocalizacao, setSelecaoLocalizacao] = useState(null);
      const [loading, setLoading] = useState(false);
+
+     useEffect(() => {
+          const fecthEstados = async () => {
+               const estados = await reqEstadosIBGE();
+               setListaEstados(estados);
+          }
+
+          fecthEstados();
+     }, [])
 
      const pegarFotoAnuncio = async () => {
           const uri = await pegarImagem();
@@ -36,7 +47,7 @@ export default function Anuncio({navigation}) {
      }
 
      const validaFormulario = () => {
-          if(!fotoAnuncio || !nomeCachorro || !descricaoAnuncio || !ultimaLocalizacao || !selecaoRaca || !selecaoSexo) {
+          if(!fotoAnuncio || !nomeCachorro || !descricaoAnuncio || !selecaoLocalizacao || !selecaoRaca || !selecaoSexo) {
                Alert.alert("Por favor, preencha todos os campos.");
                return false;
           }
@@ -54,7 +65,7 @@ export default function Anuncio({navigation}) {
                     nome: nomeCachorro,
                     idade: idadeCachorro,
                     descricao: descricaoAnuncio,
-                    localizacao: ultimaLocalizacao,
+                    localizacao: selecaoLocalizacao,
                     raca: selecaoRaca,
                     sexo: selecaoSexo
                })
@@ -106,7 +117,12 @@ export default function Anuncio({navigation}) {
                     </View>
                     <View>
                          <Text style={estilos.textInput}>Ultima localização *</Text>
-                         <TextInput placeholder="Ex: Brasília - DF" placeholderTextColor="#bebebe" style={estilos.input} value={ultimaLocalizacao} onChangeText={(value) => setUltimaLocalizacao(value)}/>
+                         <Picker style={estilos.picker} selectedValue={selecaoLocalizacao} onValueChange={(value) => setSelecaoLocalizacao(value)}>
+                         <Picker.Item label="Selecione sua localização" value="default" enabled={false} />
+                              {listaEstados.map((item, index) => {
+                                   return <Picker.Item key={index} label={item.nome} value={item.nome}/>;
+                              })}
+                         </Picker>  
                     </View>
                     <View>
                          <Botao ativo={false} texto={"Adicione uma foto"} onPress={pegarFotoAnuncio}/>

@@ -14,7 +14,7 @@ export default function Card({ imagem, nome, raca, localizacao, opcoes, icone, o
                          <Text style={estilos.texto}>{raca}</Text>
                          <View style={{flexDirection: "row", alignItems: "center", columnGap: 2}}>
                               <Ionicons name="location" size={12} color={"#909090"}/>
-                              <Text style={[estilos.texto, { color: "#909090" }]}>{localizacao}</Text>
+                              <Text style={[estilos.texto, { color: "#909090", fontSize: 14 }]}>{localizacao}</Text>
                          </View>
                     </View>
                </View>
@@ -44,7 +44,7 @@ const estilos = StyleSheet.create({
      },
      texto: {
           fontFamily: "CabinMedium",
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: "normal",
           color: "#313131"
      }

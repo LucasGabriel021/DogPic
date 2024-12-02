@@ -4,13 +4,12 @@ import { Ionicons } from "@expo/vector-icons";
 
 import generoMacho from "../../../assets/img/icone-macho.png";
 import generoFemea from "../../../assets/img/icone-femea.png";
-import placeholder from "../../../assets/img/placeholder-dog.png";
 import formatarDataDB from "../../utils/formatarDataDB";
 
 const { height } = Dimensions.get("window");
 const imagemHeight = height * 0.5;
 
-export default function Cachorro({route}) {
+export default function Cachorro({ route }) {
      const { item } = route.params;
 
      const data = item.createAt;
@@ -19,37 +18,38 @@ export default function Cachorro({route}) {
 
      return <ScrollView>
           <View style={estilos.container}>
-               <Image style={estilos.imagem} source={{uri: item.imageUrl}} accessibilityLabel="Cachorro"/>
+               <Image style={estilos.imagem} source={{ uri: item.imageUrl }} accessibilityLabel="Cachorro" />
                <View style={estilos.containerInfos}>
                     <View style={estilos.conteudo}>
-                         <View style={{justifyContent: "center", rowGap: 4}}>
-                              <Text style={[estilos.titulo, {fontSize: 20}]}>{item.nome}</Text>
-                              <View style={{flexDirection: "row", alignItems: "center", columnGap: 4}}>
-                                   <Ionicons name="location-outline" size={24} color={"#909090"}/>
+                         <View style={{ justifyContent: "center", rowGap: 4 }}>
+                              <Text style={[estilos.titulo, { fontSize: 20 }]}>{item.nome}</Text>
+                              <View style={{ flexDirection: "row", alignItems: "center", columnGap: 4 }}>
+                                   <Ionicons name="location-outline" size={24} color={"#909090"} />
                                    <Text style={estilos.paragrafo}>{item.localizacao}</Text>
                               </View>
                          </View>
                          <View style={estilos.containerIcone}>
-                              <Image source={item.sexo === "Macho" ? generoMacho : generoFemea} style={estilos.iconeGenero}/>
+                              <Image source={item.sexo === "Macho" ? generoMacho : generoFemea} style={[estilos.iconeGenero, item.sexo === "Macho" ? { width: 24, height: 24 } : { width: 16, height: 24 }]}/>
                          </View>
+
                     </View>
                     <View style={[estilos.conteudo, { marginTop: 16 }]}>
-                         <View style={{flexDirection: "row", columnGap: 8, alignItems: "center"}}>
-                              <Image source={{ uri: item.fotoUsuario }} style={{width: 64, height: 64, borderRadius: 999}}/>
+                         <View style={{ flexDirection: "row", columnGap: 8, alignItems: "center" }}>
+                              <Image source={{ uri: item.fotoUsuario }} style={{ width: 64, height: 64, borderRadius: 999 }} />
                               <View>
-                                   <Text style={[estilos.titulo, {fontSize: 16}]}>{item.nomeUsuario}</Text>
+                                   <Text style={[estilos.titulo, { fontSize: 16 }]}>{item.nomeUsuario}</Text>
                                    <Text style={[estilos.paragrafo]}>{item.email}</Text>
-                                   <Text style={[estilos.paragrafo, {fontSize: 12}]}>Postado dia: {dataFormatada}</Text>
+                                   <Text style={[estilos.paragrafo, { fontSize: 12 }]}>Postado dia: {dataFormatada}</Text>
                               </View>
                          </View>
                     </View>
-                    <View style={[estilos.conteudo, { marginTop: 8 , backgroundColor: "#FCDC94", padding: 8, borderWidth: 2, borderColor: "#EF9C66", borderRadius: 6}]}>
-                         <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+                    <View style={[estilos.conteudo, { marginTop: 8, backgroundColor: "#FCDC94", padding: 8, borderWidth: 2, borderColor: "#EF9C66", borderRadius: 6 }]}>
+                         <View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingHorizontal: 4 }}>
                               <Text style={estilos.titulo}>Raça</Text>
                               <Text style={estilos.paragrafo}>{item.raca}</Text>
                          </View>
-                         <View style={{width: 2, height: "100%", borderRadius: 9999, backgroundColor: "#EF9C66"}}/>
-                         <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+                         <View style={{ width: 2, height: "100%", borderRadius: 9999, backgroundColor: "#EF9C66" }} />
+                         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                               <Text style={estilos.titulo}>Idade</Text>
                               <Text style={estilos.paragrafo}>{item.idade}</Text>
                          </View>
@@ -81,7 +81,7 @@ const estilos = StyleSheet.create({
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center"
-     },   
+     },
      textoRaca: {
           fontSize: 18,
           fontWeight: "bold",
