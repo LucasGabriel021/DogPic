@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet, FlatList } from "react-native";
+import { View, Text, TouchableOpacity, Image, StyleSheet, FlatList, Alert } from "react-native";
 import { auth } from "../../config/firebase";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
@@ -9,6 +9,7 @@ import Card from "../../components/Card";
 import CardHistorico from "./components/CardHistorico";
 import buscarAnuncios from "../../services/buscarAnuncios";
 import buscarHistorico from "../../services/buscarHistorico";
+import excluirRegistros from "../../utils/excluirRegistros";
 import formatarDataDB from "../../utils/formatarDataDB";
 import Loading from "../../components/Loading";
 
@@ -22,27 +23,45 @@ export default function Perfil({ navigation }) {
 
      useFocusEffect(
           React.useCallback(() => {
-               const fetchAnuncios = async () => {
-                    const anuncios = await buscarAnuncios();
-                    const anunciosPerfil = anuncios.filter(item => item.email === user.email);
-                    setListaAnuncios(anunciosPerfil);
-               }
-               const fetchHistoricos = async () => {
-                    const historicos = await buscarHistorico();
-                    const historicoPerfil = historicos.filter(item => item.emailUser === user.email);
-                    setListaHistoricos(historicoPerfil);
-               }
-
-               const fetchData = async () => {
-                    setLoading(true);
-                    fetchHistoricos();
-                    fetchAnuncios();
-                    setLoading(false);
-               }
-
-               fetchData();
+               fetchAnuncios();
+               fetchHistoricos();
           }, [])
      )
+
+     const handleExcluir = (id, imagemUrl) => {
+          Alert.alert(
+               "Excluir histórico",
+               "Tem certeza que deseja excluir este histórico?",
+               [
+                    { text: "Cancelar", style: "cancel" },
+                    {
+                         text: "Excluir",
+                         style: "destructive",
+                         onPress: async () => {
+                              setLoading(true);
+                              await excluirRegistros(id, imagemUrl);
+                              await fetchHistoricos();
+                         }
+                    }
+               ]
+          )
+     }
+
+     const fetchHistoricos = async () => {
+          setLoading(true);
+          const historicos = await buscarHistorico();
+          const historicoPerfil = historicos.filter(item => item.emailUser === user.email);
+          setListaHistoricos(historicoPerfil);
+          setLoading(false);
+     }
+
+     const fetchAnuncios = async () => {
+          setLoading(true);
+          const anuncios = await buscarAnuncios();
+          const anunciosPerfil = anuncios.filter(item => item.email === user.email);
+          setListaAnuncios(anunciosPerfil);
+          setLoading(false);
+     }
 
      const aplicarFiltro = (filtro) => {
           setBtnAtivo(filtro);
@@ -56,8 +75,9 @@ export default function Perfil({ navigation }) {
           const data = item.createAt;
           const dataObject = new Date(data.seconds * 1000);
           const dataFormatada = formatarDataDB(dataObject);
+          console.log("Item: ", item);
 
-          return <CardHistorico imagem={item.imageUrl} nome={item.titulo} data={dataFormatada} icone={"trash-outline"} onPress={()=> {console.log("Histórico")}}/>
+          return <CardHistorico imagem={item.imageUrl} nome={item.titulo} data={dataFormatada} icone={"trash-outline"} onPressApagar={()=> {handleExcluir(item.id, item.imageUrl)}}/>
      }
 
      return (

@@ -4,7 +4,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import placeholder from "../../../../assets/img/placeholder-dog.png";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function CardHistorico({ imagem, nome, data, icone, onPress }) {
+export default function CardHistorico({ imagem, nome, data, icone, onPress, onPressApagar }) {
      return (
           <TouchableOpacity style={estilos.container} onPress={onPress}>
                <View style={{ flexDirection: "row", columnGap: 16 }}>
@@ -14,7 +14,7 @@ export default function CardHistorico({ imagem, nome, data, icone, onPress }) {
                          <Text style={estilos.texto}>{data}</Text>
                     </View>
                </View>
-               <TouchableOpacity>
+               <TouchableOpacity onPress={onPressApagar}>
                     <Ionicons name={icone} size={16} color={"#313131"} />
                </TouchableOpacity>
           </TouchableOpacity>
