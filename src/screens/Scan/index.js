@@ -108,7 +108,6 @@ export default function CameraScreen({ navigation }) {
                setLoading(true);
                try {
                     const resultadoAnalise = await analiseDogClarifai(imagemBase64);
-                    console.log("Resultado da análise: ", resultadoAnalise);
 
                     const outputs = resultadoAnalise.outputs;
                     if (outputs && outputs.length > 0) {

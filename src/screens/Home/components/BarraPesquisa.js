@@ -10,7 +10,6 @@ export default function BarraPesquisa({setPesquisa, pesquisa, setFiltroPorte}) {
      const aplicarFiltro = (filtro) => {
           setBtnAtivo(filtro);
           setFiltroPorte(filtro);
-          // console.log("Filtro aplicado: ", filtro);
      }
 
      return <View>

@@ -28,8 +28,6 @@ export default async function salvarHistorico(dados) {
                prevencoes,
                createAt: new Date(),
           });
-
-          console.log("Histórico salvo: ", nomeUser);
      } catch (error) {
           console.error("Erro ao salvar histórico: ", error);
      }

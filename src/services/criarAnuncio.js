@@ -5,7 +5,6 @@ import fazerUploadImagemBd from "../utils/fazerUploadImagemBd";
 
 export default async function addDados(dados) {
      const { email, nomeUsuario, fotoUsuario, foto, nome, idade, descricao, localizacao, raca, sexo } = dados;
-     console.log("Dados do usuário: " + email + "-" + nomeUsuario);
 
      try {
           const imageUrl = foto ? await fazerUploadImagemBd(foto, "anuncio") : null;
@@ -29,8 +28,6 @@ export default async function addDados(dados) {
                imageUrl,
                createAt: new Date(),
           });
-
-          console.log("Anuncio criado: ", nome);
      } catch(error) {
           console.error("Erro ao criar anúncio: ", error);
      }

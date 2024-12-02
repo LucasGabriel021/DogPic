@@ -8,8 +8,7 @@ export default async function buscarHistorico() {
                id: doc.id,
                ...doc.data(),
           }));
-
-          // console.log("Históricos: ", arrayHistorico);
+          
           return arrayHistorico;
      } catch (error) {
           console.error("Erros ao buscar históricos: ", error);

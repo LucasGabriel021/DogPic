@@ -75,7 +75,6 @@ export default function Perfil({ navigation }) {
           const data = item.createAt;
           const dataObject = new Date(data.seconds * 1000);
           const dataFormatada = formatarDataDB(dataObject);
-          console.log("Item: ", item);
 
           return <CardHistorico imagem={item.imageUrl} nome={item.titulo} data={dataFormatada} icone={"trash-outline"} onPressApagar={()=> {handleExcluir(item.id, item.imageUrl)}}/>
      }

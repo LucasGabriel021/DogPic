@@ -10,8 +10,6 @@ const imagemHeight = height * 0.5;
 export default function Cachorro({route}) {
      const { item } = route.params; // Obtendo os parâmetros passados pela navegação
 
-     // console.log("Item: ", item);
-
      return <ScrollView>
           <View style={estilos.container}>
                <Image style={estilos.imagem} source={{uri: item.imagem}} accessibilityLabel="Cachorro"/>
