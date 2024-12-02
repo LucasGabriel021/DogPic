@@ -9,7 +9,7 @@ import Card from "../../components/Card";
 import CardHistorico from "./components/CardHistorico";
 import buscarAnuncios from "../../services/buscarAnuncios";
 import buscarHistorico from "../../services/buscarHistorico";
-import excluirHistorico from "../../services/excluirHistorico";
+import excluirRegistros from "../../utils/excluirRegistros";
 import formatarDataDB from "../../utils/formatarDataDB";
 import Loading from "../../components/Loading";
 
@@ -39,7 +39,7 @@ export default function Perfil({ navigation }) {
                          style: "destructive",
                          onPress: async () => {
                               setLoading(true);
-                              await excluirHistorico(id, imagemUrl);
+                              await excluirRegistros(id, imagemUrl);
                               await fetchHistoricos();
                          }
                     }

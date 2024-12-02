@@ -2,7 +2,7 @@ import { doc, deleteDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
 import { storage, firestore } from "../config/firebase";
 
-export default async function excluirHistorico(documentoId, imagemUrl) {
+export default async function excluirRegistros(documentoId, imagemUrl) {
      try {
           if(imagemUrl) {
                const imagemRef = ref(storage, imagemUrl);
