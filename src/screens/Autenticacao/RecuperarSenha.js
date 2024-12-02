@@ -13,7 +13,7 @@ export default function RecuperarSenha({ navigation }) {
      const [email, setEmail] = useState("");
      const [loading, setLoading] = useState(false);
 
-     const enviar = () => {
+     const handleEnviar = () => {
           if(!email) {
                Alert.alert("Por favor, insira um e-mail.");
                return;
@@ -50,7 +50,7 @@ export default function RecuperarSenha({ navigation }) {
                               <Text style={estilos.textInput}>Email</Text>
                               <TextInput keyboardType="email-address" placeholder="Informe seu e-mail" placeholderTextColor="#bebebe" style={estilos.input} value={email} onChangeText={(value) => setEmail(value)} />
                          </View>
-                         <Botao ativo={true} texto={"Enviar e-mail de recuperação"} onPress={() => enviar()} />
+                         <Botao ativo={true} texto={"Enviar e-mail de recuperação"} onPress={() => handleEnviar()} />
                          <TouchableOpacity style={{marginTop: 24}} onPress={() => navigation.navigate("Login")}>
                               <Text style={estilos.textoLogin}>Lembra da senha? <Text style={[estilos.textoRegistre, { color: "#EF9C66" }]}>Faça o login agora</Text></Text>
                          </TouchableOpacity>

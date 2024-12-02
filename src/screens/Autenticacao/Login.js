@@ -15,7 +15,7 @@ export default function Login({ navigation }) {
      const [senha, setSenha] = useState("");
      const [loading, setLoading] = useState(false);
 
-     const logar = () => {
+     const handleLogin = () => {
           if (!email || !senha) {
                Alert.alert("Por favor, preencha todos os campos.");
                return;
@@ -55,7 +55,7 @@ export default function Login({ navigation }) {
                               <Text style={estilos.textoEsqueceu}>Esqueceu sua senha?</Text>
                          </TouchableOpacity>
                     </View>
-                    <Botao ativo={true} texto={"Entrar"} onPress={() => logar()} />
+                    <Botao ativo={true} texto={"Entrar"} onPress={() => handleLogin()} />
                     <TouchableOpacity style={{ marginTop: 12 }} onPress={() => navigation.navigate("Registrar")}>
                          <Text style={estilos.textoRegistre}>Não possuiu uma conta? <Text style={[estilos.textoRegistre, { color: "#EF9C66" }]}>Registre-se agora</Text></Text>
                     </TouchableOpacity>

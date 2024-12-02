@@ -21,7 +21,7 @@ export default function Registrar({ navigation }) {
      const [mostrarImagem, setMostrarImagem] = useState(false);
      const [loading, setLoading] = useState(false);
 
-     const cadastrar = async () => {
+     const handleCadastro = async () => {
           if(!imagemPerfil || !nome || !email || !senha) {
                Alert.alert("Por favor, preencha todos os campos.");
                return;
@@ -81,7 +81,7 @@ export default function Registrar({ navigation }) {
                               <TextInput style={estilos.input} placeholder="******" placeholderTextColor="#bebebe" value={senha} onChangeText={(value) => setSenha(value)} secureTextEntry />
                          </View>
                     </View>
-                    <Botao ativo={true} texto={"Cadastrar"} onPress={cadastrar} />
+                    <Botao ativo={true} texto={"Cadastrar"} onPress={handleCadastro} />
                     <TouchableOpacity style={{marginTop: 12}} onPress={() => navigation.navigate("Login")}>
                          <Text style={estilos.textoLogin}>Já tem uma conta? <Text style={[estilos.textoLogin, { color: "#EF9C66" }]}>Faça o login agora</Text></Text>
                     </TouchableOpacity>

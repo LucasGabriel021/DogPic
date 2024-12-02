@@ -43,7 +43,7 @@ export default function Anuncio({navigation}) {
           return true;
      }
 
-     const enviarFormulario = () => {
+     const handleFormulario = () => {
           if(validaFormulario()) {
                setLoading(true);
                addDados({
@@ -124,7 +124,7 @@ export default function Anuncio({navigation}) {
                          }
                     </View>
                     <View style={{width: "100%", height: 2, backgroundColor: "#E8ECF4", marginVertical: 16}}/>
-                    <Botao ativo={true} texto={"Criar anúncio"} onPress={enviarFormulario}/>
+                    <Botao ativo={true} texto={"Criar anúncio"} onPress={handleFormulario}/>
                </View>
           </ScrollView>
      )
