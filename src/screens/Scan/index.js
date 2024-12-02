@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Button, StyleSheet, Text, TouchableOpacity, View, Alert } from "react-native";
 import { Camera, CameraType } from 'expo-camera/legacy';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
@@ -74,7 +74,7 @@ export default function CameraScreen({ navigation }) {
                     console.error("Erro ao tirar a foto: ", error);
                }
           } else {
-               alert("Câmera não está pronta");
+               Alert.alert("Câmera não está pronta");
           }
      };
 
@@ -90,7 +90,7 @@ export default function CameraScreen({ navigation }) {
                setImagem({ uri: resultado.assets[0].uri });
                setImagemBase64(resultado.assets[0].base64);
           } else {
-               alert("Não foi selecionada nenhuma imagem!");
+               Alert.alert("Não foi selecionada nenhuma imagem!");
           }
      };
 
@@ -135,7 +135,7 @@ export default function CameraScreen({ navigation }) {
                     setLoading(false);
                }
           } else {
-               alert("Por favor, selecione uma imagem primeiro");
+               Alert.alert("Por favor, selecione uma imagem primeiro");
           }
      };
 
