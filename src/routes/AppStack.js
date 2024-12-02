@@ -18,6 +18,7 @@ import ResultadoScan from "../screens/Scan/ResultadoScan";
 import Anuncio from "../screens/Perdidos/Anuncio";
 import DetalhesAnuncio from '../screens/Perdidos/DetalhesAnuncio';
 import Perfil from '../screens/Perfil/index';
+import Historico from '../screens/Historico/index';
 import EditarPerfil from '../screens/Perfil/EditarPerfil';
 
 export default function AppStack({ setMostrarNavBar }) {
@@ -66,6 +67,15 @@ export default function AppStack({ setMostrarNavBar }) {
                     focus: () => setMostrarNavBar("Perfil"), // Garante que a tab bar será exibida ao entrar na Instrução
                     blur: () => setMostrarNavBar(null)
                }}
+            />
+            <Stack.Screen 
+                name="Historico" 
+                component={Historico} 
+                options={{ title: "Histórico" }} 
+                listeners={{
+                    focus: () => setMostrarNavBar("Historico"), // Oculta a tab bar na tela de Resultado
+                    blur: () => setMostrarNavBar(null), // Mostra a tab bar ao sair da tela de Resultado
+                }}
             />
             <Stack.Screen 
                 name="EditarPerfil" 

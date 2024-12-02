@@ -123,7 +123,6 @@ const estilos = StyleSheet.create({
           lineHeight: 20,
           fontWeight: "normal",
           color: "#515151",
-          textAlign: "justify",
           flexWrap: 'wrap',
      }, 
 });

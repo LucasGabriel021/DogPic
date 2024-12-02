@@ -76,7 +76,7 @@ export default function Perfil({ navigation }) {
           const dataObject = new Date(data.seconds * 1000);
           const dataFormatada = formatarDataDB(dataObject);
 
-          return <CardHistorico imagem={item.imageUrl} nome={item.titulo} data={dataFormatada} icone={"trash-outline"} onPressApagar={()=> {handleExcluir(item.id, item.imageUrl)}}/>
+          return <CardHistorico imagem={item.imageUrl} nome={item.titulo} data={dataFormatada} icone={"trash-outline"} onPress={() => navigation.navigate("Historico", { registro: item })} onPressApagar={()=> {handleExcluir(item.id, item.imageUrl)}}/>
      }
 
      return (

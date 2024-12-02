@@ -56,7 +56,6 @@ const estilos = StyleSheet.create({
           fontSize: 14,
           lineHeight: 20,
           fontWeight: "normal",
-          textAlign: "justify",
           fontFamily: "CabinRegular",
           color: "#3F3F3F",
      },

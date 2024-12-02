@@ -87,7 +87,6 @@ const estilos = StyleSheet.create({
           lineHeight: 20,
           color: "#515151",
           fontFamily: "CabinRegular",
-          textAlign: "justify"
      },
      card: {
           width: "100%",
