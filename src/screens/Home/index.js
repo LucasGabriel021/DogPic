@@ -7,19 +7,7 @@ import BarraPesquisa from "./components/BarraPesquisa";
 import cachorro from "../../../assets/img/cachorro01.png";
 import racas from "../../mocks/racas";
 
-const { widthScreen } = Dimensions.get("window");
-
-const renderItem = ({item}, navigation) => {
-     return (
-          <Pressable style={estilos.cardLista} onPress={() => navigation.navigate("Raca", { item })}>
-               <Image source={{uri: item.imagem}} accessibilityLabel="Cachorro" style={estilos.imagemLista}/>
-               <View>
-                    <Text style={estilos.textoRaca}>{item.raca}</Text>
-                    <Text style={estilos.textoPorte}>{item.porte}</Text>
-               </View>
-          </Pressable>
-     )
-}
+const { width } = Dimensions.get("window");
 
 export default function Home({navigation}) {
      const [pesquisa, setPesquisa] = useState("");
@@ -42,6 +30,18 @@ export default function Home({navigation}) {
           setItensFiltrados(resultados);
      }, [pesquisa, filtroPorte]);
 
+     const renderItem = ({item}) => {
+          return (
+               <Pressable style={estilos.cardLista} onPress={() => navigation.navigate("Raca", { item })}>
+                    <Image source={{uri: item.imagem}} accessibilityLabel="Cachorro" style={estilos.imagemLista}/>
+                    <View>
+                         <Text style={estilos.textoRaca}>{item.raca}</Text>
+                         <Text style={estilos.textoPorte}>{item.porte}</Text>
+                    </View>
+               </Pressable>
+          )
+     }
+
      return (
           <SafeAreaView style={estilos.safeArea}>
                <View style={estilos.container}>
@@ -54,7 +54,7 @@ export default function Home({navigation}) {
                          <BarraPesquisa pesquisa={pesquisa} setPesquisa={setPesquisa} setFiltroPorte={setFiltroPorte}/>
                          <FlatList
                               data={itensFiltrados}
-                              renderItem={(props) => renderItem(props, navigation)}
+                              renderItem={renderItem}
                               keyExtractor={item => item.id}
                          />
                     </View>
@@ -87,7 +87,7 @@ const estilos = StyleSheet.create({
           elevation: 4
      },
      textoCard: {
-          fontSize: widthScreen < 360 ? 16 : 14,
+          fontSize: width < 360 ? 16 : 14,
           lineHeight: 26,
           fontFamily: "CabinMedium",
           fontWeight: "bold",
@@ -115,14 +115,14 @@ const estilos = StyleSheet.create({
           borderRadius: 999,
      },
      textoRaca: {
-          fontSize: widthScreen < 360 ? 16 : 14,
+          fontSize: width < 360 ? 16 : 14,
           fontWeight: "bold",
           color: "#313131",
           fontFamily: "CabinBold"
 
      },
      textoPorte: {
-          fontSize: widthScreen < 360 ? 14 : 12,
+          fontSize: width < 360 ? 14 : 12,
           fontWeight: "normal",
           fontFamily: "CabinRegular",
           color: "#3F3F3F",
