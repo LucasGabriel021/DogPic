@@ -16,6 +16,7 @@ import Raca from "../screens/Raca/index";
 import Camera from "../screens/Scan/index";
 import ResultadoScan from "../screens/Scan/ResultadoScan";
 import Anuncio from "../screens/Perdidos/Anuncio";
+import EditarAnuncio from "../screens/Perdidos/EditarAnuncio";
 import DetalhesAnuncio from '../screens/Perdidos/DetalhesAnuncio';
 import Perfil from '../screens/Perfil/index';
 import Historico from '../screens/Historico/index';
@@ -155,6 +156,15 @@ export default function AppStack({ setMostrarNavBar }) {
                 listeners={{
                     focus: () => setMostrarNavBar("Anuncio"),
                     blur: () => setMostrarNavBar(null),
+                }}
+            />
+            <Stack.Screen 
+                name="EditarAnuncio" 
+                component={EditarAnuncio} 
+                options={{ title: "Editar anúncio" }} 
+                listeners={{
+                    focus: () => setMostrarNavBar("EditarAnuncio"), // Oculta a tab bar na tela de Resultado
+                    blur: () => setMostrarNavBar(null), // Mostra a tab bar ao sair da tela de Resultado
                 }}
             />
             <Stack.Screen

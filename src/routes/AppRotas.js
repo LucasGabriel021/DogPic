@@ -31,7 +31,7 @@ export default function AppRotas() {
                 tabBarActiveTintColor: "#EF9C66",
                 tabBarInactiveTintColor: 'gray',
                 tabBarStyle: {
-                    display: mostrarNavBar === "Resultado" || mostrarNavBar === "Autenticacao" || mostrarNavBar === "Perfil" || mostrarNavBar === "Historico" || mostrarNavBar === "EditarPerfil" || mostrarNavBar === "Registrar" || mostrarNavBar === "Login" || mostrarNavBar === "RecuperarSenha" || mostrarNavBar === "Instrucao" || mostrarNavBar === "Camera" || mostrarNavBar === "Anuncio" || mostrarNavBar === "DetalhesAnuncio" ? "none" : "flex",
+                    display: mostrarNavBar === "Resultado" || mostrarNavBar === "Autenticacao" || mostrarNavBar === "Perfil" || mostrarNavBar === "Historico" || mostrarNavBar === "EditarPerfil" || mostrarNavBar === "Registrar" || mostrarNavBar === "Login" || mostrarNavBar === "RecuperarSenha" || mostrarNavBar === "Instrucao" || mostrarNavBar === "Camera" || mostrarNavBar === "Anuncio" || mostrarNavBar === "EditarAnuncio" || mostrarNavBar === "DetalhesAnuncio" ? "none" : "flex",
                 }
             })}>
                 <Tab.Screen 

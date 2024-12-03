@@ -5,7 +5,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import placeholder from "../../assets/img/placeholder-dog.png";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function Card({ imagem, nome, raca, localizacao, opcoes, icone, onPress, onPressExcluir }) {
+export default function Card({ imagem, nome, raca, localizacao, opcoes, icone, onPress, onPressExcluir, onPressEditar }) {
      const [mostrarOpcoes, setMostrarOpcoes] = useState(false);
 
      useFocusEffect(
@@ -37,7 +37,7 @@ export default function Card({ imagem, nome, raca, localizacao, opcoes, icone, o
                                    <TouchableOpacity style={estilos.btnOpcao} onPress={onPressExcluir}>
                                         <Text style={estilos.btnOpcaoTexto}>Excluir</Text>
                                    </TouchableOpacity>
-                                   <TouchableOpacity style={estilos.btnOpcao} onPress={() => console.log("Editar")}>
+                                   <TouchableOpacity style={estilos.btnOpcao} onPress={onPressEditar}>
                                         <Text style={estilos.btnOpcaoTexto}>Editar</Text>
                                    </TouchableOpacity>
                               </View>

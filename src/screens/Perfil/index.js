@@ -80,7 +80,7 @@ export default function Perfil({ navigation }) {
      }
 
      const renderItem = ({ item }) => {
-          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} icone={"ellipsis-vertical"} opcoes={true} onPressExcluir={() => handleExcluir(item.id, item.imageUrl, "anuncios")} onPress={() => navigation.navigate("DetalhesAnuncio", { item })} />
+          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} icone={"ellipsis-vertical"} opcoes={true} onPressExcluir={() => handleExcluir(item.id, item.imageUrl, "anuncios")} onPressEditar={() => navigation.navigate("EditarAnuncio", { registro: item })} onPress={() => navigation.navigate("DetalhesAnuncio", { item })} />
      }
 
      const renderItemHistorico = ({ item }) => {
