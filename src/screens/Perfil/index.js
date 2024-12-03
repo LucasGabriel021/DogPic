@@ -28,24 +28,36 @@ export default function Perfil({ navigation }) {
           }, [])
      )
 
-     const handleExcluir = (id, imagemUrl) => {
+     const handleExcluir = (id, imagemUrl, tipo) => {
+          console.log("Id: ", id);
+          console.log("Imagem: ", imagemUrl);
+          console.log("Tipo: ", tipo);
+          const titulo = tipo === "historico" ? "Excluir histórico" : "Excluir anúncio";
+          const mensagem = tipo === "historico" ? "Tem certeza que deseja excluir este histórico?" : "Tem certeza que deseja excluir este anúncio?";
+          const onPressHandler = async () => {
+               setLoading(true);
+               await excluirRegistros(id, imagemUrl, tipo);
+               if (tipo === "historico") {
+                    await fetchHistoricos();
+               } else {
+                    await fetchAnuncios(); // Certifique-se de ter essa função para anúncios
+               }
+          };
+
           Alert.alert(
-               "Excluir histórico",
-               "Tem certeza que deseja excluir este histórico?",
+               titulo,
+               mensagem,
                [
                     { text: "Cancelar", style: "cancel" },
                     {
                          text: "Excluir",
                          style: "destructive",
-                         onPress: async () => {
-                              setLoading(true);
-                              await excluirRegistros(id, imagemUrl);
-                              await fetchHistoricos();
-                         }
-                    }
+                         onPress: onPressHandler,
+                    },
                ]
-          )
-     }
+          );
+     };
+
 
      const fetchHistoricos = async () => {
           setLoading(true);
@@ -68,7 +80,7 @@ export default function Perfil({ navigation }) {
      }
 
      const renderItem = ({ item }) => {
-          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} icone={"ellipsis-vertical"} opcoes={true} onPress={() => navigation.navigate("DetalhesAnuncio", { item })} />
+          return <Card imagem={item.imageUrl} nome={item.nome} raca={item.raca} localizacao={item.localizacao} icone={"ellipsis-vertical"} opcoes={true} onPressExcluir={() => handleExcluir(item.id, item.imageUrl, "anuncios")} onPress={() => navigation.navigate("DetalhesAnuncio", { item })} />
      }
 
      const renderItemHistorico = ({ item }) => {
@@ -76,12 +88,12 @@ export default function Perfil({ navigation }) {
           const dataObject = new Date(data.seconds * 1000);
           const dataFormatada = formatarDataDB(dataObject);
 
-          return <CardHistorico imagem={item.imageUrl} nome={item.titulo} data={dataFormatada} icone={"trash-outline"} onPress={() => navigation.navigate("Historico", { registro: item })} onPressApagar={()=> {handleExcluir(item.id, item.imageUrl)}}/>
+          return <CardHistorico imagem={item.imageUrl} nome={item.titulo} data={dataFormatada} icone={"trash-outline"} onPress={() => navigation.navigate("Historico", { registro: item })} onPressExcluir={() => handleExcluir(item.id, item.imageUrl, "historico")} />
      }
 
      return (
           <View style={estilos.container}>
-               {loading && <Loading/>}
+               {loading && <Loading />}
                <View style={{ alignItems: "center", rowGap: 16 }}>
                     {user.photoURL ? (
                          <Image source={{ uri: user.photoURL }} style={estilos.imagemPerfil} />
