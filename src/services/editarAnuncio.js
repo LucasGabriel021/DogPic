@@ -16,8 +16,6 @@ export default async function editarAnuncio(dados) {
           };
 
           await updateDoc(anuncioRef, novosDados);
-
-          console.log("Anúncio atualizado com sucesso!");
      } catch (error) {
           console.error("Erro ao editar anúncio: ", error);
      }

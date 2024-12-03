@@ -29,9 +29,6 @@ export default function Perfil({ navigation }) {
      )
 
      const handleExcluir = (id, imagemUrl, tipo) => {
-          console.log("Id: ", id);
-          console.log("Imagem: ", imagemUrl);
-          console.log("Tipo: ", tipo);
           const titulo = tipo === "historico" ? "Excluir histórico" : "Excluir anúncio";
           const mensagem = tipo === "historico" ? "Tem certeza que deseja excluir este histórico?" : "Tem certeza que deseja excluir este anúncio?";
           const onPressHandler = async () => {
