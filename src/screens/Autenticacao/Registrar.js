@@ -70,7 +70,7 @@ export default function Registrar({ navigation }) {
                          </View>
                          <View style={{ marginBottom: 12 }}>
                               <Text style={estilos.textInput}>Informe seu nome *</Text>
-                              <TextInput placeholder="Fulano" placeholderTextColor="#bebebe" style={estilos.input} value={nome} onChangeText={(value) => setNome(value)} />
+                              <TextInput placeholder="Arthur" placeholderTextColor="#bebebe" style={estilos.input} value={nome} onChangeText={(value) => setNome(value)} />
                          </View>
                          <View style={{ marginTop: 12 }}>
                               <Text style={estilos.textInput}>Informe seu e-mail *</Text>
